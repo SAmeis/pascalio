@@ -1,0 +1,6 @@
+backup
+lib
+test
+*.o
+*.a
+*.ppu

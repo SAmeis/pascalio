@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fpdoc-descriptions>
+  <package name="rpiio">
+    <module name="fpspi">
+      <element name="TSPIDevice">
+        <short>Basic SPI Device</short>
+        <descr>This class provides a basic interface among all SPI access methods. Derived classes may implement a specific method to access a specific SPI bus.</descr>
+        <seealso>
+          <link id="TSPILinuxDevice"/>
+        </seealso>
+      </element>
+      <element name="TSPILinuxDevice">
+        <short>Talking SPI using Linux' spidev module</short>
+        <descr>Standard Linux kernel provides the module spidev. Using this module, the system's SPI bus is accessible through device files named /dev/spidevB.C where B stands for the SPI bus number and C for the ChipSelect number.</descr>
+      </element>
+      <element name="TSPILinuxDevice.Create">
+        <short>Creates new SPI device</short>
+      </element>
+      <element name="TSPILinuxDevice.Create.aBus">
+        <short>The Bus number</short>
+      </element>
+      <element name="TSPILinuxDevice.Create.aChipSelect">
+        <short>The chip select number</short>
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite">
+        <short>Full duplex input and output</short>
+        <descr>Reads <var>ReadCount</var> bytes into <var>ReadBuffer</var> and writes <var>WriteCount</var>bytes from <var>WriteBuffer</var> to the bus.
+
+The version accepting a <link id="TSPI_IOC_Transfer_Array"/> passes the argument directly to the IoCtl() system call.</descr>
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite.WriteBuffer">
+        <short>Data to be written to the bus</short>
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite.WriteCount">
+        <short>Count of bytes in WriteBuffer</short>
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite.ReadBuffer">
+        <short>Buffer for data read</short>
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite.ReadCount">
+        <short>Count of bytes to be read</short>
+      </element>
+      <element name="TSPILinuxDevice.Bus">
+        <short>SPI bus number</short>
+      </element>
+      <element name="TSPILinuxDevice.ChipSelect">
+        <short>ChipSelect number</short>
+      </element>
+      <element name="TSPILinuxDevice.GetDevicePath">
+        <short>File name of the device</short>
+        <descr>Returns the file name of the device.</descr>
+        <seealso>
+          <link id="Bus"/>
+          <link id="ChipSelect"/>
+        </seealso>
+      </element>
+      <element name="TSPIDevice.Mode"/>
+      <element name="TSPIMode">
+        <short>The 4 SPI modes</short>
+        <descr>The SPI bus may operate in 4 different modes.
+
+
+<table>
+            <tr>
+              <td>Mode</td>
+              <td>CPOL</td>
+              <td>CPHA</td>
+            </tr>
+            <tr>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>0</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>1</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>1</td>
+              <td>1</td>
+            </tr>
+          </table>
+        </descr>
+      </element>
+      <element name="TSPIMode.SPI_CPHA">
+        <short>Clock Phase</short>
+      </element>
+      <element name="TSPIMode.SPI_CPOL">
+        <short>Clock Polarity</short>
+      </element>
+      <element name="SPI_MODE_0">
+        <short>SPI Mode 0</short>
+      </element>
+      <element name="SPI_MODE_1">
+        <short>SPI Mode 1</short>
+      </element>
+      <element name="SPI_MODE_2">
+        <short>SPI Mode 2</short>
+      </element>
+      <element name="SPI_MODE_3">
+        <short>SPI Mode 3</short>
+      </element>
+      <element name="TSPILinuxDevice.Read">
+        <short>Reads data from SPI bus</short>
+        <descr>Reads <var>Count</var> byte into <var>Buffer</var>. No output will be written.</descr>
+      </element>
+      <element name="TSPILinuxDevice.Write">
+        <short>Writes data to SPI bus</short>
+        <descr>Writes <var>Count</var> bytes from <var>Buffer</var> to the bus. Input from Slave is ignored.</descr>
+      </element>
+      <element name="TSPI_IOC_Transfer_Array"/>
+      <element name="TSPILinuxDevice.DoIoCtlError">
+        <short>Raises an EOSError</short>
+        <descr>This internal method raises an EOSError an with <link id="rsSPIIoCtlErr"/> as text. It also fills the ErrorCode property with the correct value.</descr>
+      </element>
+      <element name="rsSPIIoCtlErr"/>
+      <short>SPI access for Free Pascal</short>
+      <descr>This unit provides an interface which allows accessing the Serial Peripheral Interface Bus.</descr>
+    </module>
+  </package>
+</fpdoc-descriptions>

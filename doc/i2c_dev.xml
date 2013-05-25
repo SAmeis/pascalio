@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<fpdoc-descriptions><package name="rpiio"><module name="i2c_dev"><short>Basic i2c functions for Linux</short><descr>This is a translation of libi2c-dev and allows using the Inter Integrated Circuits Bus with Free Pascal under Linux.</descr>
+    </module>
+  </package>
+</fpdoc-descriptions>
