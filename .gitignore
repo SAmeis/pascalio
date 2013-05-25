@@ -4,3 +4,4 @@ test
 *.o
 *.a
 *.ppu
+*.bak
