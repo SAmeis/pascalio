@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <fpdoc-descriptions>
   <package name="rpiio">
     <module name="fpadc">
@@ -17,11 +17,13 @@
       </element>
       <element name="TADConverter.DifferentialValue">
         <short>Get differential value from input</short>
-        <descr>Some A/D-converters support differential or pseudo differential measurement. Check <link id="SupportsDifferentialValue"/> before usage. Please consult the datasheet of your device on information how connectors are used in differential measuring.</descr>
+        <descr>Some A/D-converters support differential or pseudo differential measurement. Check 
+<link id="TADConverter.SupportsDifferentialValue">SupportsDifferentialValue</link> before usage. Please consult the datasheet of your device on information how connectors are used in differential measuring.</descr>
+        <errors>Raises 
+<link id="EDifferentialNotSupported"/> if used but is not supported.</errors>
         <seealso>
-          <link id="SupportsDifferentialValue"/>
+          <link id="TADConverter.SupportsDifferentialValue"/>
         </seealso>
-        <errors>Raises <link id="EDifferentialNotSupported"/> if used but is not supported.</errors>
       </element>
       <element name="TADConverter.SupportsDifferentialValue">
         <short>Indication of differantial measurement capability</short>
@@ -51,7 +53,7 @@
         </seealso>
       </element>
       <element name="sDiffNotSupported"/>
-    <short>Analog/Digital Converters</short>
+      <short>Analog/Digital Converters</short>
     </module>
   </package>
 </fpdoc-descriptions>
