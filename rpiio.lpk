@@ -18,7 +18,7 @@
     </CompilerOptions>
     <Description Value="Input/Output Library for Raspberry Pi"/>
     <License Value="GPLv2"/>
-    <Files Count="9">
+    <Files Count="10">
       <Item1>
         <Filename Value="src\i2c_dev.pas"/>
         <UnitName Value="i2c_dev"/>
@@ -55,6 +55,10 @@
         <Filename Value="src\mcp23017.pas"/>
         <UnitName Value="mcp23017"/>
       </Item9>
+      <Item10>
+        <Filename Value="src\bitmanip.pas"/>
+        <UnitName Value="bitmanip"/>
+      </Item10>
     </Files>
     <LazDoc Paths="doc"/>
     <i18n>
