@@ -123,7 +123,7 @@ end;
 
 class function TMCP23S17.GetCount: Longword;
 begin
-  Result := 16;
+  Result := fProxy.Count;
 end;
 
 function TMCP23S17.GetDirection(Index: Longword): TGpioDirection;
@@ -369,7 +369,7 @@ end;
 
 class function TMCP23017.GetCount: Longword;
 begin
-  Result := 16;
+  Result := fProxy.Count;
 end;
 
 function TMCP23017.GetActiveLow(Index: Longword): Boolean;
@@ -445,4 +445,4 @@ begin
 end;
 
 end.
-
+
