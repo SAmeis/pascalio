@@ -25,7 +25,7 @@ unit gpioexp;
 interface
 
 uses
-  Classes, SysUtils, fpgpio, fpspi, fpi2c, rtlconsts, mcp23017;
+  Classes, SysUtils, fpgpio, fpspi, fpi2c, mcp23017;
 
 type
 
@@ -278,8 +278,14 @@ end;
 procedure TMCP23X17.SetDirection(Index: Longword; AValue: TGpioDirection);
 begin
   case Index of
-    0..7 : fmcp23X17.IODIRA := fmcp23X17.IODIRA OR ($01 shl  Index     );
-    8..15: fmcp23X17.IODIRB := fmcp23X17.IODIRB OR ($01 shl (Index - 8));
+    0..7 :  if AValue = gdIn then
+              fmcp23X17.IODIRA := fmcp23X17.IODIRA OR      ($01 shl  Index     )
+            else
+              fmcp23X17.IODIRA := fmcp23X17.IODIRA AND NOT ($01 shl Index      );
+    8..15:  if AValue = gdIn then
+              fmcp23X17.IODIRB := fmcp23X17.IODIRB OR      ($01 shl (Index - 8))
+            else
+              fmcp23X17.IODIRB := fmcp23X17.IODIRB AND NOT ($01 shl (Index - 8));
   else
     raise ERangeError.CreateFmt(sPinIndexOutOfRange, [0, Count - 1]);
   end;
@@ -302,21 +308,21 @@ begin
     case Index of
       0..7 : fmcp23X17.GPINTENA := fmcp23X17.GPINTENA AND NOT($01 shl Index);
       8..15: fmcp23X17.GPINTENB := fmcp23X17.GPINTENB AND NOT($01 shl Index);
-    end;
+    end
   else
   begin
     if gimBoth = AValue then
       case Index of
         0..7 : fmcp23X17.INTCONA := fmcp23X17.INTCONA AND NOT($01 shl Index);
         8..15: fmcp23X17.INTCONB := fmcp23X17.INTCONB AND NOT($01 shl Index);
-      end;
+      end
     else
     begin
       if gimRising in AValue then
         case Index of
           0..7 : fmcp23X17.DEFVALA := fmcp23X17.DEFVALA AND NOT ($01 shl Index);
           8..15: fmcp23X17.DEFVALB := fmcp23X17.DEFVALB AND NOT ($01 shl Index);
-        end;
+        end
       else
         case Index of
           0..7 : fmcp23X17.DEFVALA := fmcp23X17.DEFVALA OR ($01 shl Index);
@@ -439,4 +445,4 @@ begin
 end;
 
 end.
-
+
