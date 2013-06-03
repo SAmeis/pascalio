@@ -166,7 +166,7 @@ const
     TMCP23017_REGISTER_INDEX
       the register in question
    *)
-  MCP23017_REGISTERS: array[Boolean] of array[1..2] of array[TMCP23017_REGISTER_INDEX] of TRegisterAddress = (
+  MCP23017_REGISTERS: array[Boolean] of array[1..2] of array[TMCP23017_REGISTER_INDEX] of Byte = (
     (
       // IOCON.BANK = 0
       ($00,$02,$04,$06,$08,$0A,$0C,$0E,$10,$12,$14), // GPIO A
@@ -256,7 +256,7 @@ begin
 
   // check if invalid address bits are set
   if (fI2CDevice.Address and %10110001) <> 0 then
-    raise EInvalidMCP23X17Address.CreateFmt(sInvalidAddress, fI2CDevice.Address);
+    raise EInvalidMCP23X17Address.CreateFmt(sInvalidAddress, [fI2CDevice.Address]);
 
   fI2CDevice := aI2CDevice;
   OwnsDevice := aOwnsDevice;
@@ -460,7 +460,6 @@ end;
 
 constructor TMCP23X17Controller.Create;
 begin
-  fAddress    := MCP23X17_DEFAULT_ADDRESS;
   fOwnsDevice := False;
 end;
 

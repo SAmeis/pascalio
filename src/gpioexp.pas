@@ -36,7 +36,7 @@ type
     fI2CDevice: TI2CDevice;
     property I2C: TI2CDevice read fI2CDevice;
   public
-    constructor Create(aDevice: TI2CDevice);
+    constructor Create(aDevice: TI2CDevice); reintroduce; virtual;
   end;
 
   { TGpioSPIController }
@@ -46,7 +46,7 @@ type
     fSPIDevice: TSPIDevice;
     property SPI: TSPIDevice read fSPIDevice;
   public
-    constructor Create(aDevice: TSPIDevice);
+    constructor Create(aDevice: TSPIDevice); reintroduce; virtual;
   end;
 
   { TMCP23X17 }
@@ -66,7 +66,7 @@ type
       override;
     procedure SetValue(index: Longword; aValue: Boolean); override;
   public
-    constructor Create(aMCP23X17: TMCP23X17Controller); override;
+    constructor Create(aMCP23X17: TMCP23X17Controller); reintroduce; virtual;
   end;
 
 
@@ -108,7 +108,7 @@ type
       override;
     procedure SetValue(Index: Longword; aValue: Boolean); override;
   public
-    constructor Create(aDevice: TI2CDevice); override;
+    constructor Create(aDevice: TSPIDevice); override;
     destructor Destroy; override;
   end;
 
@@ -162,11 +162,11 @@ begin
   fProxy.SetValue(Index, AValue);
 end;
 
-constructor TMCP23S17.Create(aDevice: TI2CDevice);
+constructor TMCP23S17.Create(aDevice: TSPIDevice);
 begin
   inherited Create(aDevice);
   fMCP23X17Controller := TMCP23S17Controller.Create(aDevice, False);
-  fProxy := TMCP23S17.Create(fMCP23X17Controller);
+  fProxy := TMCP23X17.Create(fMCP23X17Controller);
 end;
 
 destructor TMCP23S17.Destroy;
@@ -182,7 +182,7 @@ function TMCP23X17.GetActiveLow(Index: Longword): Boolean;
 begin
   case Index of
     0..7 : Result := ByteBool(fmcp23X17.IPOLA AND ($01 shl Index      ));
-    7..15: Result := ByteBool(fmcp23X17.IPOLB AND ($01 shl (Index - 8)));
+    8..15: Result := ByteBool(fmcp23X17.IPOLB AND ($01 shl (Index - 8)));
   else
     raise ERangeError.CreateFmt(sPinIndexOutOfRange, [0, Count - 1]);
   end;
@@ -201,7 +201,7 @@ begin
                         gdIn,
                         gdOut
                       );
-    7..15: Result :=  ifthen(
+    8..15: Result :=  ifthen(
                         fmcp23X17.IODIRB AND ($01 shl (Index - 8)) <> $00,
                         gdIn,
                         gdOut
@@ -253,7 +253,7 @@ function TMCP23X17.GetValue(index: Longword): Boolean;
 begin
   case Index of
     0..7 : Result := ByteBool(fmcp23X17.GPIOA AND ($01 shl  Index     ));
-    7..15: Result := ByteBool(fmcp23X17.GPIOB AND ($01 shl (Index - 8)));
+    8..15: Result := ByteBool(fmcp23X17.GPIOB AND ($01 shl (Index - 8)));
   else
     raise ERangeError.CreateFmt(sPinIndexOutOfRange, [0, Count - 1]);
   end;
@@ -266,7 +266,7 @@ begin
               fmcp23X17.IPOLA := fmcp23X17.IPOLA OR      ($01 shl  Index     )
             else
               fmcp23X17.IPOLA := fmcp23X17.IPOLA AND NOT ($01 shl  Index     );
-    7..15:  if AValue then
+    8..15:  if AValue then
               fmcp23X17.IPOLB := fmcp23X17.IPOLB OR      ($01 shl (Index - 8))
             else
               fmcp23X17.IPOLB := fmcp23X17.IPOLB AND NOT ($01 shl (Index - 8));
@@ -279,7 +279,7 @@ procedure TMCP23X17.SetDirection(Index: Longword; AValue: TGpioDirection);
 begin
   case Index of
     0..7 : fmcp23X17.IODIRA := fmcp23X17.IODIRA OR ($01 shl  Index     );
-    7..15: fmcp23X17.IODIRB := fmcp23X17.IODIRB OR ($01 shl (Index - 8));
+    8..15: fmcp23X17.IODIRB := fmcp23X17.IODIRB OR ($01 shl (Index - 8));
   else
     raise ERangeError.CreateFmt(sPinIndexOutOfRange, [0, Count - 1]);
   end;
@@ -301,37 +301,37 @@ begin
   if AValue = [] then
     case Index of
       0..7 : fmcp23X17.GPINTENA := fmcp23X17.GPINTENA AND NOT($01 shl Index);
-      7..15: fmcp23X17.GPINTENB := fmcp23X17.GPINTENB AND NOT($01 shl Index);
+      8..15: fmcp23X17.GPINTENB := fmcp23X17.GPINTENB AND NOT($01 shl Index);
     end;
   else
   begin
     if gimBoth = AValue then
       case Index of
         0..7 : fmcp23X17.INTCONA := fmcp23X17.INTCONA AND NOT($01 shl Index);
-        7..15: fmcp23X17.INTCONB := fmcp23X17.INTCONB AND NOT($01 shl Index);
+        8..15: fmcp23X17.INTCONB := fmcp23X17.INTCONB AND NOT($01 shl Index);
       end;
     else
     begin
       if gimRising in AValue then
         case Index of
           0..7 : fmcp23X17.DEFVALA := fmcp23X17.DEFVALA AND NOT ($01 shl Index);
-          7..15: fmcp23X17.DEFVALB := fmcp23X17.DEFVALB AND NOT ($01 shl Index);
+          8..15: fmcp23X17.DEFVALB := fmcp23X17.DEFVALB AND NOT ($01 shl Index);
         end;
       else
         case Index of
           0..7 : fmcp23X17.DEFVALA := fmcp23X17.DEFVALA OR ($01 shl Index);
-          7..15: fmcp23X17.DEFVALB := fmcp23X17.DEFVALB OR ($01 shl Index);
+          8..15: fmcp23X17.DEFVALB := fmcp23X17.DEFVALB OR ($01 shl Index);
         end;
 
       case Index of
         0..7 : fmcp23X17.INTCONA := fmcp23X17.INTCONA OR ($01 shl Index);
-        7..15: fmcp23X17.INTCONB := fmcp23X17.INTCONB OR ($01 shl Index);
+        8..15: fmcp23X17.INTCONB := fmcp23X17.INTCONB OR ($01 shl Index);
       end;
     end;
 
     case Index of
       0..7 : fmcp23X17.GPINTENA := fmcp23X17.GPINTENA OR ($01 shl Index);
-      7..15: fmcp23X17.GPINTENB := fmcp23X17.GPINTENB OR ($01 shl Index);
+      8..15: fmcp23X17.GPINTENB := fmcp23X17.GPINTENB OR ($01 shl Index);
     end;
   end;
 end;
@@ -344,7 +344,7 @@ begin
               fmcp23X17.GPIOA := fmcp23X17.GPIOA OR      ($01 shl  Index     )
             else
               fmcp23X17.GPIOA := fmcp23X17.GPIOB AND NOT ($01 shl  Index     );
-    7..15:  if aValue then
+    8..15:  if aValue then
               fmcp23X17.GPIOB := fmcp23X17.GPIOB OR      ($01 shl (Index - 8))
             else
               fmcp23X17.GPIOB := fmcp23X17.GPIOB AND NOT ($01 shl (Index - 8));
