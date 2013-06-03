@@ -50,6 +50,7 @@ resourcestring
   sDirectInterrupt     = 'Direct Interrupt is not supported.';
   sIndirectInterrupt   = 'Indirect Interrupt is not supported.';
   sInterruptModeNotSet = 'No interrupt mode set.';
+  sPinIndexOutOfRange  = 'Pin Index must be between %d and %d.';
 
 type
   TGpioCapability     = (gcPullup, gcPulldown, gcInterrupt, gcIndirectInterrupt);
@@ -62,6 +63,8 @@ const
   gimNone = TGpioInterruptMode([]);
 
 operator :=(v: TGpioInterruptModes): TGpioInterruptMode;
+
+function ifthen(cond: Boolean; TrueValue: TGpioDirection; FalseValue: TGpioDirection): TGpioDirection; inline;
 
 type
   EInterruptError         = class(Exception);
@@ -103,13 +106,16 @@ type
     procedure SetActiveLow(Index: Longword; AValue: Boolean); virtual; abstract;
     procedure SetDirection(Index: Longword; AValue: TGpioDirection); virtual; abstract;
     class function GetCount: Longword; static; virtual; abstract;
-    function GetValue(index: Longword): Boolean; virtual; abstract;
-    procedure SetValue(index: Longword; aValue: Boolean); virtual; abstract;
+    function GetValue(Index: Longword): Boolean; virtual; abstract;
+    procedure SetValue(Index: Longword; aValue: Boolean); virtual; abstract;
+    function GetInterruptMode(Index: Longword): TGpioInterruptMode; virtual; abstract;
+    procedure SetInterruptMode(Index: Longword; AValue: TGpioInterruptMode); virtual; abstract;
     // constructor does internal setup; override it to your needs and publish it
     constructor Create; virtual;
   public
     destructor Destroy; override;
     // TODO: Interrupt Mode
+    property InterruptMode[Index: Longword]: TGpioInterruptMode read GetInterruptMode write SetInterruptMode;
     property Direction[Index: Longword]: TGpioDirection read GetDirection write SetDirection;
     property Value[Index: Longword]: Boolean read GetValue write SetValue;
     property ActiveLow[Index: Longword]: Boolean read GetActiveLow write SetActiveLow;
@@ -130,9 +136,11 @@ type
     // todo: Interrupt Mode
     function GetAcitveLow: Boolean; override;
     function GetDirection: TGpioDirection; override;
+    function GetInterruptMode: TGpioInterruptMode; override;
     function GetValue: Boolean; override;
     procedure SetAcitveLow(AValue: Boolean); override;
     procedure SetDirection(AValue: TGpioDirection); override;
+    procedure SetInterruptMode(AValue: TGpioInterruptMode); override;
     procedure SetValue(AValue: Boolean); override;
   public
     property Controller: TGpioController read fController;
@@ -206,6 +214,15 @@ begin
   Result := [v];
 end;
 
+function ifthen(cond: Boolean; TrueValue: TGpioDirection;
+  FalseValue: TGpioDirection): TGpioDirection;
+begin
+  if cond then
+    Result := TrueValue
+  else
+    Result := FalseValue;
+end;
+
 { TGpioController }
 
 function TGpioController.GetPin(Index: SizeUInt): TGpioPin;
@@ -260,6 +277,11 @@ begin
   Result := fController.Direction[fIndex];
 end;
 
+function TGpioControlledPin.GetInterruptMode: TGpioInterruptMode;
+begin
+    Result := fController.InterruptMode[fIndex];
+end;
+
 function TGpioControlledPin.GetValue: Boolean;
 begin
   Result := fController.Value[fIndex];
@@ -273,6 +295,11 @@ end;
 procedure TGpioControlledPin.SetDirection(AValue: TGpioDirection);
 begin
   fController.Direction[fIndex] := AValue;
+end;
+
+procedure TGpioControlledPin.SetInterruptMode(AValue: TGpioInterruptMode);
+begin
+  fController.InterruptMode[fIndex] := AValue;
 end;
 
 procedure TGpioControlledPin.SetValue(AValue: Boolean);
@@ -622,4 +649,4 @@ begin
 end;
 
 end.
-
+

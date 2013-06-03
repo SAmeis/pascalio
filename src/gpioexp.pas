@@ -25,164 +25,338 @@ unit gpioexp;
 interface
 
 uses
-  Classes, SysUtils, fpgpio, fpspi, fpi2c, rtlconsts;
+  Classes, SysUtils, fpgpio, fpspi, fpi2c, rtlconsts, mcp23017;
 
 type
 
   { TGpioI2CController }
 
-  TGpioI2CController = class(TGpioRegisterController)
+  TGpioI2CController = class(TGpioController)
   protected
     fI2CDevice: TI2CDevice;
-    function GetRegisterValue(aRegister: TRegisterAddress): TRegisterValue;
-      override;
-    procedure SetRegisterValue(aRegister: TRegisterAddress;
-      aValue: TRegisterValue); override;
+    property I2C: TI2CDevice read fI2CDevice;
   public
     constructor Create(aDevice: TI2CDevice);
   end;
 
   { TGpioSPIController }
 
-  TGpioSPIController = class(TGpioRegisterController)
-  private
-    FAddress: Byte;
-    FHasAddress: Boolean;
+  TGpioSPIController = class(TGpioController)
   protected
     fSPIDevice: TSPIDevice;
-    function GetRegisterValue(aRegister: TRegisterAddress): TRegisterValue;
-      override;
-    procedure SetRegisterValue(aRegister: TRegisterAddress;
-      aValue: TRegisterValue); override;
-    procedure SetAddress(AValue: Byte); virtual;
+    property SPI: TSPIDevice read fSPIDevice;
   public
     constructor Create(aDevice: TSPIDevice);
-    constructor Create(aDevice: TSPIDevice; Address: Byte);
-    property HasAddress: Boolean read FHasAddress write FHasAddress;
-    property Address: Byte read FAddress write SetAddress;
   end;
+
+  { TMCP23X17 }
+
+  TMCP23X17 = class(TGpioController)
+  strict private
+    fmcp23X17: TMCP23X17Controller;
+  protected
+    function GetActiveLow(Index: Longword): Boolean; override;
+    class function GetCount: Longword; static; override;
+    function GetDirection(Index: Longword): TGpioDirection; override;
+    function GetInterruptMode(Index: Longword): TGpioInterruptMode; override;
+    function GetValue(index: Longword): Boolean; override;
+    procedure SetActiveLow(Index: Longword; AValue: Boolean); override;
+    procedure SetDirection(Index: Longword; AValue: TGpioDirection); override;
+    procedure SetInterruptMode(Index: Longword; AValue: TGpioInterruptMode);
+      override;
+    procedure SetValue(index: Longword; aValue: Boolean); override;
+  public
+    constructor Create(aMCP23X17: TMCP23X17Controller); override;
+  end;
+
 
   { TMCP23017 }
 
   TMCP23017 = class(TGpioI2CController)
-  private
   protected
+    fProxy: TMCP23X17;
+    fMCP23X17Controller: TMCP23X17Controller;
+    function GetActiveLow(Index: Longword): Boolean; override;
     class function GetCount: Longword; static; override;
-    function GetRegister(PinIndex: Longword; aRegisterType: TRegisterType; out
-      aPinPosition: TPinPosition): TRegisterAddress; override;
+    function GetDirection(Index: Longword): TGpioDirection; override;
+    function GetInterruptMode(Index: Longword): TGpioInterruptMode; override;
+    function GetValue(Index: Longword): Boolean; override;
+    procedure SetActiveLow(Index: Longword; AValue: Boolean); override;
+    procedure SetDirection(Index: Longword; AValue: TGpioDirection); override;
+    procedure SetInterruptMode(Index: Longword; AValue: TGpioInterruptMode);
+      override;
+    procedure SetValue(Index: Longword; aValue: Boolean); override;
   public
+    constructor Create(aDevice: TI2CDevice); override;
+    destructor Destroy; override;
   end;
 
   { TMCP23S17 }
 
   TMCP23S17 = class(TGpioSPIController)
-  private
-
   protected
+    fProxy: TMCP23X17;
+    fMCP23X17Controller: TMCP23X17Controller;
+    function GetActiveLow(Index: Longword): Boolean; override;
     class function GetCount: Longword; static; override;
-    function GetRegister(PinIndex: Longword; aRegisterType: TRegisterType; out
-      aPinPosition: TPinPosition): TRegisterAddress; override;
-    procedure SetAddress(AValue: Byte); override;
+    function GetDirection(Index: Longword): TGpioDirection; override;
+    function GetInterruptMode(Index: Longword): TGpioInterruptMode; override;
+    function GetValue(Index: Longword): Boolean; override;
+    procedure SetActiveLow(Index: Longword; AValue: Boolean); override;
+    procedure SetDirection(Index: Longword; AValue: TGpioDirection); override;
+    procedure SetInterruptMode(Index: Longword; AValue: TGpioInterruptMode);
+      override;
+    procedure SetValue(Index: Longword; aValue: Boolean); override;
+  public
+    constructor Create(aDevice: TI2CDevice); override;
+    destructor Destroy; override;
   end;
 
 implementation
-type
-  TMCP23017_REGISTER_INDEX = (
-    mriIODIR,
-    mriIPOL,
-    mriGPINTEN,
-    mriDEFVAL,
-    mriINTCON,
-    mriIOCON,
-    mriGPPU,
-    mriINTF,
-    mriINTCAP,
-    mriGPIO,
-    mriOLAT
-  );
-
-  TMCP23017RegistersSBank = packed record
-    IODIR  : Byte;
-    IPOL   : Byte;
-    GPINTEN: Byte;
-    DEFVAL : Byte;
-    INTCON : Byte;
-    IOCON  : Byte;
-    GPPU   : Byte;
-    INTF   : Byte;
-    INTCAP : Byte;
-    GPIO   : Byte;
-    OLAT   : Byte;
-  end;
-
-  TMCP23017Registers = packed record
-    GPIOA: TMCP23017RegistersSBank;
-    GPIOB: TMCP23017RegistersSBank;
-  end;
-
-  TMCP23017_GPIO_ROW = 0..1;
-  TMCP23017_PIN_INDEX = 0..15;
-const
-  MCP23017_REGISTERS: array[Boolean] of array[0..1] of array[TMCP23017_REGISTER_INDEX] of TRegisterAddress = (
-    (
-      // IOCON.BANK = 0
-      ($00,$02,$04,$06,$08,$0A,$0C,$0E,$10,$12,$14), // GPIO A
-      ($01,$03,$05,$07,$09,$0B,$0D,$0F,$11,$13,$15)  // GPIO B
-    ),
-    (
-      // IOCON.BANK = 1
-      ($00,$01,$02,$03,$04,$05,$06,$07,$08,$09,$10), // GPIO A
-      ($0A,$0B,$0C,$0D,$0F,$10,$11,$12,$13,$14,$15)  // GPIO B
-    )
-  );
-
-function GetMCP23017RegisterAddress(ICON_BANK: Boolean;
-  row: TMCP23017_GPIO_ROW;
-  RegisterIndex: TMCP23017_REGISTER_INDEX): TRegisterAddress; inline;
-begin
-  Result := MCP23017_REGISTERS[ICON_BANK, row, RegisterIndex];
-end;
-
-function GetMCP23017RegisterAddressForPin(ICON_BANK: Boolean;
-  pin: TMCP23017_PIN_INDEX;
-  RegisterIndex: TMCP23017_REGISTER_INDEX;
-  out PinIndex: TPinPosition): TRegisterAddress; inline;
-var
-  row: Longword;
-begin
-  row := pin div 8;
-  if row <= 2 then
-  begin
-    Result := GetMCP23017RegisterAddress(ICON_BANK, row, RegisterIndex);
-    if RegisterIndex <> mriIOCON then
-      PinIndex := pin mod 8
-    else
-      PinIndex := 0;
-  end
-  else
-    raise ERangeError.CreateFmt(SOutOfRange, [low(pin), high(pin)]);
-end;
 
 { TMCP23S17 }
 
+function TMCP23S17.GetActiveLow(Index: Longword): Boolean;
+begin
+  Result := fProxy.GetActiveLow(Index);
+end;
+
 class function TMCP23S17.GetCount: Longword;
+begin
+  Result := 16;
+end;
+
+function TMCP23S17.GetDirection(Index: Longword): TGpioDirection;
+begin
+  Result := fProxy.GetDirection(Index);
+end;
+
+function TMCP23S17.GetInterruptMode(Index: Longword): TGpioInterruptMode;
+begin
+  Result := fProxy.GetInterruptMode(Index);
+end;
+
+function TMCP23S17.GetValue(Index: Longword): Boolean;
+begin
+  Result := fProxy.GetValue(Index);
+end;
+
+procedure TMCP23S17.SetActiveLow(Index: Longword; AValue: Boolean);
+begin
+  fProxy.SetActiveLow(Index, AValue);
+end;
+
+procedure TMCP23S17.SetDirection(Index: Longword; AValue: TGpioDirection);
+begin
+  fProxy.SetDirection(Index, AValue);
+end;
+
+procedure TMCP23S17.SetInterruptMode(Index: Longword; AValue: TGpioInterruptMode
+  );
+begin
+  fProxy.SetInterruptMode(Index, AValue);
+end;
+
+procedure TMCP23S17.SetValue(Index: Longword; aValue: Boolean);
+begin
+  fProxy.SetValue(Index, AValue);
+end;
+
+constructor TMCP23S17.Create(aDevice: TI2CDevice);
+begin
+  inherited Create(aDevice);
+  fMCP23X17Controller := TMCP23S17Controller.Create(aDevice, False);
+  fProxy := TMCP23S17.Create(fMCP23X17Controller);
+end;
+
+destructor TMCP23S17.Destroy;
+begin
+  FreeAndNil(fProxy);
+  FreeAndNil(fMCP23X17Controller);
+  inherited Destroy;
+end;
+
+{ TMCP23X17 }
+
+function TMCP23X17.GetActiveLow(Index: Longword): Boolean;
+begin
+  case Index of
+    0..7 : Result := ByteBool(fmcp23X17.IPOLA AND ($01 shl Index      ));
+    7..15: Result := ByteBool(fmcp23X17.IPOLB AND ($01 shl (Index - 8)));
+  else
+    raise ERangeError.CreateFmt(sPinIndexOutOfRange, [0, Count - 1]);
+  end;
+end;
+
+class function TMCP23X17.GetCount: Longword;
 begin
   Result := 16
 end;
 
-function TMCP23S17.GetRegister(PinIndex: Longword;
-  aRegisterType: TRegisterType; out aPinPosition: TPinPosition
-  ): TRegisterAddress;
+function TMCP23X17.GetDirection(Index: Longword): TGpioDirection;
 begin
-  Result := GetMCP23017RegisterAddressForPin(False, PinIndex, aRegisterType, aPinPosition);
+  case Index of
+    0..7 : Result :=  ifthen(
+                        fmcp23X17.IODIRA AND ($01 shl  Index     ) <> $00,
+                        gdIn,
+                        gdOut
+                      );
+    7..15: Result :=  ifthen(
+                        fmcp23X17.IODIRB AND ($01 shl (Index - 8)) <> $00,
+                        gdIn,
+                        gdOut
+                      );
+  else
+    raise ERangeError.CreateFmt(sPinIndexOutOfRange, [0, Count - 1]);
+  end;
 end;
 
-procedure TMCP23S17.SetAddress(AValue: Byte);
+function TMCP23X17.GetInterruptMode(Index: Longword): TGpioInterruptMode;
+var
+  x: Byte;
 begin
-  if (AValue and %01000000) <> 0 then
-    inherited SetAddress(AValue)
+  if Index > (Count - 1) then
+    raise ERangeError.CreateFmt(sPinIndexOutOfRange, [0, Count - 1]);
+
+  (* MODES:
+      gimNone     GPINTEN = 0
+      gimRising   GPINTEN = 1 INTCON = 1 DEFVAL = 0
+      gimFalling  GPINTEN = 1 INTCON = 1 DEFVAL = 1
+      gimBoth     GPINTEN = 1 INTCON = 0
+   *)
+
+   case Index of
+     0..7 : x := fmcp23X17.GPINTENA AND ($01 shl Index    );
+     8..15: x := fmcp23X17.GPINTENB AND ($01 shl Index - 8);
+   end;
+   if x = $00 then
+     exit([]); // interrupt disabled
+
+   case Index of
+     0..7 : x := fmcp23X17.INTCONA AND ($01 shl Index    );
+     8..15: x := fmcp23X17.INTCONB AND ($01 shl Index - 8);
+   end;
+   if x = $00 then
+     exit(gimBoth); // all changes result in interrupt
+
+   case Index of
+     0..7 : x := fmcp23X17.DEFVALA AND ($01 shl Index    );
+     8..15: x := fmcp23X17.DEFVALB AND ($01 shl Index - 8);
+   end;
+   if x = $00 then
+     exit([gimRising])    // interrupt if value differs from logical 0
+   else
+     exit([gimFalling]);  // interrupt if value differs from logical 1
+end;
+
+function TMCP23X17.GetValue(index: Longword): Boolean;
+begin
+  case Index of
+    0..7 : Result := ByteBool(fmcp23X17.GPIOA AND ($01 shl  Index     ));
+    7..15: Result := ByteBool(fmcp23X17.GPIOB AND ($01 shl (Index - 8)));
   else
-    raise ERangeError.Create('Invalid Device Address.');
+    raise ERangeError.CreateFmt(sPinIndexOutOfRange, [0, Count - 1]);
+  end;
+end;
+
+procedure TMCP23X17.SetActiveLow(Index: Longword; AValue: Boolean);
+begin
+  case Index of
+    0..7 :  if AValue then
+              fmcp23X17.IPOLA := fmcp23X17.IPOLA OR      ($01 shl  Index     )
+            else
+              fmcp23X17.IPOLA := fmcp23X17.IPOLA AND NOT ($01 shl  Index     );
+    7..15:  if AValue then
+              fmcp23X17.IPOLB := fmcp23X17.IPOLB OR      ($01 shl (Index - 8))
+            else
+              fmcp23X17.IPOLB := fmcp23X17.IPOLB AND NOT ($01 shl (Index - 8));
+  else
+    raise ERangeError.CreateFmt(sPinIndexOutOfRange, [0, Count - 1]);
+  end;
+end;
+
+procedure TMCP23X17.SetDirection(Index: Longword; AValue: TGpioDirection);
+begin
+  case Index of
+    0..7 : fmcp23X17.IODIRA := fmcp23X17.IODIRA OR ($01 shl  Index     );
+    7..15: fmcp23X17.IODIRB := fmcp23X17.IODIRB OR ($01 shl (Index - 8));
+  else
+    raise ERangeError.CreateFmt(sPinIndexOutOfRange, [0, Count - 1]);
+  end;
+end;
+
+procedure TMCP23X17.SetInterruptMode(Index: Longword; AValue: TGpioInterruptMode
+  );
+begin
+  if Index > 15 then
+    raise ERangeError.CreateFmt(sPinIndexOutOfRange, [0, Count - 1]);
+
+  (* MODES:
+      gimNone     GPINTEN = 0
+      gimRising   GPINTEN = 1 INTCON = 1 DEFVAL = 0
+      gimFalling  GPINTEN = 1 INTCON = 1 DEFVAL = 1
+      gimBoth     GPINTEN = 1 INTCON = 0
+   *)
+
+  if AValue = [] then
+    case Index of
+      0..7 : fmcp23X17.GPINTENA := fmcp23X17.GPINTENA AND NOT($01 shl Index);
+      7..15: fmcp23X17.GPINTENB := fmcp23X17.GPINTENB AND NOT($01 shl Index);
+    end;
+  else
+  begin
+    if gimBoth = AValue then
+      case Index of
+        0..7 : fmcp23X17.INTCONA := fmcp23X17.INTCONA AND NOT($01 shl Index);
+        7..15: fmcp23X17.INTCONB := fmcp23X17.INTCONB AND NOT($01 shl Index);
+      end;
+    else
+    begin
+      if gimRising in AValue then
+        case Index of
+          0..7 : fmcp23X17.DEFVALA := fmcp23X17.DEFVALA AND NOT ($01 shl Index);
+          7..15: fmcp23X17.DEFVALB := fmcp23X17.DEFVALB AND NOT ($01 shl Index);
+        end;
+      else
+        case Index of
+          0..7 : fmcp23X17.DEFVALA := fmcp23X17.DEFVALA OR ($01 shl Index);
+          7..15: fmcp23X17.DEFVALB := fmcp23X17.DEFVALB OR ($01 shl Index);
+        end;
+
+      case Index of
+        0..7 : fmcp23X17.INTCONA := fmcp23X17.INTCONA OR ($01 shl Index);
+        7..15: fmcp23X17.INTCONB := fmcp23X17.INTCONB OR ($01 shl Index);
+      end;
+    end;
+
+    case Index of
+      0..7 : fmcp23X17.GPINTENA := fmcp23X17.GPINTENA OR ($01 shl Index);
+      7..15: fmcp23X17.GPINTENB := fmcp23X17.GPINTENB OR ($01 shl Index);
+    end;
+  end;
+end;
+
+procedure TMCP23X17.SetValue(index: Longword; aValue: Boolean);
+begin
+
+  case Index of
+    0..7 :  if aValue then
+              fmcp23X17.GPIOA := fmcp23X17.GPIOA OR      ($01 shl  Index     )
+            else
+              fmcp23X17.GPIOA := fmcp23X17.GPIOB AND NOT ($01 shl  Index     );
+    7..15:  if aValue then
+              fmcp23X17.GPIOB := fmcp23X17.GPIOB OR      ($01 shl (Index - 8))
+            else
+              fmcp23X17.GPIOB := fmcp23X17.GPIOB AND NOT ($01 shl (Index - 8));
+  else
+    raise ERangeError.CreateFmt(sPinIndexOutOfRange, [0, Count - 1]);
+  end;
+end;
+
+constructor TMCP23X17.Create(aMCP23X17: TMCP23X17Controller);
+begin
+  inherited Create;
+  fmcp23X17 := aMCP23X17;
 end;
 
 { TMCP23017 }
@@ -192,26 +366,63 @@ begin
   Result := 16;
 end;
 
-function TMCP23017.GetRegister(PinIndex: Longword;
-  aRegisterType: TRegisterType; out aPinPosition: TPinPosition
-  ): TRegisterAddress;
+function TMCP23017.GetActiveLow(Index: Longword): Boolean;
 begin
-  Result := GetMCP23017RegisterAddressForPin(False, PinIndex, aRegisterType, aPinPosition);
+  Result := fProxy.GetActiveLow(Index);
+end;
+
+function TMCP23017.GetDirection(Index: Longword): TGpioDirection;
+begin
+  Result := fProxy.GetDirection(Index);
+end;
+
+function TMCP23017.GetInterruptMode(Index: Longword): TGpioInterruptMode;
+begin
+  Result := fProxy.GetInterruptMode(Index);
+end;
+
+function TMCP23017.GetValue(Index: Longword): Boolean;
+begin
+  Result := fProxy.GetValue(Index);
+end;
+
+procedure TMCP23017.SetActiveLow(Index: Longword; AValue: Boolean);
+begin
+  fProxy.SetActiveLow(Index, AValue);
+end;
+
+procedure TMCP23017.SetDirection(Index: Longword; AValue: TGpioDirection);
+begin
+  fProxy.SetDirection(Index, AValue);
+end;
+
+procedure TMCP23017.SetInterruptMode(Index: Longword; AValue: TGpioInterruptMode
+  );
+begin
+  fProxy.SetInterruptMode(Index, AValue);
+end;
+
+procedure TMCP23017.SetValue(Index: Longword; aValue: Boolean);
+begin
+  fProxy.SetValue(Index, AValue);
+end;
+
+constructor TMCP23017.Create(aDevice: TI2CDevice);
+begin
+  inherited Create(aDevice);
+  fMCP23X17Controller := TMCP23017Controller.Create(aDevice, False);
+  fProxy := TMCP23X17.Create(fMCP23X17Controller);
+end;
+
+
+destructor TMCP23017.Destroy;
+begin
+  FreeAndNil(fProxy);
+  FreeAndNil(fMCP23X17Controller);
+  inherited Destroy;
 end;
 
 { TGpioI2CController }
-
-function TGpioI2CController.GetRegisterValue(aRegister: TRegisterAddress
-  ): TRegisterValue;
-begin
-  Result := fI2CDevice.ReadRegByte(aRegister);
-end;
-
-procedure TGpioI2CController.SetRegisterValue(aRegister: TRegisterAddress;
-  aValue: TRegisterValue);
-begin
-  fI2CDevice.WriteByte(aRegister, aValue);
-end;
 
 constructor TGpioI2CController.Create(aDevice: TI2CDevice);
 begin
@@ -221,57 +432,10 @@ end;
 
 { TGpioSPIController }
 
-procedure TGpioSPIController.SetAddress(AValue: Byte);
-begin
-  if FAddress = AValue then Exit;
-  FAddress := AValue;
-end;
-
-function TGpioSPIController.GetRegisterValue(aRegister: TRegisterAddress
-  ): TRegisterValue;
-var
-  b: Array[0..1] of Byte;
-  rb: array[0..2] of Byte;
-begin
-  if HasAddress then
-  begin
-    b[0] := Address;
-    b[1] := aRegister;
-    fSPIDevice.ReadAndWrite(b[0], 2, rb[0], 3);
-  end
-  else
-    fSPIDevice.ReadAndWrite(aRegister, 1, rb[1], 2);
-  Result := rb[2];
-end;
-
-procedure TGpioSPIController.SetRegisterValue(aRegister: TRegisterAddress;
-  aValue: TRegisterValue);
-var
-  b: Array[0..2] of Byte;
-begin
-  b[0] := Address;
-  b[1] := aRegister;
-  b[2] := aValue;
-  if HasAddress then
-    fSPIDevice.Write(b[0], 3)
-  else
-    fSPIDevice.Write(b[1], 2);
-end;
-
 constructor TGpioSPIController.Create(aDevice: TSPIDevice);
 begin
   inherited Create;
   fSPIDevice := aDevice;
-  FHasAddress := False;
-  FAddress := 0;
-end;
-
-constructor TGpioSPIController.Create(aDevice: TSPIDevice; Address: Byte);
-begin
-  inherited Create;
-  fSPIDevice := aDevice;
-  FHasAddress := True;
-  FAddress := Address;
 end;
 
 end.
