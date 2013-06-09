@@ -72,6 +72,16 @@ type
   EDirectInterruptError   = class(EInterruptError);
   EIndirectInterruptError = class(EInterruptError);
 
+  TGpioPin = class;
+  TInterruptCascade = array of TGpioPin;
+
+  TGpioInterruptStatus = record
+    Pin: TGpioPin;   // pin, at which interrupt occured
+    Value: Boolean;  // Pin.Value at time of interrupt, or--if unknown--when handled
+  end;
+  TGpioInterruptStatusArray = array of TGpioInterruptStatus;
+  TOnGpioInterrupt = procedure (Sender: TGpioPin; InterruptValue: Boolean) of object;
+
   { TGpioPin }
 
   TGpioPin = class(TObject)
@@ -86,7 +96,7 @@ type
     procedure SetValue(AValue: Boolean); virtual; abstract;
   public
     function WaitForInterrupt(timeout: LongInt): Boolean; virtual;
-    function WaitForInterruptIndirect(timeout: Longint; aInterruptPin: TGpioPin): Boolean; virtual;
+    function WaitForInterruptIndirect(timeout: Longint; Const Cascade: array of TGpioPin): Boolean; virtual;
     function PollChange(delay: Longint; timeout: Longint; out value: Boolean): Boolean; virtual;
     property Direction: TGpioDirection read GetDirection write SetDirection;
     property Value: Boolean read GetValue write SetValue;
@@ -114,7 +124,6 @@ type
     constructor Create; virtual;
   public
     destructor Destroy; override;
-    // TODO: Interrupt Mode
     property InterruptMode[Index: Longword]: TGpioInterruptMode read GetInterruptMode write SetInterruptMode;
     property Direction[Index: Longword]: TGpioDirection read GetDirection write SetDirection;
     property Value[Index: Longword]: Boolean read GetValue write SetValue;
@@ -128,12 +137,12 @@ type
   TGpioControlledPin = class(TGpioPin)
   strict private
     fController: TGpioController;
+    fOnInterrupt: TOnGpioInterrupt;
     fIndex: Longword;
   private
     // keep the constructor private - it should be called only called from TGpioController!
     constructor Create(aController: TGpioController; aIndex: Longword);
   protected
-    // todo: Interrupt Mode
     function GetAcitveLow: Boolean; override;
     function GetDirection: TGpioDirection; override;
     function GetInterruptMode: TGpioInterruptMode; override;
@@ -145,6 +154,7 @@ type
   public
     property Controller: TGpioController read fController;
     property Index: Longword read fIndex;
+    property OnInterrupt: TOnGpioInterrupt read fOnInterrupt write fOnInterrupt;
   end;
 
   TRegisterType = (rtValue, rtDirection, rtActiveLow, rtInterruptFlag, rtInterruptValue, rtIntEnable, rtIntDefVal, rtIntCtrl, rtPullup, rtPulldown);
@@ -615,9 +625,20 @@ begin
 end;
 
 function TGpioPin.WaitForInterruptIndirect(timeout: Longint;
-  aInterruptPin: TGpioPin): Boolean;
+  const Cascade: array of TGpioPin): Boolean;
+var
+  l: SizeInt;
 begin
-  raise EIndirectInterruptError.Create(sIndirectInterrupt);
+  l := Length(Cascade);
+  case l of
+    0: Result := Self.WaitForInterrupt(timeout);
+    1: Result := Cascade[0].WaitForInterrupt(timeout);
+  else
+    Result := Cascade[0].WaitForInterruptIndirect(
+        timeout,
+        Cascade[1..High(Cascade)]
+      );
+  end;
 end;
 
 function TGpioPin.PollChange(delay: Longint; timeout: Longint;

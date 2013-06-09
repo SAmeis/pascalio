@@ -25,7 +25,7 @@ unit gpioexp;
 interface
 
 uses
-  Classes, SysUtils, fpgpio, fpspi, fpi2c, mcp23017;
+  Classes, SysUtils, fpgpio, fpspi, fpi2c, mcp23017, bitmanip;
 
 type
 
@@ -67,6 +67,9 @@ type
     procedure SetValue(index: Longword; aValue: Boolean); override;
   public
     constructor Create(aMCP23X17: TMCP23X17Controller); reintroduce; virtual;
+    function GetInterruptStatusA: TGpioInterruptStatusArray;
+    function GetInterruptStatusB: TGpioInterruptStatusArray;
+    function GetInterruptStatus: TGpioInterruptStatusArray;
   end;
 
 
@@ -363,6 +366,79 @@ constructor TMCP23X17.Create(aMCP23X17: TMCP23X17Controller);
 begin
   inherited Create;
   fmcp23X17 := aMCP23X17;
+end;
+
+function TMCP23X17.GetInterruptStatusA: TGpioInterruptStatusArray;
+var
+  fa: Byte;
+  cap: Byte;
+  i: Byte;
+  ri: SizeInt;
+begin
+  fa := fmcp23X17.INTFA;
+  SetLength(Result, CountBits(fa));
+  if Length(Result) = 0 then exit;
+
+  ri := 0;
+  if fa <> 0 then
+  begin
+    cap := fmcp23X17.INTCAPA;
+    // for each pins in Port A
+    for i := 0 to BitSizeOf(fa) - 1 do
+    begin
+      // check if it caused interrupt
+      if (fa AND (1 shl i)) = 1 then
+      begin
+        // get value
+        Result[ri].Value := (capa AND (1 shl i)) <> 0;
+        Result[ri].Pin := Self.Pins[i];
+        inc(ri);
+      end;
+    end;
+  end;
+end;
+
+function TMCP23X17.GetInterruptStatusB: TGpioInterruptStatusArray;
+var
+  fb: Byte;
+  cap: Byte;
+  i: Byte;
+  ri: SizeInt;
+begin
+  fb := fmcp23X17.INTFB;
+  SetLength(Result, CountBits(fb));
+  if Length(Result) = 0 then exit;
+
+  ri := 0;
+  if fb <> 0 then
+  begin
+    cap := fmcp23X17.INTCAPB;
+    // for each pins in Port B
+    for i := 0 to BitSizeOf(fa) - 1 do
+    begin
+      // check if it caused interrupt
+      if (fa AND (1 shl i)) = 1 then
+      begin
+        // get value
+        Result[ri].Value := (capa AND (1 shl i)) <> 0;
+        Result[ri].Pin := Self.Pins[i + 8];
+        inc(ri);
+      end;
+    end;
+  end;
+end;
+
+function TMCP23X17.GetInterruptStatus: TGpioInterruptStatusArray;
+var
+  gisA, gisB: TGpioInterruptStatusArray;
+begin
+  gisA := GetInterruptStatusA;
+  gisB := GetInterruptStatusB;
+  SetLength(Result, Length(gisA) + Length(gisB));
+  if Length(gisA) > 0 then
+    Move(gisA[0], Result[0], Length(gisA) * SizeOf(gisA[0]));
+  if Length(gisB) > 0 then
+    Move(gisB[0], Result[Length(gisA)], Length(gisB) * SizeOf(gisB[0]));
 end;
 
 { TMCP23017 }
