@@ -4,19 +4,16 @@ unit bitmanip;
 
 interface
 
-const
-  CHAR_BIT = 8;
-
 type
-  TByteSize = 0..7 ;
-  TWordSize = 0..15;
+  TByteSize  = 0..7 ;
+  TWordSize  = 0..15;
   TDWordSize = 0..31;
-  TQWordSizw = 0..63;
+  TQWordSize = 0..63;
 
-function BITSET(aVal: Byte; Index: TByteSize): Byte; inline;
-function BITCLS(aVal: Byte; Index: TByteSize): Byte; inline;
-function BITVAL(aVal: Byte; Index: TByteSize): Boolean; inline;
-function BITTGL(aVal: Byte; Index: TByteSize): Byte; inline;
+function BITSET(aVal: Byte; Index: TByteSize): Byte; inline;     // set bit
+function BITCLS(aVal: Byte; Index: TByteSize): Byte; inline;     // clear bit
+function BITVAL(aVal: Byte; Index: TByteSize): Boolean; inline;  // value of bit
+function BITTGL(aVal: Byte; Index: TByteSize): Byte; inline;     // toggle bit
 
 function BITSET(aVal: Word; Index: TWordSize): Word; inline;
 function BITCLS(aVal: Word; Index: TWordSize): Word; inline;
@@ -28,10 +25,10 @@ function BITCLS(aVal: Longword; Index: TDWordSize): Longword; inline;
 function BITVAL(aVal: Longword; Index: TDWordSize): Boolean; inline;
 function BITTGL(aVal: Longword; Index: TDWordSize): Longword; inline;
 
-function BITSET(aVal: QWord; Index: TQWordSizw): QWord; inline;
-function BITCLS(aVal: QWord; Index: TQWordSizw): QWord; inline;
-function BITVAL(aVal: QWord; Index: TQWordSizw): Boolean; inline;
-function BITTGL(aVal: QWord; Index: TQWordSizw): QWord; inline;
+function BITSET(aVal: QWord; Index: TQWordSize): QWord; inline;
+function BITCLS(aVal: QWord; Index: TQWordSize): QWord; inline;
+function BITVAL(aVal: QWord; Index: TQWordSize): Boolean; inline;
+function BITTGL(aVal: QWord; Index: TQWordSize): QWord; inline;
 
 // http://graphics.stanford.edu/~seander/bithacks.html
 // http://stackoverflow.com/questions/2261671/python-equivalent-of-c-code-from-bit-twiddling-hacks
