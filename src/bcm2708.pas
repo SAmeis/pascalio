@@ -13,7 +13,7 @@ unit bcm2708;
 interface
 
 uses
-  Classes, SysUtils, ctypes, baseunix, rtlconst;
+  Classes, SysUtils, baseunix, rtlconsts;
 (*
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,9 +40,9 @@ var
 procedure INP_GPIO(g: PtrUInt);
 procedure OUT_GPIO(g: PtrUInt);
 procedure SET_GPIO_ALT(g, a: PtrUInt);
-function GPIO_SET: Byte;
-function GPIO_CLR: Byte;
-procedure setup_io()
+function GPIO_SET: PPtrUInt;
+function GPIO_CLR: PPtrUInt;
+procedure setup_io();
 
 implementation
 
@@ -55,7 +55,7 @@ end;
 procedure OUT_GPIO(g: PtrUInt);
 begin
   //#define OUT_GPIO(g) *(gpio+((g)/10)) |=  (1<<(((g)%10)*3))
-  (gpio + (g div 10))^ := (gpio + (g div 10))^ OR (1 SHL ((g mod 10) * 3))
+  (gpio + (g div 10))^ := PPtrUInt(gpio + (g div 10))^ OR PtrUInt(1 SHL ((g mod 10) * 3));
 end;
 
 procedure SET_GPIO_ALT(g, a: PtrUInt);
@@ -89,29 +89,30 @@ end;
 //
 // Set up a memory regions to access GPIO
 //
-procedure setup_io()
+procedure setup_io();
 begin
-   // open /dev/mem
-   if ((mem_fd = FpOpen('/dev/mem', O_RDWR OR O_SYNC) ) < 0) then
-      raise EFOpenError.CreateFmt(SFOpenError, ['/dev/mem']);
+  // open /dev/mem
+  mem_fd := FpOpen('/dev/mem', O_RDWR OR O_SYNC);
+  if (mem_fd < 0) then
+    raise EFOpenError.CreateFmt(SFOpenError, ['/dev/mem']);
 
-   // mmap GPIO
-   gpio_map := Fpmmap(
-      nil,             //Any adddress in our space will do
-      BLOCK_SIZE,       //Map length
-      PROT_READ OR PROT_WRITE,// Enable reading & writting to mapped memory
-      MAP_SHARED,       //Shared with other processes
-      mem_fd,           //File to map
-      GPIO_BASE         //Offset to GPIO peripheral
-   );
+  // mmap GPIO
+  gpio_map := Fpmmap(
+    nil,             //Any adddress in our space will do
+    BLOCK_SIZE,       //Map length
+    PROT_READ OR PROT_WRITE,// Enable reading & writting to mapped memory
+    MAP_SHARED,       //Shared with other processes
+    mem_fd,           //File to map
+    GPIO_BASE         //Offset to GPIO peripheral
+  );
 
-   FpClose(mem_fd); //No need to keep mem_fd open after mmap
+  FpClose(mem_fd); //No need to keep mem_fd open after mmap
 
-   if (gpio_map = MAP_FAILED) then
-      raise EOSError.CreateFmt('mmap error %d.', [PtrInt(gpio_map)]);//errno also set!
+  if (gpio_map = MAP_FAILED) then
+    raise EOSError.CreateFmt('mmap error %d.', [PtrInt(gpio_map)]);//errno also set!
 
-   gpio := gpio_map;
+  gpio := gpio_map;
 end; // setup_io
 
 end.
-
+

@@ -59,12 +59,12 @@ begin
   Result := aVal XOR ($01 shl Index);
 end;
 
-function BITSET(aVal: Word; Index: TWordSize): Byte;
+function BITSET(aVal: Word; Index: TWordSize): Word;
 begin
   Result := aVal OR ($01 shl Index);
 end;
 
-function BITCLS(aVal: Word; Index: TWordSize): Byte;
+function BITCLS(aVal: Word; Index: TWordSize): Word;
 begin
   Result := aVal AND NOT ($01 shl Index);
 end;
@@ -74,17 +74,17 @@ begin
   Result := ByteBool(aVal AND ($01 shl Index));
 end;
 
-function BITTGL(aVal: Word; Index: TWordSize): Byte;
+function BITTGL(aVal: Word; Index: TWordSize): Word;
 begin
   Result := aVal XOR ($01 shl Index);
 end;
 
-function BITSET(aVal: Longword; Index: TDWordSize): Byte;
+function BITSET(aVal: Longword; Index: TDWordSize): Longword;
 begin
   Result := aVal OR ($01 shl Index);
 end;
 
-function BITCLS(aVal: Longword; Index: TDWordSize): Byte;
+function BITCLS(aVal: Longword; Index: TDWordSize): Longword;
 begin
   Result := aVal AND NOT ($01 shl Index);
 end;
@@ -94,27 +94,27 @@ begin
   Result := ByteBool(aVal AND ($01 shl Index));
 end;
 
-function BITTGL(aVal: Longword; Index: TDWordSize): Byte;
+function BITTGL(aVal: Longword; Index: TDWordSize): Longword;
 begin
   Result := aVal XOR ($01 shl Index);
 end;
 
-function BITSET(aVal: QWord; Index: TQWordSizw): Byte;
+function BITSET(aVal: QWord; Index: TQWordSize): QWord;
 begin
   Result := aVal OR ($01 shl Index);
 end;
 
-function BITCLS(aVal: QWord; Index: TQWordSizw): Byte;
+function BITCLS(aVal: QWord; Index: TQWordSize): QWord;
 begin
   Result := aVal AND NOT ($01 shl Index);
 end;
 
-function BITVAL(aVal: QWord; Index: TQWordSizw): Boolean;
+function BITVAL(aVal: QWord; Index: TQWordSize): Boolean;
 begin
   Result := ByteBool(aVal AND ($01 shl Index));
 end;
 
-function BITTGL(aVal: QWord; Index: TQWordSizw): QWord;
+function BITTGL(aVal: QWord; Index: TQWordSize): QWord;
 begin
   Result := aVal XOR ($01 shl Index);
 end;
@@ -150,4 +150,4 @@ end;
 
 
 end.
-
+

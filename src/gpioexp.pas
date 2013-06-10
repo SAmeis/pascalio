@@ -126,7 +126,7 @@ end;
 
 class function TMCP23S17.GetCount: Longword;
 begin
-  Result := fProxy.Count;
+  Result := TMCP23X17.Count;
 end;
 
 function TMCP23S17.GetDirection(Index: Longword): TGpioDirection;
@@ -390,7 +390,7 @@ begin
       if (fa AND (1 shl i)) = 1 then
       begin
         // get value
-        Result[ri].Value := (capa AND (1 shl i)) <> 0;
+        Result[ri].Value := (cap AND (1 shl i)) <> 0;
         Result[ri].Pin := Self.Pins[i];
         inc(ri);
       end;
@@ -414,13 +414,13 @@ begin
   begin
     cap := fmcp23X17.INTCAPB;
     // for each pins in Port B
-    for i := 0 to BitSizeOf(fa) - 1 do
+    for i := 0 to BitSizeOf(fb) - 1 do
     begin
       // check if it caused interrupt
-      if (fa AND (1 shl i)) = 1 then
+      if (fb AND (1 shl i)) = 1 then
       begin
         // get value
-        Result[ri].Value := (capa AND (1 shl i)) <> 0;
+        Result[ri].Value := (cap AND (1 shl i)) <> 0;
         Result[ri].Pin := Self.Pins[i + 8];
         inc(ri);
       end;
@@ -445,7 +445,7 @@ end;
 
 class function TMCP23017.GetCount: Longword;
 begin
-  Result := fProxy.Count;
+  Result := TMCP23X17.Count;
 end;
 
 function TMCP23017.GetActiveLow(Index: Longword): Boolean;
@@ -521,4 +521,4 @@ begin
 end;
 
 end.
-
+
