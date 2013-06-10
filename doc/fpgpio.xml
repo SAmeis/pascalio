@@ -72,8 +72,12 @@ If <var>delay</var> is greater than 0, <code>sleep(delay)</code> will be called.
       <element name="TGpioPin.Direction">
         <short>Configure pin as Input or as Output</short>
       </element>
-      <element name="TGpioInterruptModes"/>
-      <element name="TGpioInterruptMode"/>
+      <element name="TGpioInterruptModes">
+        <short>Basic interrupt condition</short>
+      </element>
+      <element name="TGpioInterruptMode">
+        <short>Combination of Interrupt modes</short>
+      </element>
       <element name="gimBoth">
         <short>Interrupt on rising edge and on falling edge</short>
       </element>
