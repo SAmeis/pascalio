@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fpdoc-descriptions>
+  <package name="rpiio">
+    <!--
+  ====================================================================
+    fpi2c
+  ====================================================================
+-->
+    <module name="fpi2c">
+      <element name="sI2CSlaveAddress">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="sI2CWrite">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CAddress">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CRegister">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice">
+        <short>Abstract I2C device class</short>
+      </element>
+      <element name="TI2CDevice.fAddress">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.Create.aAddress">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.ReadByte.Result">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteByte.aByte">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.ReadRegByte.Result">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadRegByte.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.ReadRegWord.Result">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadRegWord.aRegsiter">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteRegByte.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteRegByte.aByte">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteRegWord.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteRegWord.aWord">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadBlockData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.ReadBlockData.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadBlockData.aBuffer">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadBlockData.aCount">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteData.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteData.Buffer">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteData.aCount">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteByte.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteWord.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteWord.aWord">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteLongWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteLongWord.aRegsiter">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteLongWord.aLongWord">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteQWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteQWord.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteQWord.aQWord">
+        <short/>
+      </element>
+      <element name="TI2CDevice.Address">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice">
+        <short>Accesing I2C bus using Linux File interface</short>
+      </element>
+      <element name="TI2CLinuxDevice.fHandle">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.SetSlaveAddress">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.Create.aAddress">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.Create.aBusID">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadBlockData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadBlockData.Result">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadBlockData.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadBlockData.aBuffer">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadBlockData.aCount">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadByte.Result">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegByte.Result">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegByte.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegWord.Result">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegWord.aRegsiter">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteByte.aByte">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteData.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteData.Buffer">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteData.aCount">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegByte.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegByte.aByte">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegWord.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegWord.aWord">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.Handle">
+        <short>File Handle</short>
+      </element>
+      <short>Free Pascal I2C abstraction layer</short>
+    </module>
+    <!-- fpi2c -->
+  </package>
+</fpdoc-descriptions>

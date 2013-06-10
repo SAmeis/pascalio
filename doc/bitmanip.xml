@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<fpdoc-descriptions>
+  <package name="rpiio">
+    <!--
+  ====================================================================
+    bitmanip
+  ====================================================================
+-->
+    <module name="bitmanip">
+      <element name="CHAR_BIT">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TByteSize">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TWordSize">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TDWordSize">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TQWordSizw">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="BITSET">
+        <short>Set bit</short>
+      </element>
+      <element name="BITSET.Result">
+        <short>Changed value</short>
+      </element>
+      <element name="BITSET.aVal">
+        <short>Input Value</short>
+      </element>
+      <element name="BITSET.Index">
+        <short>Bit Index</short>
+      </element>
+      <element name="BITCLS">
+        <short>Clear bit</short>
+      </element>
+      <element name="BITCLS.Result">
+        <short>Changed value</short>
+      </element>
+      <element name="BITCLS.aVal">
+        <short/>
+      </element>
+      <element name="BITCLS.Index">
+        <short/>
+      </element>
+      <element name="BITVAL">
+        <short>Bit Value</short>
+      </element>
+      <element name="BITVAL.Result">
+        <short>Value of bit</short>
+      </element>
+      <element name="BITVAL.aVal">
+        <short/>
+      </element>
+      <element name="BITVAL.Index">
+        <short/>
+      </element>
+      <element name="BITTGL">
+        <short>Toggle bit</short>
+      </element>
+      <element name="BITTGL.Result">
+        <short>Changed value</short>
+      </element>
+      <element name="BITTGL.aVal">
+        <short/>
+      </element>
+      <element name="BITTGL.Index">
+        <short/>
+      </element>
+      <element name="CountBits">
+        <short>Count bits set</short>
+        <descr>Returns the count of bits in <var>v</var> set.
+
+<code>var
+  value: Byte;
+  c: PtrUInt;
+begin
+  value := 5;
+  // bits set
+  c := CountBits(value);
+  // bits not set
+  c := CountBits(not value);
+end.
+</code>
+        </descr>
+      </element>
+      <element name="CountBits.Result">
+        <short/>
+      </element>
+      <element name="CountBits.v">
+        <short/>
+      </element>
+      <short>Bit manipulations</short>
+    </module>
+    <!-- bitmanip -->
+  </package>
+</fpdoc-descriptions>

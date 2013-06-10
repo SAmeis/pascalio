@@ -24,7 +24,9 @@
       </element>
       <element name="TMCP23X17Controller">
         <short>Abstract base controller for MCP23017 and MCP23S17</short>
-        <descr>Provides an abstract interface for accessing MCP23017 and MCP23S17 following their internal registers.</descr>
+        <descr>Provides an abstract interface for accessing MCP23017 and MCP23S17 following their internal registers.
+
+Use this class only if you need direct access to the internal registers. Otherwise use <link id="gpioexp.TMCP23017">TMCP23017</link> or <link id="gpioexp.TMCP23S17">TMCP23S17</link> from unit <link id="gpioexp"/>.</descr>
         <seealso>
           <link id="TMCP23017Controller"/>
           <link id="TMCP23S17Controller"/>

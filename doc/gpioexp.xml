@@ -179,7 +179,7 @@
         <short/>
       </element>
       <element name="TMCP23017">
-        <short/>
+        <short>Gpio Controller class for MCP23017</short>
         <descr/>
         <errors/>
         <seealso/>
@@ -315,7 +315,7 @@
         <seealso/>
       </element>
       <element name="TMCP23S17">
-        <short/>
+        <short>Gpio Controller class for MCP23S17</short>
         <descr/>
         <errors/>
         <seealso/>

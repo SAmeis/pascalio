@@ -4,7 +4,9 @@
     <module name="fpadc">
       <element name="TADConverter">
         <short>Abstract class for Analog/Digital Converters</short>
-        <descr>This is an abstract class for Analgo/Digital Converters (ADC). Typically each ADC requires an individual implementation for data access, so create derived classes for each ADC. You must override all abstract methods to enable reading of single pin data. If the chip also supports differential or pseudo differential measurement, you should override <link id="TADConverter.DifferentialValue">DifferentialValue</link> and <link id="TADConverter.GetDifferentialValue">GetDifferentialValue</link>, also.</descr>
+        <descr>This is an abstract class for Analgo/Digital Converters (ADC). Typically each ADC requires an individual implementation for data access, so create derived classes for each ADC. You must override all abstract methods to enable reading of single pin data. If the chip also supports differential or pseudo differential measurement, you should override 
+<link id="TADConverter.DifferentialValue">DifferentialValue</link> and 
+<link id="TADConverter.GetDifferentialValue">GetDifferentialValue</link>, also.f</descr>
       </element>
       <element name="TADConverter.MaxValue">
         <short>Maximum returned value</short>
@@ -18,8 +20,10 @@
       <element name="TADConverter.DifferentialValue">
         <short>Get differential value from input</short>
         <descr>Some A/D-converters support differential or pseudo differential measurement. Check 
+
 <link id="TADConverter.SupportsDifferentialValue">SupportsDifferentialValue</link> before usage. Please consult the datasheet of your device on information how connectors are used in differential measuring.</descr>
         <errors>Raises 
+
 <link id="EDifferentialNotSupported"/> if used but is not supported.</errors>
         <seealso>
           <link id="TADConverter.SupportsDifferentialValue"/>
