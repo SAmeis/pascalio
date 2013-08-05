@@ -25,7 +25,7 @@ unit fpi2c;
 interface
 
 uses
-  Classes, SysUtils, i2c_dev, baseunix, rtlconsts;
+  Classes, SysUtils, i2c_dev, baseunix, rtlconsts, flqueue;
 
 resourcestring
   sI2CSlaveAddress = 'Could not set slave address.';
@@ -34,10 +34,120 @@ resourcestring
 type
   TI2CAddress = $02..$FE;
   TI2CRegister = Byte;
+
+  EI2CQueueObjectInconsistency = class(Exception);
+
+  { TI2CQueueObject }
+
+  TI2CQueueObject = class(TObject)
+  public type
+    // i2c/smbus data buffer
+    TBufferLength = 0..31;
+
+  strict private
+    fFatalException: TObject;
+    fReadyEvent: PRTLEvent;
+    fWriteEvent: PRTLEvent;
+    fAddress: TI2CAddress;
+    fCommand: Byte;
+    fUseCommand: Boolean;
+    fRead: Boolean;
+    fBufLen: Byte;
+    fBuffer: array [TBufferLength] of Byte;
+
+    procedure SetCommand(aValue: Byte);
+  public
+    constructor Create;
+    destructor Destroy; override;
+    // raise EI2CQueueObjectInconsistency on error
+    procedure CheckConsistency;
+
+    // waits until data is written
+    // rises FatalException if assigned
+    procedure WaitForWrite;
+    // sets event state
+    procedure SetDataWritten;
+
+
+    // buffer manipulation
+    // requested amount of bytes to read
+    procedure SetReadBufferLength(aLen: TBufferLength);
+    // data to be written
+    procedure SetWriteBuffer(const aBuf; aLen: TBufferLength);
+    // actual data read
+    procedure SetResultBuffer(const aBuf; aLen: TBufferLength);
+    // reading result buffer
+    // waits until data is available
+    // rises FatalException if assigned
+    procedure GetResultBuffer(var aBuf; aLen: TBufferLength);
+    // get the buffer for writing
+    procedure GetWriteBuffer(var aBuf; aMaxLen: TBufferLength; out aLen: TBufferLength);
+    // this is RO, change buffer length via SetWriteBuffer() or SetReadBufferLength()
+    property BufferLength: Byte read fBufLen;
+
+    // device address
+    property Address: TI2CAddress read fAddress write fAddress;
+    // read/write bit
+    property Read: Boolean read fRead;
+
+    // Device register/command
+    property Command: Byte read fCommand write SetCommand;
+    // Set to TRUE, if Command is changed
+    property UseCommand: Boolean read fUseCommand write fUseCommand;
+
+    // holds an object, if something went terribly wrong
+    property FatalException: TObject read fFatalException write fFatalException;
+  end;
+
+  { TI2CBus }
+
+  TI2CBus = class(TThread)
+  strict private
+    fBus: Longword;
+    fInstances: array of TI2CBus; static;
+  protected
+    fQueue: tFLQueue;
+    fThreadWakeup: PRTLEvent;
+
+    constructor Create(aBus: Longword); virtual;
+
+    // Don't override Execute(), it's already done
+    procedure Execute; override;
+    // just override ProvessObject()
+    procedure ProcessObject(aObj: TI2CQueueObject); virtual; abstract;
+
+    property Queue: tFLQueue read fQueue;
+  public
+    destructor Destroy; override;
+    class function GetInstance(aBus: Longword): TI2CBus; override;
+
+    // use this for non blocking queueing, returns immediatly
+    procedure QueueObject(aObj: TI2CQueueObject);
+
+    // blocking queuing, threadsafe
+    // returns on action done
+    function ReadByte(aAddress: TI2CAddress): Byte;
+    procedure WriteByte(aAddress: TI2CAddress; aByte: Byte);
+    function ReadRegByte(aAddress: TI2CAddress; aRegister: TI2CRegister): Byte;
+    function ReadRegWord(aAddress: TI2CAddress; aRegsiter: TI2CRegister): Word;
+    procedure WriteRegByte(aAddress: TI2CAddress; aRegister: TI2CRegister; aByte: Byte);
+    procedure WriteRegWord(aAddress: TI2CAddress; aRegister: TI2CRegister; aWord: Word);
+    procedure ReadBlockData(aAddress: TI2CAddress; aRegister: TI2CRegister; var aBuffer; aCount: SizeInt);
+    procedure WriteBlockData(aAddress: TI2CAddress; aRegister: TI2CRegister; const Buffer; aCount: SizeInt);
+
+    (* not supported so far
+    procedure WriteByte(aAddress: TI2CAddress; aRegister: TI2CRegister; aByte: Byte);
+    procedure WriteWord(aAddress: TI2CAddress; aRegister: TI2CAddress; aWord: Word);
+    procedure WriteLongWord(aAddress: TI2CAddress; aRegsiter: TI2CAddress; aLongWord: Longword);
+    procedure WriteQWord(aAddress: TI2CAddress; aRegister: TI2CAddress; const aQWord: QWord);
+    *)
+    property Bus: Longword read fBus;
+  end;
+
   { TI2CDevice }
 
   TI2CDevice = class(TObject)
-  private
+  strict private
     fAddress: TI2CAddress;
   public
     constructor Create(aAddress: TI2CAddress); virtual;
@@ -48,16 +158,24 @@ type
     procedure WriteRegByte(aRegister: TI2CRegister; aByte: Byte); virtual; abstract;
     procedure WriteRegWord(aRegister: TI2CRegister; aWord: Word); virtual; abstract;
     procedure ReadBlockData(aRegister: TI2CRegister; var aBuffer; aCount: SizeInt); virtual; abstract;
+    procedure WriteBlockData(aRegister: TI2CRegister; const Buffer; aCount: SizeInt); virtual; abstract;
 
-    procedure WriteData(aRegister: TI2CRegister; const Buffer; aCount: SizeInt); virtual; abstract;
+    // convenicence methods
+    // do we need the first two?
     procedure WriteByte(aRegister: TI2CRegister; aByte: Byte); inline;
-    procedure WriteWord(aRegister: TI2CAddress; aWord: Word);  inline;
-      procedure WriteLongWord(aRegsiter: TI2CAddress; aLongWord: Longword); inline;
-    procedure WriteQWord(aRegister: TI2CAddress; const aQWord: QWord); inline;
-    property Address: TI2CAddress read fAddress;
+    procedure WriteWord(aRegister: TI2CRegister; aWord: Word);  inline;
+    procedure WriteLongWord(aRegsiter: TI2CRegister; aLongWord: Longword); inline;
+    procedure WriteQWord(aRegister: TI2CRegister; const aQWord: QWord); inline;
+
+    property Address: TI2CAddress read fAddress write fAddress;
   end;
 
-  { TI2CLinuxDevice }
+  { TI2CLinuxDevice
+    Only this class uses the Linux' Kernel interface
+    Thus by moving this class (and all depending classes)
+    to another unit, the units licence should be changed
+    to LGPL with linking exception
+  }
 
   TI2CLinuxDevice = class(TI2CDevice)
   protected
@@ -71,7 +189,7 @@ type
     function ReadRegByte(aRegister: TI2CRegister): Byte; override;
     function ReadRegWord(aRegsiter: TI2CRegister): Word; override;
     procedure WriteByte(aByte: Byte); override;
-    procedure WriteData(aRegister: TI2CRegister; const Buffer; aCount: SizeInt
+    procedure WriteBlockData(aRegister: TI2CRegister; const Buffer; aCount: SizeInt
       ); override;
     procedure WriteRegByte(aRegister: TI2CRegister; aByte: Byte); override;
     procedure WriteRegWord(aRegister: TI2CRegister; aWord: Word); override;
@@ -79,7 +197,423 @@ type
     property Handle: cint read fHandle;
   end;
 
+  { TI2CLinuxBus }
+
+  TI2CLinuxBus = class(TI2CBus)
+  private
+    fDevice: TI2CLinuxDevice;
+  protected
+    constructor Create(aBus: Longword); override;
+    procedure ProcessObject(aObj: TI2CQueueObject); override;
+  public
+    property Device: TI2CLinuxDevice read fDevice;
+  end;
+
 implementation
+
+{ TI2CLinuxBus }
+
+constructor TI2CLinuxBus.Create(aBus: Longword);
+begin
+  inherited Create(aBus);
+  fDevice := TI2CLinuxDevice.Create($00, aBus);
+end;
+
+procedure TI2CLinuxBus.ProcessObject(aObj: TI2CQueueObject);
+var
+  bbuf: Byte;
+  wbuf: Word;
+  b: array[aobj.TBufferLength] of Byte;
+  i: SizeInt;
+begin
+  if not Assigned(fDevice) then exit;
+  try
+    aObj.CheckConsistency;
+
+    aObj.Address := aObj.Address;
+    if aObj.UseCommand then
+    begin
+      if aObj.Read then
+        case aObj.BufferLength of
+          1: aObj.ByteValue := fDevice.ReadRegByte(aObj.Command)
+          2: aObj.WordValue := fDevice.ReadRegWord(aObj.Command);
+        else
+          i := fDevice.ReadBlockData(aObj.Command, b[0], aObj.BufferLength);
+          if i = -1 then
+            aObj.SetResultBuffer(b[0], 0)
+          else
+            aObj.SetResultBuffer(b[0], i);
+        end
+      else // aObj.Read = FALSE
+        case aObj.BufferLength of
+          1:
+          begin
+            aObj.GetWriteBuffer(bbuf, 1, i);
+            fDevice.WriteRegByte(aObj.Command, bbuf);
+          end;
+          2:
+          begin
+            aObj.GetWriteBuffer(wbuf, 2, i);
+            fDevice.WriteRegWord(aObj.Command, wbuf);
+          end;
+        else
+          aObj.GetWriteBuffer(b[0], Length(b), i);
+          fDevice.WriteBlockData(aObj.Command, b[0], i);
+        end;
+        aObj.SetDataWritten;
+    end else // aObj.UseCommand = FALSE
+    begin
+      // ONLY VALID if BufferLength = 1
+      if aObj.BufferLength = 1 then
+      begin
+        if aObj.Read then
+        begin
+          bbuf := fDevice.ReadByte;
+          aobj.SetResultBuffer(bbuf, 1);
+        end
+        else
+        begin
+          aObj.GetWriteBuffer(bbuf, 1, i);
+          fDevice.WriteByte(bbuf);
+          aObj.SetDataWritten;
+        end;
+      end;
+    end; // END aObj.UseCommand
+
+  except
+    // this may be
+    // - EI2CQueueObjectInconsistency
+    // - EOSError
+    on e: Exception do
+    begin
+      aObj.FatalException := e;
+      // set events for waiting thread
+      aObj.SetDataWritten;
+      aobj.SetBuffer(b[0], 0);
+    end;
+  end;
+end;
+
+{ TI2CBus }
+
+destructor TI2CBus.Destroy;
+begin
+  fInstances[fBus] := nil;
+  Terminate;
+  RTLeventSetEvent(fThreadWakeup);
+  WaitFor;
+  FreeAndNil(fQueue);
+  RTLeventdestroy(fThreadWakeup);
+  inherited Destroy;
+end;
+
+procedure TI2CBus.QueueObject(aObj: TI2CQueueObject);
+begin
+  aObj.CheckConsistency;
+  // add to queue and wake up thread
+  fQueue.push(aObj);
+  RTLeventSetEvent(fThreadWakeup);
+end;
+
+procedure TI2CBus.Execute;
+var
+  co: TI2CQueueObject;
+begin
+  repeat
+    co := fQueue.pop;
+    if co <> nil then
+    begin
+      // do the work
+      ProcessObject(co);
+      // reset event
+      RTLeventResetEvent(fThreadWakeup);
+    end
+    else
+      RTLeventWaitFor(fThreadWakeup);
+  until Terminated;
+end;
+
+constructor TI2CBus.Create(aBus: Longword);
+begin
+  inherited Create(True);
+  fQueue := tFLQueue.create(10);
+  fThreadWakeup := RTLEventCreate;
+  fBus := aBus;
+end;
+
+class function TI2CBus.GetInstance(aBus: Longword): TI2CBus;
+var
+  po: ^TI2CBus;
+begin
+  if high(fInstances) > aBus then
+    setlength(fInstances, aBus);
+
+  po := @fInstances[aBus];
+  if po^ = nil then
+  begin
+    // TODO: select appropriate derived class for each bus
+    // -> register classes
+    // -> assign internal bus id (application specific)
+    // -> set external bus-ids (application specific)
+    {$FATAL Method TI2CBus.GetInstance() NOT IMPLEMENTED}
+    po^ := Self.Create(aBus);
+    po^.Start;
+  end;
+  Result := po;
+end;
+
+function TI2CBus.ReadByte(aAddress: TI2CAddress): Byte;
+var
+  o: TI2CQueueObject;
+begin
+  o := TI2CQueueObject.Create;
+  o.Address := aAddress;
+  o.UseCommand := False;
+  o.SetReadBufferLength(sizeof(Result));
+  QueueObject(o);
+
+  try
+    o.GetResultBuffer(Result, SizeOf(Result));
+  finally
+    FreeAndNil(o);
+  end;
+end;
+
+procedure TI2CBus.WriteByte(aAddress: TI2CAddress; aByte: Byte);
+var
+  o: TI2CQueueObject;
+begin
+  o := TI2CQueueObject.Create;
+  o.Address := aAddress;
+  o.UseCommand := False;
+  o.SetWriteBuffer(aByte, SizeOf(aByte));
+  QueueObject(o);
+
+  try
+    o.WaitForWrite;
+  finally
+    FreeAndNil(o);
+  end;
+end;
+
+function TI2CBus.ReadRegByte(aAddress: TI2CAddress; aRegister: TI2CRegister
+  ): Byte;
+var
+  o: TI2CQueueObject;
+begin
+  o := TI2CQueueObject.Create;
+  o.Address := aAddress;
+  o.Command := aRegister;
+  o.SetReadBufferLength(sizeof(Result));
+  QueueObject(o);
+
+  try
+    o.GetResultBuffer(Result, SizeOf(Result));
+  finally
+    FreeAndNil(o);
+  end;
+end;
+
+function TI2CBus.ReadRegWord(aAddress: TI2CAddress; aRegsiter: TI2CRegister
+  ): Word;
+var
+  o: TI2CQueueObject;
+begin
+  o := TI2CQueueObject.Create;
+  o.Address := aAddress;
+  o.Command := aRegister;
+  o.SetWriteBuffer(Result, SizeOf(Result));
+  QueueObject(o);
+
+  try
+    o.GetResultBuffer(Result, SizeOf(Result));
+  finally
+    FreeAndNil(o);
+  end;
+end;
+
+procedure TI2CBus.WriteRegByte(aAddress: TI2CAddress; aRegister: TI2CRegister;
+  aByte: Byte);
+var
+  o: TI2CQueueObject;
+begin
+  o := TI2CQueueObject.Create;
+  o.Address := aAddress;
+  o.Command := aRegister;
+  o.SetWriteBuffer(aByte, sizeof(aByte));
+  QueueObject(o);
+
+  try
+    o.WaitForWrite;
+  finally
+    FreeAndNil(o);
+  end;
+end;
+
+procedure TI2CBus.WriteRegWord(aAddress: TI2CAddress; aRegister: TI2CRegister;
+  aWord: Word);
+var
+  o: TI2CQueueObject;
+begin
+  o := TI2CQueueObject.Create;
+  o.Address := aAddress;
+  o.Command := aRegister;
+  o.SetWriteBuffer(aWord, sizeof(aWord));
+  QueueObject(o);
+
+  try
+    o.WaitForWrite;
+  finally
+    FreeAndNil(o);
+  end;
+end;
+
+procedure TI2CBus.ReadBlockData(aAddress: TI2CAddress; aRegister: TI2CRegister;
+  var aBuffer; aCount: SizeInt);
+var
+  o: TI2CQueueObject;
+begin
+  o := TI2CQueueObject.Create;
+  o.Address := aAddress;
+  o.Command := aRegister;
+  o.SetReadBufferLength(aCount);
+  QueueObject(o);
+
+  try
+    o.GetResultBuffer(aBuffer, aCount);
+  finally
+    FreeAndNil(o);
+  end;
+end;
+
+procedure TI2CBus.WriteBlockData(aAddress: TI2CAddress;
+  aRegister: TI2CRegister; const Buffer; aCount: SizeInt);
+var
+  o: TI2CQueueObject;
+begin
+  o := TI2CQueueObject.Create;
+  o.Address := aAddress;
+  o.Command := aRegister;
+  o.SetWriteBuffer(Buffer, aCount);
+  QueueObject(o);
+
+  try
+    o.WaitForWrite;
+  finally
+    FreeAndNil(o);
+  end;
+end;
+
+{ TI2CQueueObject }
+
+procedure TI2CQueueObject.SetCommand(aValue: Byte);
+begin
+  fCommand := aValue;
+  fUseCommand := True;
+end;
+
+
+constructor TI2CQueueObject.Create;
+begin
+  fReadyEvent := RTLEventCreate;
+  fWriteEvent := RTLEventCreate;
+end;
+
+destructor TI2CQueueObject.Destroy;
+begin
+  RTLeventdestroy(fReadyEvent);
+  RTLeventdestroy(fWriteEvent);
+  fReadyEvent := nil;
+  fWriteEvent := nil;
+  inherited Destroy;
+end;
+
+procedure TI2CQueueObject.CheckConsistency;
+begin
+  // checks all requirements for a valid i2c operation
+
+  // Buffer has to be set.
+  if (BufferLength <= low(TBufferLength))
+  or (BufferLength > high(TBufferLength) then
+    raise EI2CQueueObjectInconsistency.Create('Buffer not set');
+
+  if (not UseCommand) and (BufferLength <> 1) then
+    raise EI2CQueueObjectInconsistency.Create('Buffer to large. Must be 1 byte.'); // can only read/write Bytes without command
+
+  if (Address and $01) = $01 then
+    raise EI2CQueueObjectInconsistency.Create('Read/Write bit set in address.') // Read/Write bit set in address (may be corrected)
+end;
+
+procedure TI2CQueueObject.WaitForWrite;
+begin
+  RTLeventWaitFor(fWriteEvent);
+  if Assigned(FatalException) then
+    raise FatalException;
+end;
+
+procedure TI2CQueueObject.SetDataWritten;
+begin
+  RTLeventSetEvent(fWriteEvent);
+end;
+
+procedure TI2CQueueObject.SetReadBufferLength(aLen: TBufferLength);
+begin
+  fBufLen := aLen;
+  fRead := True;
+end;
+
+procedure TI2CQueueObject.SetWriteBuffer(const aBuf; aLen: TBufferLength);
+begin
+  if aLen < length(fBuffer) then
+    fBufLen := aLen
+  else
+    fBufLen := Length(fBuffer);
+
+  move(aBuf, fBuffer[0], ByteCount);
+  fRead := False;
+end;
+
+procedure TI2CQueueObject.SetResultBuffer(const aBuf; aLen: TBufferLength);
+begin
+  if aLen < length(fBuffer) then
+    fBufLen := aLen
+  else
+    fBufLen := Length(fBuffer);
+
+  move(aBuf, fBuffer[0], ByteCount);
+  RTLeventSetEvent(fReadyEvent);
+end;
+
+procedure TI2CQueueObject.GetResultBuffer(var aBuf; aLen: TBufferLength);
+begin
+  // result buffer only set for reading requests
+  if not Read then exit;
+
+  RTLeventWaitFor(fReadyEvent);
+  if Assigned(FatalException) then
+    raise FatalException;
+
+  if alen <= fBufLen then
+    move(fBuffer[0], aBuf, aLen)
+  else
+    move(fBuffer[0], aBuf, fBufLen);
+end;
+
+procedure TI2CQueueObject.GetWriteBuffer(var aBuf; aMaxLen: TBufferLength; out
+  aLen: TBufferLength);
+begin
+  if not Read then
+  begin
+    if aMaxLen <= fBufLen then
+      aLen := aMaxLen
+    else
+      aLen := fBufLen;
+    move(fBuffer[0], aBuf, aLen);
+  end
+  else
+    aLen := 0;
+end;
+
 
 { TI2CLinuxDevice }
 
@@ -169,7 +703,7 @@ begin
     RaiseLastOSError;
 end;
 
-procedure TI2CLinuxDevice.WriteData(aRegister: TI2CRegister; const Buffer;
+procedure TI2CLinuxDevice.WriteBlockData(aRegister: TI2CRegister; const Buffer;
   aCount: SizeInt);
 var
 //  ibuf: Array of byte;
@@ -216,7 +750,7 @@ begin
   WriteData(aRegister, aByte, sizeof(aByte));
 end;
 
-procedure TI2CDevice.WriteWord(aRegister: TI2CAddress; aWord: Word);
+procedure TI2CDevice.WriteWord(aRegister: TI2CRegister; aWord: Word);
 var
   b: Word;
 begin
@@ -224,7 +758,8 @@ begin
   WriteData(aRegister, b, SizeOf(b));
 end;
 
-procedure TI2CDevice.WriteLongWord(aRegsiter: TI2CAddress; aLongWord: Longword);
+procedure TI2CDevice.WriteLongWord(aRegsiter: TI2CRegister; aLongWord: Longword
+  );
 var
   lw: DWord;
 begin
@@ -232,7 +767,7 @@ begin
   WriteData(aRegsiter, lw, Sizeof(lw));
 end;
 
-procedure TI2CDevice.WriteQWord(aRegister: TI2CAddress; const aQWord: QWord);
+procedure TI2CDevice.WriteQWord(aRegister: TI2CRegister; const aQWord: QWord);
 var
   qw: QWord;
 begin
@@ -241,4 +776,4 @@ begin
 end;
 
 end.
-
+
