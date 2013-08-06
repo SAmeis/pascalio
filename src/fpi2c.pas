@@ -104,12 +104,9 @@ type
   TI2CBus = class(TThread)
   strict private
     fBus: Longword;
-    fInstances: array of TI2CBus; static;
   protected
     fQueue: tFLQueue;
     fThreadWakeup: PRTLEvent;
-
-    constructor Create(aBus: Longword); virtual;
 
     // Don't override Execute(), it's already done
     procedure Execute; override;
@@ -118,8 +115,8 @@ type
 
     property Queue: tFLQueue read fQueue;
   public
+    constructor Create(aBus: Longword); virtual;
     destructor Destroy; override;
-    class function GetInstance(aBus: Longword): TI2CBus; override;
 
     // use this for non blocking queueing, returns immediatly
     procedure QueueObject(aObj: TI2CQueueObject);
@@ -298,7 +295,6 @@ end;
 
 destructor TI2CBus.Destroy;
 begin
-  fInstances[fBus] := nil;
   Terminate;
   RTLeventSetEvent(fThreadWakeup);
   WaitFor;
@@ -339,27 +335,6 @@ begin
   fQueue := tFLQueue.create(10);
   fThreadWakeup := RTLEventCreate;
   fBus := aBus;
-end;
-
-class function TI2CBus.GetInstance(aBus: Longword): TI2CBus;
-var
-  po: ^TI2CBus;
-begin
-  if high(fInstances) > aBus then
-    setlength(fInstances, aBus);
-
-  po := @fInstances[aBus];
-  if po^ = nil then
-  begin
-    // TODO: select appropriate derived class for each bus
-    // -> register classes
-    // -> assign internal bus id (application specific)
-    // -> set external bus-ids (application specific)
-    {$FATAL Method TI2CBus.GetInstance() NOT IMPLEMENTED}
-    po^ := Self.Create(aBus);
-    po^.Start;
-  end;
-  Result := po;
 end;
 
 function TI2CBus.ReadByte(aAddress: TI2CAddress): Byte;
@@ -613,7 +588,6 @@ begin
   else
     aLen := 0;
 end;
-
 
 { TI2CLinuxDevice }
 
