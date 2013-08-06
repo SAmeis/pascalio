@@ -30,6 +30,9 @@ uses
 resourcestring
   sI2CSlaveAddress = 'Could not set slave address.';
   sI2CWrite = 'Could not write to I2C bus.';
+  rsBufferNotSet = 'Buffer not set';
+  rsBufferToLarge = 'Buffer to large. Must be 1 byte.';
+  rsReadWriteBitSet = 'Read/Write bit is set in address.';
 
 type
   TI2CAddress = $02..$FE;
@@ -510,13 +513,15 @@ begin
   // Buffer has to be set.
   if (BufferLength <= low(TBufferLength))
   or (BufferLength > high(TBufferLength) then
-    raise EI2CQueueObjectInconsistency.Create('Buffer not set');
+    raise EI2CQueueObjectInconsistency.Create(rsBufferNotSet);
 
+  // can only read/write Bytes without command
   if (not UseCommand) and (BufferLength <> 1) then
-    raise EI2CQueueObjectInconsistency.Create('Buffer to large. Must be 1 byte.'); // can only read/write Bytes without command
+    raise EI2CQueueObjectInconsistency.Create(rsBufferToLarge);
 
+  // Read/Write bit set in address (may be corrected)
   if (Address and $01) = $01 then
-    raise EI2CQueueObjectInconsistency.Create('Read/Write bit set in address.') // Read/Write bit set in address (may be corrected)
+    raise EI2CQueueObjectInconsistency.Create(rsReadWriteBitSet);
 end;
 
 procedure TI2CQueueObject.WaitForWrite;
