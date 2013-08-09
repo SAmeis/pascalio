@@ -102,7 +102,9 @@ type
     property FatalException: TObject read fFatalException write fFatalException;
   end;
 
-  { TI2CBus }
+  { TI2CBus
+    Threadsafe i2c bus access
+  }
 
   TI2CBus = class(TThread)
   strict private
@@ -144,7 +146,9 @@ type
     property Bus: Longword read fBus;
   end;
 
-  { TI2CDevice }
+  { TI2CDevice
+    Non-Threadsafe i2c bus access
+  }
 
   TI2CDevice = class(TObject)
   strict private
@@ -168,6 +172,30 @@ type
     procedure WriteQWord(aRegister: TI2CRegister; const aQWord: QWord); inline;
 
     property Address: TI2CAddress read fAddress write fAddress;
+  end;
+
+  { TI2CThreadSaveDevice
+    Thread save proxy using TI2CBus; don't implemnt a bus which uses this
+    proxy class!
+  }
+
+  TI2CThreadSaveDevice = class(TI2CDevice)
+  strict private
+    fBus: TI2CBus;
+  public
+    constructor Create(aAddress: TI2CAddress; aBus: TI2CBus);
+    procedure ReadBlockData(aRegister: TI2CRegister; var aBuffer;
+      aCount: SizeInt); override;
+    function ReadByte: Byte; override;
+    function ReadRegByte(aRegister: TI2CRegister): Byte; override;
+    function ReadRegWord(aRegsiter: TI2CRegister): Word; override;
+    procedure WriteBlockData(aRegister: TI2CRegister; const Buffer;
+      aCount: SizeInt); override;
+    procedure WriteByte(aByte: Byte); override;
+    procedure WriteRegByte(aRegister: TI2CRegister; aByte: Byte); override;
+    procedure WriteRegWord(aRegister: TI2CRegister; aWord: Word); override;
+
+    property Bus: TI2CBus read fBus;
   end;
 
   { TI2CLinuxDevice
@@ -210,6 +238,58 @@ type
   end;
 
 implementation
+
+{ TI2CThreadSaveDevice }
+
+constructor TI2CThreadSaveDevice.Create(aAddress: TI2CAddress; aBus: TI2CBus);
+begin
+  inherited Create(aAddress);
+  fBus := aBus;
+end;
+
+procedure TI2CThreadSaveDevice.ReadBlockData(aRegister: TI2CRegister;
+  var aBuffer; aCount: SizeInt);
+begin
+  fBus.ReadBlockData(Address, aRegister, aBuffer, aCount);
+end;
+
+function TI2CThreadSaveDevice.ReadByte: Byte;
+begin
+  Result := fBus.ReadByte(Address);
+end;
+
+function TI2CThreadSaveDevice.ReadRegByte(aRegister: TI2CRegister): Byte;
+begin
+  Result := fBus.ReadRegByte(Address, aRegister);
+end;
+
+function TI2CThreadSaveDevice.ReadRegWord(aRegsiter: TI2CRegister): Word;
+begin
+  Result := fBus.ReadRegWord(Address, aRegister);
+end;
+
+procedure TI2CThreadSaveDevice.WriteBlockData(aRegister: TI2CRegister;
+  const Buffer; aCount: SizeInt);
+begin
+  fBus.WriteBlockData(Address, aRegister, Buffer, aCount);
+end;
+
+procedure TI2CThreadSaveDevice.WriteByte(aByte: Byte);
+begin
+  fBus.WriteByte(Address, aByte);
+end;
+
+procedure TI2CThreadSaveDevice.WriteRegByte(aRegister: TI2CRegister; aByte: Byte
+  );
+begin
+  fBus.WriteRegByte(Address, aRegister, aByte);
+end;
+
+procedure TI2CThreadSaveDevice.WriteRegWord(aRegister: TI2CRegister; aWord: Word
+  );
+begin
+  fBus.WriteRegWord(Address, aRegister, aWord);
+end;
 
 { TI2CLinuxBus }
 
