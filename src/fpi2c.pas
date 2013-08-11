@@ -153,7 +153,10 @@ type
   TI2CDevice = class(TObject)
   strict private
     fAddress: TI2CAddress;
+  protected
+    procedure SetAddress(aValue: TI2CAddress); inline; virtual;
   public
+    // doesnot call SetAddress(), because class may not be full instantiated
     constructor Create(aAddress: TI2CAddress); virtual;
     function ReadByte: Byte; virtual; abstract;
     procedure WriteByte(aByte: Byte); virtual; abstract;
@@ -171,7 +174,7 @@ type
     procedure WriteLongWord(aRegsiter: TI2CRegister; aLongWord: Longword); inline;
     procedure WriteQWord(aRegister: TI2CRegister; const aQWord: QWord); inline;
 
-    property Address: TI2CAddress read fAddress write fAddress;
+    property Address: TI2CAddress read fAddress write SetAddress;
   end;
 
   { TI2CThreadSaveDevice
@@ -208,7 +211,7 @@ type
   TI2CLinuxDevice = class(TI2CDevice)
   protected
     fHandle: cint;
-    procedure SetSlaveAddress; inline;
+    procedure SetAddress(aValue: TI2CAddress); inline; override;
   public
     constructor Create(aAddress: TI2CAddress; aBusID: Longword);
     function ReadBlockData(aRegister: TI2CRegister; var aBuffer;
@@ -310,7 +313,7 @@ begin
   try
     aObj.CheckConsistency;
 
-    aObj.Address := aObj.Address;
+    fDevice.Address := aObj.Address;
     if aObj.UseCommand then
     begin
       if aObj.Read then
@@ -676,9 +679,10 @@ end;
 
 { TI2CLinuxDevice }
 
-procedure TI2CLinuxDevice.SetSlaveAddress;
+procedure TI2CLinuxDevice.SetAddress(aValue: TI2CAddress);
 begin
-  if FpIOCtl(Handle, I2C_SLAVE, Pointer(Address)) < 0 then
+  inherited SetAddress(aValue);
+  if FpIOCtl(Handle, I2C_SLAVE, Pointer(aValue)) < 0 then
     RaiseLastOSError;
 end;
 
@@ -693,6 +697,7 @@ begin
   fHandle := FpOpen(f, O_RDWR);
   if fHandle < 0 then
     raise EFOpenError.CreateFmt(SFOpenError, [f]);
+  Address := aAddress;
 end;
 
 function TI2CLinuxDevice.ReadBlockData(aRegister: TI2CRegister; var aBuffer;
@@ -798,6 +803,11 @@ end;
 
 
 { TI2CDevice }
+
+procedure TI2CDevice.SetAddress(aValue: TI2CAddress);
+begin
+  fAddress := aValue;
+end;
 
 constructor TI2CDevice.Create(aAddress: TI2CAddress);
 begin
