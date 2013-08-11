@@ -161,7 +161,7 @@ type
     function ReadByte: Byte; virtual; abstract;
     procedure WriteByte(aByte: Byte); virtual; abstract;
     function ReadRegByte(aRegister: TI2CRegister): Byte; virtual; abstract;
-    function ReadRegWord(aRegsiter: TI2CRegister): Word; virtual; abstract;
+    function ReadRegWord(aRegister: TI2CRegister): Word; virtual; abstract;
     procedure WriteRegByte(aRegister: TI2CRegister; aByte: Byte); virtual; abstract;
     procedure WriteRegWord(aRegister: TI2CRegister; aWord: Word); virtual; abstract;
     procedure ReadBlockData(aRegister: TI2CRegister; var aBuffer; aCount: SizeInt); virtual; abstract;
@@ -191,7 +191,7 @@ type
       aCount: SizeInt); override;
     function ReadByte: Byte; override;
     function ReadRegByte(aRegister: TI2CRegister): Byte; override;
-    function ReadRegWord(aRegsiter: TI2CRegister): Word; override;
+    function ReadRegWord(aRegister: TI2CRegister): Word; override;
     procedure WriteBlockData(aRegister: TI2CRegister; const Buffer;
       aCount: SizeInt); override;
     procedure WriteByte(aByte: Byte); override;
@@ -218,7 +218,7 @@ type
       aCount: SizeInt): SizeInt;
     function ReadByte: Byte; override;
     function ReadRegByte(aRegister: TI2CRegister): Byte; override;
-    function ReadRegWord(aRegsiter: TI2CRegister): Word; override;
+    function ReadRegWord(aRegister: TI2CRegister): Word; override;
     procedure WriteByte(aByte: Byte); override;
     procedure WriteBlockData(aRegister: TI2CRegister; const Buffer; aCount: SizeInt
       ); override;
@@ -266,7 +266,7 @@ begin
   Result := fBus.ReadRegByte(Address, aRegister);
 end;
 
-function TI2CThreadSaveDevice.ReadRegWord(aRegsiter: TI2CRegister): Word;
+function TI2CThreadSaveDevice.ReadRegWord(aRegister: TI2CRegister): Word;
 begin
   Result := fBus.ReadRegWord(Address, aRegister);
 end;
@@ -747,11 +747,11 @@ begin
     RaiseLastOSError;
 end;
 
-function TI2CLinuxDevice.ReadRegWord(aRegsiter: TI2CRegister): Word;
+function TI2CLinuxDevice.ReadRegWord(aRegister: TI2CRegister): Word;
 var
   r: LongInt;
 begin
-  r := i2c_smbus_read_word_data(Handle, aRegsiter);
+  r := i2c_smbus_read_word_data(Handle, aRegister);
   if r > 0 then
     exit(r)
   else
