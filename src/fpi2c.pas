@@ -319,11 +319,11 @@ begin
       if aObj.Read then
         case aObj.BufferLength of
           1: begin
-            b[0] .0 fDevice.ReadRegByte(aObj.Command);
+            b[0] := fDevice.ReadRegByte(aObj.Command);
             aObj.SetResultBuffer(b[0], SizeOf(b[0]));
           end;
           2: begin
-            PWord(b[0])^ := fDevice.ReadRegWord(aObj.Command);
+            PWord(@b[0])^ := fDevice.ReadRegWord(aObj.Command);
             aObj.SetResultBuffer(b[0], SizeOf(Word));
           end;
         else
@@ -601,7 +601,7 @@ begin
 
   // Buffer has to be set.
   if (BufferLength <= low(TBufferLength))
-  or (BufferLength > high(TBufferLength) then
+  or (BufferLength > high(TBufferLength)) then
     raise EI2CQueueObjectInconsistency.Create(rsBufferNotSet);
 
   // can only read/write Bytes without command
