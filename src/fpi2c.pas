@@ -186,7 +186,7 @@ type
   strict private
     fBus: TI2CBus;
   public
-    constructor Create(aAddress: TI2CAddress; aBus: TI2CBus);
+    constructor Create(aAddress: TI2CAddress; aBus: TI2CBus); reintroduce;
     procedure ReadBlockData(aRegister: TI2CRegister; var aBuffer;
       aCount: SizeInt); override;
     function ReadByte: Byte; override;
@@ -213,9 +213,9 @@ type
     fHandle: cint;
     procedure SetAddress(aValue: TI2CAddress); override;
   public
-    constructor Create(aAddress: TI2CAddress; aBusID: Longword);
+    constructor Create(aAddress: TI2CAddress; aBusID: Longword); reintroduce;
     function ReadBlockData(aRegister: TI2CRegister; var aBuffer;
-      aCount: SizeInt): SizeInt;
+      aCount: SizeInt): SizeInt; override;
     function ReadByte: Byte; override;
     function ReadRegByte(aRegister: TI2CRegister): Byte; override;
     function ReadRegWord(aRegister: TI2CRegister): Word; override;
@@ -234,9 +234,9 @@ type
   private
     fDevice: TI2CLinuxDevice;
   protected
-    constructor Create(aBus: Longword); override;
     procedure ProcessObject(aObj: TI2CQueueObject); override;
   public
+    constructor Create(aBus: Longword); override;
     property Device: TI2CLinuxDevice read fDevice;
   end;
 
@@ -299,7 +299,7 @@ end;
 constructor TI2CLinuxBus.Create(aBus: Longword);
 begin
   inherited Create(aBus);
-  fDevice := TI2CLinuxDevice.Create($00, aBus);
+  fDevice := TI2CLinuxDevice.Create($02, aBus);
 end;
 
 procedure TI2CLinuxBus.ProcessObject(aObj: TI2CQueueObject);
@@ -318,8 +318,14 @@ begin
     begin
       if aObj.Read then
         case aObj.BufferLength of
-          1: aObj.ByteValue := fDevice.ReadRegByte(aObj.Command)
-          2: aObj.WordValue := fDevice.ReadRegWord(aObj.Command);
+          1: begin
+            b[0] .0 fDevice.ReadRegByte(aObj.Command);
+            aObj.SetResultBuffer(b[0], SizeOf(b[0]));
+          end;
+          2: begin
+            PWord(b[0])^ := fDevice.ReadRegWord(aObj.Command);
+            aObj.SetResultBuffer(b[0], SizeOf(Word));
+          end;
         else
           i := fDevice.ReadBlockData(aObj.Command, b[0], aObj.BufferLength);
           if i = -1 then
