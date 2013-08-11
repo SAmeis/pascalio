@@ -214,8 +214,8 @@ type
     procedure SetAddress(aValue: TI2CAddress); override;
   public
     constructor Create(aAddress: TI2CAddress; aBusID: Longword); reintroduce;
-    function ReadBlockData(aRegister: TI2CRegister; var aBuffer;
-      aCount: SizeInt): SizeInt; override;
+    procedure ReadBlockData(aRegister: TI2CRegister; var aBuffer;
+      aCount: SizeInt); override;
     function ReadByte: Byte; override;
     function ReadRegByte(aRegister: TI2CRegister): Byte; override;
     function ReadRegWord(aRegister: TI2CRegister): Word; override;
@@ -706,11 +706,12 @@ begin
   Address := aAddress;
 end;
 
-function TI2CLinuxDevice.ReadBlockData(aRegister: TI2CRegister; var aBuffer;
-  aCount: SizeInt): SizeInt;
+procedure TI2CLinuxDevice.ReadBlockData(aRegister: TI2CRegister; var aBuffer;
+  aCount: SizeInt);
 var
   b: TI2C_SMBUS_VALUES;
   cc: SizeInt;
+  r: SizeInt;
 begin
   if aCount >= 32 then
   begin
@@ -720,13 +721,14 @@ begin
   else
   begin
     // reading up to 32 bytes and return the first aCount bytes
-    Result := 0; // 0 bytes read
-    Result := i2c_smbus_read_block_data(Handle, aRegister, @b[0]);
-    if Result = -1 then exit;
-    if aCount < Result then
+    r := 0; // 0 bytes read
+    r := i2c_smbus_read_block_data(Handle, aRegister, @b[0]);
+    if r = -1 then
+      RaiseLastOSError;
+    if aCount < r then
       cc := aCount
     else
-      cc := Result;
+      cc := r;
     move(b[0], aBuffer, cc);
   end;
 end;
