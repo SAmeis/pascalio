@@ -154,7 +154,7 @@ type
   strict private
     fAddress: TI2CAddress;
   protected
-    procedure SetAddress(aValue: TI2CAddress); inline; virtual;
+    procedure SetAddress(aValue: TI2CAddress); virtual;
   public
     // doesnot call SetAddress(), because class may not be full instantiated
     constructor Create(aAddress: TI2CAddress); virtual;
@@ -211,7 +211,7 @@ type
   TI2CLinuxDevice = class(TI2CDevice)
   protected
     fHandle: cint;
-    procedure SetAddress(aValue: TI2CAddress); inline; override;
+    procedure SetAddress(aValue: TI2CAddress); override;
   public
     constructor Create(aAddress: TI2CAddress; aBusID: Longword);
     function ReadBlockData(aRegister: TI2CRegister; var aBuffer;
