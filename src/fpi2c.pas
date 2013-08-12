@@ -74,17 +74,17 @@ type
 
     // buffer manipulation
     // requested amount of bytes to read
-    procedure SetReadBufferLength(aLen: TBufferLength);
+    procedure SetReadBufferLength(aLen: SizeInt);
     // data to be written
-    procedure SetWriteBuffer(const aBuf; aLen: TBufferLength);
+    procedure SetWriteBuffer(const aBuf; aLen: SizeInt);
     // actual data read
-    procedure SetResultBuffer(const aBuf; aLen: TBufferLength);
+    procedure SetResultBuffer(const aBuf; aLen: SizeInt);
     // reading result buffer
     // waits until data is available
     // rises FatalException if assigned
-    procedure GetResultBuffer(var aBuf; aLen: TBufferLength);
+    function GetResultBuffer(var aBuf; aLen: SizeInt): SizeInt;
     // get the buffer for writing
-    procedure GetWriteBuffer(var aBuf; aMaxLen: TBufferLength; out aLen: TBufferLength);
+    procedure GetWriteBuffer(var aBuf; aMaxLen: SizeInt; out aLen: TBufferLength);
     // this is RO, change buffer length via SetWriteBuffer() or SetReadBufferLength()
     property BufferLength: Byte read fBufLen;
 
@@ -131,10 +131,10 @@ type
     function ReadByte(aAddress: TI2CAddress): Byte;
     procedure WriteByte(aAddress: TI2CAddress; aByte: Byte);
     function ReadRegByte(aAddress: TI2CAddress; aRegister: TI2CRegister): Byte;
-    function ReadRegWord(aAddress: TI2CAddress; aRegsiter: TI2CRegister): Word;
+    function ReadRegWord(aAddress: TI2CAddress; aRegister: TI2CRegister): Word;
     procedure WriteRegByte(aAddress: TI2CAddress; aRegister: TI2CRegister; aByte: Byte);
     procedure WriteRegWord(aAddress: TI2CAddress; aRegister: TI2CRegister; aWord: Word);
-    procedure ReadBlockData(aAddress: TI2CAddress; aRegister: TI2CRegister; var aBuffer; aCount: SizeInt);
+    function ReadBlockData(aAddress: TI2CAddress; aRegister: TI2CRegister; var aBuffer; aCount: SizeInt): SizeInt;
     procedure WriteBlockData(aAddress: TI2CAddress; aRegister: TI2CRegister; const Buffer; aCount: SizeInt);
 
     (* not supported so far
@@ -164,15 +164,9 @@ type
     function ReadRegWord(aRegister: TI2CRegister): Word; virtual; abstract;
     procedure WriteRegByte(aRegister: TI2CRegister; aByte: Byte); virtual; abstract;
     procedure WriteRegWord(aRegister: TI2CRegister; aWord: Word); virtual; abstract;
-    procedure ReadBlockData(aRegister: TI2CRegister; var aBuffer; aCount: SizeInt); virtual; abstract;
+    function ReadBlockData(aRegister: TI2CRegister; var aBuffer;
+      aCount: SizeInt): SizeInt; virtual; abstract;
     procedure WriteBlockData(aRegister: TI2CRegister; const Buffer; aCount: SizeInt); virtual; abstract;
-
-    // convenicence methods
-    // do we need the first two?
-    procedure WriteByte(aRegister: TI2CRegister; aByte: Byte); inline;
-    procedure WriteWord(aRegister: TI2CRegister; aWord: Word);  inline;
-    procedure WriteLongWord(aRegsiter: TI2CRegister; aLongWord: Longword); inline;
-    procedure WriteQWord(aRegister: TI2CRegister; const aQWord: QWord); inline;
 
     property Address: TI2CAddress read fAddress write SetAddress;
   end;
@@ -187,8 +181,8 @@ type
     fBus: TI2CBus;
   public
     constructor Create(aAddress: TI2CAddress; aBus: TI2CBus); reintroduce;
-    procedure ReadBlockData(aRegister: TI2CRegister; var aBuffer;
-      aCount: SizeInt); override;
+    function ReadBlockData(aRegister: TI2CRegister; var aBuffer;
+      aCount: SizeInt): SizeInt; override;
     function ReadByte: Byte; override;
     function ReadRegByte(aRegister: TI2CRegister): Byte; override;
     function ReadRegWord(aRegister: TI2CRegister): Word; override;
@@ -214,8 +208,8 @@ type
     procedure SetAddress(aValue: TI2CAddress); override;
   public
     constructor Create(aAddress: TI2CAddress; aBusID: Longword); reintroduce;
-    procedure ReadBlockData(aRegister: TI2CRegister; var aBuffer;
-      aCount: SizeInt); override;
+    function ReadBlockData(aRegister: TI2CRegister; var aBuffer;
+      aCount: SizeInt): SizeInt; override;
     function ReadByte: Byte; override;
     function ReadRegByte(aRegister: TI2CRegister): Byte; override;
     function ReadRegWord(aRegister: TI2CRegister): Word; override;
@@ -250,10 +244,10 @@ begin
   fBus := aBus;
 end;
 
-procedure TI2CThreadSaveDevice.ReadBlockData(aRegister: TI2CRegister;
-  var aBuffer; aCount: SizeInt);
+function TI2CThreadSaveDevice.ReadBlockData(aRegister: TI2CRegister;
+  var aBuffer; aCount: SizeInt): SizeInt;
 begin
-  fBus.ReadBlockData(Address, aRegister, aBuffer, aCount);
+  Result := fBus.ReadBlockData(Address, aRegister, aBuffer, aCount);
 end;
 
 function TI2CThreadSaveDevice.ReadByte: Byte;
@@ -304,10 +298,11 @@ end;
 
 procedure TI2CLinuxBus.ProcessObject(aObj: TI2CQueueObject);
 var
-  bbuf: Byte;
-  wbuf: Word;
   b: array[aobj.TBufferLength] of Byte;
-  i: SizeInt;
+  bbuf: Byte absolute b;
+  wbuf: Word absolute b;
+  i: TI2CQueueObject.TBufferLength;
+  s: SizeInt;
 begin
   if not Assigned(fDevice) then exit;
   try
@@ -319,19 +314,19 @@ begin
       if aObj.Read then
         case aObj.BufferLength of
           1: begin
-            b[0] := fDevice.ReadRegByte(aObj.Command);
-            aObj.SetResultBuffer(b[0], SizeOf(b[0]));
+            bbuf := fDevice.ReadRegByte(aObj.Command);
+            aObj.SetResultBuffer(bbuf, SizeOf(bbuf));
           end;
           2: begin
-            PWord(@b[0])^ := fDevice.ReadRegWord(aObj.Command);
-            aObj.SetResultBuffer(b[0], SizeOf(Word));
+            wbuf := fDevice.ReadRegWord(aObj.Command);
+            aObj.SetResultBuffer(wbuf, SizeOf(wbuf));
           end;
         else
-          i := fDevice.ReadBlockData(aObj.Command, b[0], aObj.BufferLength);
-          if i = -1 then
-            aObj.SetResultBuffer(b[0], 0)
+          s := fDevice.ReadBlockData(aObj.Command, b[0], aObj.BufferLength);
+          if s = -1 then
+            RaiseLastOSError
           else
-            aObj.SetResultBuffer(b[0], i);
+            aObj.SetResultBuffer(b[0], s);
         end
       else // aObj.Read = FALSE
         case aObj.BufferLength of
@@ -378,7 +373,7 @@ begin
       aObj.FatalException := e;
       // set events for waiting thread
       aObj.SetDataWritten;
-      aobj.SetBuffer(b[0], 0);
+      aobj.SetResultBuffer(b[0], 0);
     end;
   end;
 end;
@@ -408,7 +403,7 @@ var
   co: TI2CQueueObject;
 begin
   repeat
-    co := fQueue.pop;
+    co := TI2CQueueObject(fQueue.pop);
     if co <> nil then
     begin
       // do the work
@@ -481,7 +476,7 @@ begin
   end;
 end;
 
-function TI2CBus.ReadRegWord(aAddress: TI2CAddress; aRegsiter: TI2CRegister
+function TI2CBus.ReadRegWord(aAddress: TI2CAddress; aRegister: TI2CRegister
   ): Word;
 var
   o: TI2CQueueObject;
@@ -535,8 +530,8 @@ begin
   end;
 end;
 
-procedure TI2CBus.ReadBlockData(aAddress: TI2CAddress; aRegister: TI2CRegister;
-  var aBuffer; aCount: SizeInt);
+function TI2CBus.ReadBlockData(aAddress: TI2CAddress; aRegister: TI2CRegister;
+  var aBuffer; aCount: SizeInt): SizeInt;
 var
   o: TI2CQueueObject;
 begin
@@ -548,6 +543,7 @@ begin
 
   try
     o.GetResultBuffer(aBuffer, aCount);
+    Result := o.BufferLength;
   finally
     FreeAndNil(o);
   end;
@@ -625,35 +621,35 @@ begin
   RTLeventSetEvent(fWriteEvent);
 end;
 
-procedure TI2CQueueObject.SetReadBufferLength(aLen: TBufferLength);
+procedure TI2CQueueObject.SetReadBufferLength(aLen: SizeInt);
 begin
   fBufLen := aLen;
   fRead := True;
 end;
 
-procedure TI2CQueueObject.SetWriteBuffer(const aBuf; aLen: TBufferLength);
+procedure TI2CQueueObject.SetWriteBuffer(const aBuf; aLen: SizeInt);
 begin
   if aLen < length(fBuffer) then
     fBufLen := aLen
   else
     fBufLen := Length(fBuffer);
 
-  move(aBuf, fBuffer[0], ByteCount);
+  move(aBuf, fBuffer[0], fBufLen);
   fRead := False;
 end;
 
-procedure TI2CQueueObject.SetResultBuffer(const aBuf; aLen: TBufferLength);
+procedure TI2CQueueObject.SetResultBuffer(const aBuf; aLen: SizeInt);
 begin
   if aLen < length(fBuffer) then
     fBufLen := aLen
   else
     fBufLen := Length(fBuffer);
 
-  move(aBuf, fBuffer[0], ByteCount);
+  move(aBuf, fBuffer[0], fBufLen);
   RTLeventSetEvent(fReadyEvent);
 end;
 
-procedure TI2CQueueObject.GetResultBuffer(var aBuf; aLen: TBufferLength);
+function TI2CQueueObject.GetResultBuffer(var aBuf; aLen: SizeInt): SizeInt;
 begin
   // result buffer only set for reading requests
   if not Read then exit;
@@ -663,12 +659,14 @@ begin
     raise FatalException;
 
   if alen <= fBufLen then
-    move(fBuffer[0], aBuf, aLen)
+    Result := aLen
   else
-    move(fBuffer[0], aBuf, fBufLen);
+    Result := fBufLen;
+
+  move(fBuffer[0], aBuf, Result);
 end;
 
-procedure TI2CQueueObject.GetWriteBuffer(var aBuf; aMaxLen: TBufferLength; out
+procedure TI2CQueueObject.GetWriteBuffer(var aBuf; aMaxLen: SizeInt; out
   aLen: TBufferLength);
 begin
   if not Read then
@@ -706,12 +704,11 @@ begin
   Address := aAddress;
 end;
 
-procedure TI2CLinuxDevice.ReadBlockData(aRegister: TI2CRegister; var aBuffer;
-  aCount: SizeInt);
+function TI2CLinuxDevice.ReadBlockData(aRegister: TI2CRegister; var aBuffer;
+  aCount: SizeInt): SizeInt;
 var
   b: TI2C_SMBUS_VALUES;
   cc: SizeInt;
-  r: SizeInt;
 begin
   if aCount >= 32 then
   begin
@@ -721,14 +718,14 @@ begin
   else
   begin
     // reading up to 32 bytes and return the first aCount bytes
-    r := 0; // 0 bytes read
-    r := i2c_smbus_read_block_data(Handle, aRegister, @b[0]);
-    if r = -1 then
+    Result := 0; // 0 bytes read
+    Result := i2c_smbus_read_block_data(Handle, aRegister, @b[0]);
+    if Result = -1 then
       RaiseLastOSError;
-    if aCount < r then
+    if aCount < Result then
       cc := aCount
     else
-      cc := r;
+      cc := Result;
     move(b[0], aBuffer, cc);
   end;
 end;
@@ -820,36 +817,6 @@ end;
 constructor TI2CDevice.Create(aAddress: TI2CAddress);
 begin
   fAddress := aAddress;
-end;
-
-procedure TI2CDevice.WriteByte(aRegister: TI2CRegister; aByte: Byte);
-begin
-  WriteData(aRegister, aByte, sizeof(aByte));
-end;
-
-procedure TI2CDevice.WriteWord(aRegister: TI2CRegister; aWord: Word);
-var
-  b: Word;
-begin
-  b := NtoBE(aWord);
-  WriteData(aRegister, b, SizeOf(b));
-end;
-
-procedure TI2CDevice.WriteLongWord(aRegsiter: TI2CRegister; aLongWord: Longword
-  );
-var
-  lw: DWord;
-begin
-  lw := NToBE(aLongWord);
-  WriteData(aRegsiter, lw, Sizeof(lw));
-end;
-
-procedure TI2CDevice.WriteQWord(aRegister: TI2CRegister; const aQWord: QWord);
-var
-  qw: QWord;
-begin
-  qw := NToBE(aQWord);
-  WriteData(aRegister, qw, sizeof(qw));
 end;
 
 end.

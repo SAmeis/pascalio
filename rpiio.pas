@@ -2,13 +2,13 @@
   This source is only used to compile and install the package.
  }
 
-unit rpiio; 
+unit rpiio;
 
 interface
 
 uses
-    i2c_dev, spidev, fpspi, fpspilib, fpadc, fpgpio, fpi2c, gpioexp, mcp23017, 
-  bitmanip, bcm2708;
+  i2c_dev, spidev, fpspi, fpspilib, fpadc, fpgpio, fpi2c, gpioexp, mcp23017, 
+  bitmanip, bcm2708, flqueue;
 
 implementation
 
