@@ -249,7 +249,7 @@ begin
   SetLength(fPins, Count);
   if Count > 0 then
   begin
-    FillByte(fPins, SizeOf(fPins[0]) * Length(fPins), 0);
+    FillByte(fPins[0], SizeOf(fPins[0]) * Length(fPins), 0);
     for i := Low(fPins) to High(fPins) do
       fPins[i] := TGpioControlledPin.Create(self, i);
   end;
@@ -567,7 +567,7 @@ begin
     s := '1'
   else
     s := '0';
-  f := format(GPIO_LINUX_GPIOPIN_DIR, [PinID]);
+  f := format(VALUE_FILE, [PinID]);
   WriteToFile(f, s);
 end;
 
