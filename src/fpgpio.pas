@@ -247,9 +247,9 @@ var
   i: Integer;
 begin
   SetLength(fPins, Count);
-  if Count > 0 then
+  if Length(fPins) > 0 then
   begin
-    FillByte(fPins, SizeOf(fPins[0]) * Length(fPins), 0);
+    FillByte(fPins[0], SizeOf(fPins[0]) * Length(fPins), 0);
     for i := Low(fPins) to High(fPins) do
       fPins[i] := TGpioControlledPin.Create(self, i);
   end;
@@ -670,4 +670,4 @@ begin
 end;
 
 end.
-
+
