@@ -55,7 +55,7 @@ begin
   i2cdev := nil;
   controller := nil;
   try
-    i2cdev := TI2CLinuxDevice.Create($40, 1);
+    i2cdev := TI2CLinuxDevice.Create($20, 1);
     controller := TMCP23017.Create(i2cdev);
     // retriving a pin causes an access violation
     p33 := controller.Pins[7];
@@ -63,17 +63,17 @@ begin
     led := controller.Pins[8];
     p33.Direction := gdIn;
     pgnd.Direction := gdIn;
-//    led.Direction := gdOut;
+    led.Direction := gdOut;
 
     Writeln('p33.value ',p33.Value);
     Writeln('pgnd.value ', pgnd.Value);
-(*    for i := 0 to 6 do
+    for i := 0 to 6 do
     begin
       led.value := True;
       sleep(1000);
       led.value := False;
       sleep(1000);
-    end;*)
+    end;
   except
     on e: Exception do
     begin
