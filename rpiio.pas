@@ -8,7 +8,7 @@ interface
 
 uses
     i2c_dev, spidev, fpspi, fpspilib, fpadc, fpgpio, fpi2c, gpioexp, mcp23017, 
-  bitmanip, bcm2708;
+  bitmanip, bcm2708, flqueue;
 
 implementation
 
