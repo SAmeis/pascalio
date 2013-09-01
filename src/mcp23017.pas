@@ -255,8 +255,8 @@ begin
   Create;
   fI2CDevice := aI2CDevice;
   // check if invalid address bits are set
-  if (fI2CDevice.Address and %10110001) <> 0 then
-    raise EInvalidMCP23X17Address.CreateFmt(sInvalidAddress, [fI2CDevice.Address]);
+//  if (fI2CDevice.Address and %10110001) <> 0 then
+//    raise EInvalidMCP23X17Address.CreateFmt(sInvalidAddress, [fI2CDevice.Address]);
 
   fI2CDevice := aI2CDevice;
   OwnsDevice := aOwnsDevice;
@@ -464,4 +464,4 @@ begin
 end;
 
 end.
-
+
