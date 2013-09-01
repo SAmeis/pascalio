@@ -253,7 +253,7 @@ constructor TMCP23017Controller.Create(aI2CDevice: TI2CDevice;
   aOwnsDevice: Boolean);
 begin
   Create;
-
+  fI2CDevice := aI2CDevice;
   // check if invalid address bits are set
   if (fI2CDevice.Address and %10110001) <> 0 then
     raise EInvalidMCP23X17Address.CreateFmt(sInvalidAddress, [fI2CDevice.Address]);
