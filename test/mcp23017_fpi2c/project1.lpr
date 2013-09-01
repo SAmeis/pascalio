@@ -52,29 +52,42 @@ var
   led, p33, pgnd: TGpioPin;
   i: Integer;
 begin
-  i2cdev := TI2CLinuxDevice.Create($40, 1);
-  controller := TMCP23017.Create(i2cdev);
+  i2cdev := nil;
+  controller := nil;
   try
+    i2cdev := TI2CLinuxDevice.Create($40, 1);
+    controller := TMCP23017.Create(i2cdev);
+    // retriving a pin causes an access violation
     p33 := controller.Pins[7];
     pgnd := controller.Pins[6];
     led := controller.Pins[8];
     p33.Direction := gdIn;
     pgnd.Direction := gdIn;
-    led.Direction := gdOut;
+//    led.Direction := gdOut;
 
     Writeln('p33.value ',p33.Value);
     Writeln('pgnd.value ', pgnd.Value);
-    for i := 0 to 6 do
+(*    for i := 0 to 6 do
     begin
       led.value := True;
       sleep(1000);
       led.value := False;
       sleep(1000);
+    end;*)
+  except
+    on e: Exception do
+    begin
+      writeln('Exception ', e.ClassName, ' at ',hexstr(ExceptAddr),': ', e.Message);
+      writeln(BackTraceStrFunc(ExceptAddr));
+      if ExceptFrameCount > 0 then
+      begin
+        for i := 0 to ExceptFrameCount - 1 do
+          Writeln(BackTraceStrFunc(ExceptFrames[i]));
+      end;
     end;
-  finally
-    controller.Destroy;
-    i2cdev.destroy;
   end;
-  writeln('shutd down');
+  controller.Free;
+  i2cdev.Free;
+  writeln('shut down');
 end.
 
