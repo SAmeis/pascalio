@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -43,8 +43,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="57"/>
-        <CursorPos X="42" Y="77"/>
+        <TopLine Value="66"/>
+        <CursorPos X="62" Y="78"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -63,13 +63,13 @@
         <UnitName Value="i2c_dev"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
+        <TopLine Value="35"/>
+        <CursorPos X="3" Y="28"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit2>
     </Units>
-    <JumpHistory Count="7" HistoryIndex="6">
+    <JumpHistory Count="9" HistoryIndex="8">
       <Position1>
         <Filename Value="project2.lpr"/>
         <Caret Line="6" Column="13" TopLine="1"/>
@@ -98,6 +98,14 @@
         <Filename Value="project2.lpr"/>
         <Caret Line="6" Column="7" TopLine="1"/>
       </Position7>
+      <Position8>
+        <Filename Value="../../src/i2c_dev.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position8>
+      <Position9>
+        <Filename Value="project2.lpr"/>
+        <Caret Line="82" Column="27" TopLine="63"/>
+      </Position9>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -109,6 +117,10 @@
       <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <CodeGeneration>
+      <TargetCPU Value="arm"/>
+      <TargetOS Value="linux"/>
+    </CodeGeneration>
     <Other>
       <CompilerPath Value="$(CompPath)"/>
     </Other>

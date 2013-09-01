@@ -567,7 +567,7 @@ begin
     s := '1'
   else
     s := '0';
-  f := format(GPIO_LINUX_GPIOPIN_DIR, [PinID]);
+  f := format(VALUE_FILE, [PinID]);
   WriteToFile(f, s);
 end;
 
@@ -670,4 +670,4 @@ begin
 end;
 
 end.
-
+
