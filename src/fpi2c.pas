@@ -35,7 +35,7 @@ resourcestring
   rsReadWriteBitSet = 'Read/Write bit is set in address.';
 
 type
-  TI2CAddress = $02..$FE;
+  TI2CAddress = ptrint;
   TI2CRegister = Byte;
 
   EI2CQueueObjectInconsistency = class(Exception);
@@ -735,7 +735,7 @@ var
   r: LongInt;
 begin
   r := i2c_smbus_read_byte(Handle);
-  if r > 0 then
+  if r >= 0 then
     exit(r)
   else
     RaiseLastOSError;
@@ -746,7 +746,7 @@ var
   r: LongInt;
 begin
   r := i2c_smbus_read_byte_data(Handle, aRegister);
-  if r > 0 then
+  if r >= 0 then
     exit(r)
   else
     RaiseLastOSError;
@@ -757,7 +757,7 @@ var
   r: LongInt;
 begin
   r := i2c_smbus_read_word_data(Handle, aRegister);
-  if r > 0 then
+  if r >= 0 then
     exit(r)
   else
     RaiseLastOSError;
@@ -820,4 +820,4 @@ begin
 end;
 
 end.
-
+
