@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, fpspi, fpi2c;
 
 resourcestring
-  sInvalidAddress = 'Invalid address (%s)';
+  sInvalidAddress = 'Invalid address (0x%x)';
 const
   // first 4 bits are fixed
   // last bit is R/W bit
