@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<fpdoc-descriptions><package name="rpiio"><module name="spidev"><short>Translation of spidev.h</short><descr>This is a translation of the spidev.h header file of the Linux kernel. Unfortunatly the Free Pascal Compiler doesn't ship with a portable translation of some basic C macros which are essantial for the IoCtl system call. These macros and constans may move to another unit.</descr>
-    </module>
-  </package>
-</fpdoc-descriptions>
