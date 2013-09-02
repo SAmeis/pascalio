@@ -56,7 +56,9 @@
       <element name="TMCP23X17">
         <short>Generic Class for MCP23017 and MCP23018</short>
         <descr>This class is an 
+
 <link id="fpgpio.TGpioController">TGpioController</link> wrapper for 
+
 <link id="mcp23017.TMCP23X17Controller">TMCP23X17Controller</link>.</descr>
       </element>
       <element name="TMCP23X17.fmcp23X17">

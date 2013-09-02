@@ -33,9 +33,7 @@ If <var>delay</var> is greater than 0, <code>sleep(delay)</code> will be called.
         <descr>
           <var>True</var> indicates a change in 
           <link id="TGpioPin.Value"/>; the value is stored in 
-          <link id="TGpioPin.PollChange.value"/>.
-
-
+          <var>value</var>. 
           <var>False</var> indicates a timeout.</descr>
       </element>
       <element name="TGpioGroup">
@@ -144,16 +142,22 @@ A register type is converted to an address which an I/O expander can understand 
         <descr>Many external I/O expanders provide an interace which exposes the internal registers to the contoller. This base class provides an basic interface to these expanders.
 
 Setting and getting values basically operate on 3 methods:
+
 <ol>
             <li>
-              <link id="TGpioRegisterController.GetRegister">function GetRegister():</link> Getting the 
+              <link id="TGpioRegisterController.GetRegister">function GetRegister():</link> Getting the              
               
+    
               <link id="TRegisterAddress">adress of the register</link> and the 
               
+              
+    
               <link id="TPinPosition">position of the pin within this register</link>.</li>
             <li>
               <link id="TGpioRegisterController.GetRegisterValue">function GetRegisterValue():</link> Reading the current 
               
+              
+    
               <link id="TRegisterValue"/>.</li>
             <li>
               <link id="TGpioRegisterController.SetRegisterValue">procedure SetRegisterValue():</link> Setting the new value if desired.</li>
@@ -264,7 +268,7 @@ Regarding the Raspberry Pi, this is the BCM pin number, not the one of the conne
       <element name="TGpioLinuxPin.PinID">
         <short>The GPIO's ID in the Linux Kernel driver</short>
         <seealso>
-          <link id="TGpioLinuxPin.Create.aID"/>
+          <link id="TGpioLinuxPin.Create"/>
         </seealso>
       </element>
     </module>

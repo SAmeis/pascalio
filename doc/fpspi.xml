@@ -50,8 +50,8 @@ The version accepting a <link id="TSPI_IOC_Transfer_Array"/> passes the argument
         <short>File name of the device</short>
         <descr>Returns the file name of the device.</descr>
         <seealso>
-          <link id="Bus"/>
-          <link id="ChipSelect"/>
+          <link id="TSPILinuxDevice.Bus"/>
+          <link id="TSPILinuxDevice.ChipSelect"/>
         </seealso>
       </element>
       <element name="TSPIDevice.Mode"/>
