@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fpdoc-descriptions>
-  <package name="rpiio">
+  <package name="pascalio">
     <module name="fpadc">
       <element name="TADConverter">
         <short>Abstract class for Analog/Digital Converters</short>

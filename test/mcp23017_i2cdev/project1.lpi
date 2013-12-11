@@ -36,7 +36,7 @@
         <PackageName Value="LCLBase"/>
       </Item1>
       <Item2>
-        <PackageName Value="rpiio"/>
+        <PackageName Value="pascalio"/>
       </Item2>
     </RequiredPackages>
     <Units Count="1">
