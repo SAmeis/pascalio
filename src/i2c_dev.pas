@@ -1,25 +1,33 @@
-(*
-    i2c-dev.h - i2c-bus driver, char device interface
+{ Port of Linux header file i2c-dev.h - i2c-bus driver, char device interface
 
-    Copyright (C) 1995-97 Simon G. Vogl
-    Copyright (C) 1998-99 Frodo Looijaard <frodol@dds.nl>
-    Copyright (C) 2013    Simon Ameis <simon.ameis@web.de> (ported to Pascal)
+  Copyright (C) 2013 Simon Ameis <simon.ameis@web.de>
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+  This library is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Library General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or (at your
+  option) any later version with the following modification:
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+  As a special exception, the copyright holders of this library give you
+  permission to link this library with independent modules to produce an
+  executable, regardless of the license terms of these independent modules,and
+  to copy and distribute the resulting executable under terms of your choice,
+  provided that you also meet, for each linked independent module, the terms
+  and conditions of the license of that module. An independent module is a
+  module which is not derived from or based on this library. If you modify
+  this library, you may extend this exception to your version of the library,
+  but you are not obligated to do so. If you do not wish to do so, delete this
+  exception statement from your version.
 
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-    MA 02110-1301 USA.
-*)
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
+  for more details.
+
+  You should have received a copy of the GNU Library General Public License
+  along with this library; if not, write to the Free Software Foundation,
+  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+}
+
 unit i2c_dev;
 
 interface
@@ -42,15 +50,13 @@ type
   Pi2c_msg = ^i2c_msg;
 
 const
-  I2C_M_TEN	= $10;	// we have a ten bit chip address	*/
+  I2C_M_TEN	= $10;
   I2C_M_RD	= $01;
   I2C_M_NOSTART	= $4000;
   I2C_M_REV_DIR_ADDR= $2000;
   I2C_M_IGNORE_NAK	= $1000;
   I2C_M_NO_RD_ACK		= $0800;
 
-
-(* To determine what functionality is present *)
 const
   I2C_FUNC_I2C			= $00000001;
   I2C_FUNC_10BIT_ADDR		= $00000002;
@@ -125,49 +131,28 @@ type
   {$PACKENUM DEFAULT}
 
 const
-(* ----- commands for the ioctl like i2c_command call:
- * note that additional calls are defined in the algorithm and hw
- *	dependent layers - these can be listed here, or see the
- *	corresponding header files.
- *)
-				// -> bit-adapter specific ioctls
-  I2C_RETRIES	= $0701;	// number of times a device address
-				                // should be polled when not
-                        // acknowledging
-  I2C_TIMEOUT	= $0702;	// set timeout - call with int
+  I2C_RETRIES     = $0701;
+  I2C_TIMEOUT     = $0702;
 
+  I2C_SLAVE       = $0703;
+  I2C_SLAVE_FORCE = $0706;
+  I2C_TENBIT      = $0704;
+  I2C_FUNCS       = $0705;
+  I2C_RDWR	      = $0707;
+  I2C_PEC         = $0708;
+  I2C_SMBUS       = $0720;
 
-(* this is for i2c-dev.c	*)
-  I2C_SLAVE	= $0703;	// Change slave address
-                      // Attn.: Slave address is 7 or 10 bits
-  I2C_SLAVE_FORCE	= $0706;	// Change slave address
-                            // Attn.: Slave address is 7 or 10 bits
-                            // This changes the address, even if it
-                            // is already taken!
-  I2C_TENBIT	= $0704;	// 0 for 7 bit addrs, != 0 for 10 bit
-
-  I2C_FUNCS	  = $0705;	// Get the adapter functionality
-  I2C_RDWR	  = $0707;	// Combined R/W transfer (one stop only)
-  I2C_PEC		  = $0708;	// != 0 for SMBus PEC
-
-  I2C_SMBUS	  = $0720;	// SMBus-level access
-
-(* -- i2c.h -- *)
-
-
-(* Note: 10-bit addresses are NOT supported! *)
-
-(* This is the structure as used in the I2C_SMBUS ioctl call *)
 type
+  // used for I2C_SMBUS ioctl call
   i2c_smbus_ioctl_data = record
     read_write: TI2C_SMBUS_RW_MODE;
     command: byte;
     size: TI2C_SMBUS_TRANSACTION;
-    data: ^i2c_smbus_data;  // was: untion i2c_smbus_data *data;
+    data: ^i2c_smbus_data;
   end;
   Pi2c_smbus_ioctl_data = ^i2c_smbus_ioctl_data;
 
-(* This is the structure as used in the I2C_RDWR ioctl call *)
+  // used for I2C_RDWR ioctl call
   i2c_rdwr_ioctl_data = record
     msgs: Pi2c_msg; // pointers to i2c_msgs
     nmsgs: cint; // number of i2c_msgs
