@@ -21,4 +21,11 @@ It is the easiest way to compile your applications on the target device (e.g. Ra
 ## Help?!
 If you need help check out the sample projects. You may ask in the [German Lazarus Forum](http://www.lazarusforum.de/) for help.
 
-If you want to help, donnot hesitate to create a patch, issue or pull request.
+If you want to help, don't hesitate to create a patch, issue or pull request.
+
+## ToDo
+
+- Create more examples and test cases
+- Draw each example in [Fritzig](http://fritzing.org/) and create circuit diagrams
+- Complete the Documentation
+- Spread the world
