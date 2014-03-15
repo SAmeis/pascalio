@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>TRegisterType</title>
+<link rel="stylesheet" href="../fpdoc.css" type="text/css">
+
+</head>
+<body>
+<table class="bar" width="100%" border="0" cellpadding="4" cellspacing="0">
+<tr>
+<td><b>[<a href="../fpgpio/index.html">Overview</a>][<a href="../fpgpio/index-1.html">Resource strings</a>][<a href="../fpgpio/index-2.html">Constants</a>][<a href="../fpgpio/index-3.html">Types</a>][<a href="../fpgpio/index-4.html">Classes</a>][<a href="../fpgpio/index-5.html">Procedures and functions</a>][<a href="../fpgpio/index-8.html">Index</a>]</b></td>
+<td align="right"><span class="bartitle">Reference for unit 'fpgpio' (<a href="../index.html">#pascalio</a>)</span></td>
+</tr>
+</table>
+<h1>TRegisterType</h1>
+<p>All register types a I/O expander might support</p>
+<h2>Declaration</h2>
+<p>Source position: fpgpio.pas line 160</p>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td><p><tt><span class="code"><span class="kw">type </span>TRegisterType<span class="sym"> = </span><span class="sym">(</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;rtValue<span class="sym">,</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;rtDirection<span class="sym">,</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;rtActiveLow<span class="sym">,</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;rtInterruptFlag<span class="sym">,</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;rtInterruptValue<span class="sym">,</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;rtIntEnable<span class="sym">,</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;rtIntDefVal<span class="sym">,</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;rtIntCtrl<span class="sym">,</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;rtPullup<span class="sym">,</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;rtPulldown</span></tt></p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code"><span class="sym">);</span></span></tt></p></td>
+</tr>
+</table>
+<h2>Description</h2>
+<p>This enumeration contains all possible types of registers an I/O expander might have. These types are named by usage. Thus a microcontroller may have seperate registers for setting and reading a GPIO pins value.  A register type is converted to an address which an I/O expander can understand within <a href="../fpgpio/tgpioregistercontroller.getregister.html">TGpioRegisterController.GetRegister</a>.</p>
+<h2>See also</h2>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><p><a href="../fpgpio/tgpioregistercontroller.getregister.html">TGpioRegisterController.GetRegister</a></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Address of a requested register</p></td>
+</tr>
+</table>
+</body>
+</html>

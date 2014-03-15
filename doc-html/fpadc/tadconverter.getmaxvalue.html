@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>TADConverter.GetMaxValue</title>
+<link rel="stylesheet" href="../fpdoc.css" type="text/css">
+
+</head>
+<body>
+<table class="bar" width="100%" border="0" cellpadding="4" cellspacing="0">
+<tr>
+<td><b>[<a href="../fpadc/index.html">Overview</a>][<a href="../fpadc/index-1.html">Resource strings</a>][<a href="../fpadc/index-4.html">Classes</a>][<a href="../fpadc/index-8.html">Index</a>]</b></td>
+<td align="right"><span class="bartitle">Reference for unit 'fpadc' (<a href="../index.html">#pascalio</a>)</span></td>
+</tr>
+</table>
+<h1>TADConverter.GetMaxValue</h1>
+<p>Returns maximum value provided by ADC</p>
+<h2>Declaration</h2>
+<p>Source position: fpadc.pas line 60</p>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td><p><tt><span class="code"> <span class="kw">protected</span> <span class="kw">class function</span> <a href="../fpadc/tadconverter.html">TADConverter</a><span class="sym">.</span>GetMaxValue<span class="sym">: </span>LongWord<span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span><span class="kw"> abstract</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+</table>
+<h2>Description</h2>
+<p>Override this method and return the highst value, the controller may measure.</p>
+<p>Example: a 10 bit ADC may return 1024 different values. Therfore 1023 is the highest value and has to be returned by this method.</p>
+</body>
+</html>

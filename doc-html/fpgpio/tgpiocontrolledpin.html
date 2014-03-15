@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>TGpioControlledPin</title>
+<link rel="stylesheet" href="../fpdoc.css" type="text/css">
+
+</head>
+<body>
+<table class="bar" width="100%" border="0" cellpadding="4" cellspacing="0">
+<tr>
+<td><b>[<a href="../fpgpio/index.html">Overview</a>][<a href="../fpgpio/index-1.html">Resource strings</a>][<a href="../fpgpio/index-2.html">Constants</a>][<a href="../fpgpio/index-3.html">Types</a>][<a href="../fpgpio/index-4.html">Classes</a>][<a href="../fpgpio/index-5.html">Procedures and functions</a>][<a href="../fpgpio/index-8.html">Index</a>]</b></td>
+<td align="right"><span class="bartitle">Reference for unit 'fpgpio' (<a href="../index.html">#pascalio</a>)</span></td>
+</tr>
+</table>
+<h1>TGpioControlledPin</h1>
+<p>[<a href="../fpgpio/tgpiocontrolledpin-1.html" onClick="window.open('../fpgpio/tgpiocontrolledpin-1.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">Properties</a> (<a href="../fpgpio/tgpiocontrolledpin-2.html" onClick="window.open('../fpgpio/tgpiocontrolledpin-2.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">by Name</a>)] [<a href="../fpgpio/tgpiocontrolledpin-3.html" onClick="window.open('../fpgpio/tgpiocontrolledpin-3.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">Methods</a> (<a href="../fpgpio/tgpiocontrolledpin-4.html" onClick="window.open('../fpgpio/tgpiocontrolledpin-4.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">by Name</a>)] [<a href="../fpgpio/tgpiocontrolledpin-5.html" onClick="window.open('../fpgpio/tgpiocontrolledpin-5.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">Events</a> (<a href="../fpgpio/tgpiocontrolledpin-6.html" onClick="window.open('../fpgpio/tgpiocontrolledpin-6.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">by Name</a>)] </p>
+<p>GPIO pin class for TGPIOController</p>
+<h2>Declaration</h2>
+<p>Source position: fpgpio.pas line 137</p>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td><p><tt><span class="code"><span class="kw">type</span> TGpioControlledPin <span class="sym">=</span> <span class="kw">class</span><span class="sym">(</span><a href="../fpgpio/tgpiopin.html">TGpioPin</a><span class="sym">)</span></span></tt></p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code"><span class="kw">strict private</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<a href="../fpgpio/tgpiocontrolledpin.fcontroller.html">fController</a><span class="sym">: </span><a href="../fpgpio/tgpiocontroller.html">TGpioController</a><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<a href="../fpgpio/tgpiocontrolledpin.foninterrupt.html">fOnInterrupt</a><span class="sym">: </span><a href="../fpgpio/tongpiointerrupt.html">TOnGpioInterrupt</a><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<a href="../fpgpio/tgpiocontrolledpin.findex.html">fIndex</a><span class="sym">: </span>LongWord<span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code"><span class="kw">protected</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpgpio/tgpiocontrolledpin.getacitvelow.html">GetAcitveLow</a><span class="sym">;</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpgpio/tgpiocontrolledpin.getdirection.html">GetDirection</a><span class="sym">;</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpgpio/tgpiocontrolledpin.getinterruptmode.html">GetInterruptMode</a><span class="sym">;</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpgpio/tgpiocontrolledpin.getvalue.html">GetValue</a><span class="sym">;</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fpgpio/tgpiocontrolledpin.setacitvelow.html">SetAcitveLow</a><span class="sym">();</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fpgpio/tgpiocontrolledpin.setdirection.html">SetDirection</a><span class="sym">();</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fpgpio/tgpiocontrolledpin.setinterruptmode.html">SetInterruptMode</a><span class="sym">();</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fpgpio/tgpiocontrolledpin.setvalue.html">SetValue</a><span class="sym">();</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code"><span class="kw">public</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpgpio/tgpiocontrolledpin.controller.html">Controller</a><span class="sym">: </span><a href="../fpgpio/tgpiocontroller.html">TGpioController</a><span class="sym">;</span>  [r]</span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpgpio/tgpiocontrolledpin.index.html">Index</a><span class="sym">: </span>LongWord<span class="sym">;</span>  [r]</span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpgpio/tgpiocontrolledpin.oninterrupt.html">OnInterrupt</a><span class="sym">: </span><a href="../fpgpio/tongpiointerrupt.html">TOnGpioInterrupt</a><span class="sym">;</span>  [rw]</span></tt></p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code"> <span class="kw">end</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+</table>
+<h2>Inheritance</h2>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td align="center" valign="top"><p><tt><span class="code"><a href="../fpgpio/tgpiocontrolledpin.html">TGpioControlledPin</a></span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">GPIO pin class for TGPIOController</p></td>
+</tr>
+<tr>
+<td align="center">|</td>
+</tr>
+<tr>
+<td align="center" valign="top"><p><tt><span class="code"><a href="../fpgpio/tgpiopin.html">TGpioPin</a></span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Abstract GPIO class</p></td>
+</tr>
+<tr>
+<td align="center">|</td>
+</tr>
+<tr>
+<td align="center"><p><tt><span class="code">TObject</span></tt></p></td>
+</tr>
+</table>
+<h2>Description</h2>
+<p>This class is an implementation for <a href="../fpgpio/tgpiocontroller.html">TGpioController</a>. All actions are forwarded to the controller.</p>
+<h2>See also</h2>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><p><a href="../fpgpio/tgpiocontroller.html">TGpioController</a></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Generic class for a goup of GPIO pins controlled together</p></td>
+</tr>
+</table>
+</body>
+</html>
