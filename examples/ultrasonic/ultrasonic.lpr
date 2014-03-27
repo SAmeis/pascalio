@@ -42,13 +42,12 @@ const
 var
   trigger  : TGpioPin;
   echo     : TGpioPin;
-  Terminate: Boolean = False;
   distance : Double;
 
 procedure DoSigInt(sig: cint); cdecl;
 begin
   Writeln('Signal ', sig, ' received.');
-  Terminate := True;
+  raise Exception.Create('Signal received.');
 end;
 
 function MeasureDistance: Double;
@@ -65,10 +64,10 @@ begin
 
   StartTime := Now;
 
-  while not Terminate and not echo.Value do
+  while not echo.Value do
     StartTime := Now;
 
-  while not Terminate or echo.Value do
+  while echo.Value do
     StopTime := Now;
 
   TimeElapsed := StopTime - StartTime;
@@ -90,13 +89,18 @@ begin
   echo    := TGpioLinuxPin.Create(GPIO_ECHO   );
   echo.Direction    := gdIn;
 
-  Terminate := False;
-  while not Terminate do
-  begin
-    distance := MeasureDistance;
-    Writeln(Format('Measured Distance = %4.2f cm', [distance]));
-    FpSleep(1);
+  try
+    while True do
+    begin
+      distance := MeasureDistance;
+      Writeln(Format('Measured Distance = %4.2f cm', [distance]));
+      FpSleep(1);
+    end;
+  except
+    on Exception do
+      WriteLn(ErrOutput, 'Terminated');
   end;
+
   trigger.Free;
   echo.Free;
 end.
