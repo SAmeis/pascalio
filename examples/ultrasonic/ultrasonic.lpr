@@ -59,26 +59,25 @@ var
 begin
   trigger.Value := True;
   WriteLn(ErrOutput, 'TRIGGER set to TRUE');
-  Sleep(1);
+  Sleep(10);
   trigger.Value := False;
   WriteLn(ErrOutput, 'TRIGGER set to FALSE');
 
   StartTime := Now;
 
-  while echo.Value = False do
-  begin
+  while not Terminate and echo.Value = False do
     StartTime := Now;
-    WriteLn(ErrOutput, 'ECHO switched to FALSE');
-  end;
 
-  while echo.Value = True do
-  begin
+  while not Terminate and echo.Value = True do
     StopTime := Now;
-    WriteLn(ErrOutput, 'ECHO switched to TRUE');
-  end;
 
   TimeElapsed := StopTime - StartTime;
-  Result := TimeElapsed * 34300 / 2;
+  Writeln(ErrOutput, '  StartTime: ', StartTime);
+  Writeln(ErrOutput, '   StopTime: ', StopTime);
+  Writeln(ErrOutput, 'TimeElapsed: ', TimeElapsed);
+  Writeln(ErrOutput, 'TimeElapsed: ', TimeElapsed *24*60*60*(10**6),'us');
+
+  Result := TimeElapsed * 24 * 60 * 60 * (10 ** 6) / 58;// 34300 / 2;
 end;
 
 begin
