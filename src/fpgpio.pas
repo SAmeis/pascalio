@@ -453,7 +453,7 @@ end;
 class procedure TGpioLinuxPin.WriteToFile(const aFileName: String;
   const aBuffer: String);
 begin
-  if length(aBuffer) > 1 then
+  if length(aBuffer) >= 1 then
     WriteToFile(aFileName, aBuffer[1], length(aBuffer));
 end;
 
