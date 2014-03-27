@@ -42,7 +42,7 @@ const
 var
   trigger  : TGpioPin;
   echo     : TGpioPin;
-  Terminate: Boolean := False;
+  Terminate: Boolean = False;
   distance : Double;
 
 procedure DoSigInt(sig: cint); cdecl;
