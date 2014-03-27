@@ -58,15 +58,24 @@ var
   TimeElapsed: Extended;
 begin
   trigger.Value := True;
+  WriteLn(ErrOutput, 'TRIGGER set to TRUE');
   Sleep(1);
   trigger.Value := False;
+  WriteLn(ErrOutput, 'TRIGGER set to FALSE');
+
   StartTime := Now;
 
   while echo.Value = False do
+  begin
     StartTime := Now;
+    WriteLn(ErrOutput, 'ECHO switched to FALSE');
+  end;
 
   while echo.Value = True do
+  begin
     StopTime := Now;
+    WriteLn(ErrOutput, 'ECHO switched to TRUE');
+  end;
 
   TimeElapsed := StopTime - StartTime;
   Result := TimeElapsed * 34300 / 2;
@@ -86,7 +95,7 @@ begin
   while not Terminate do
   begin
     distance := MeasureDistance;
-    Writeln('Measured Distance = ', distance, 'cm');
+    Writeln(Format('Measured Distance = %4.2f cm', [distance]));
     FpSleep(1);
   end;
   trigger.Free;
