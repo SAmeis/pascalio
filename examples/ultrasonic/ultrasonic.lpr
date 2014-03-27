@@ -58,17 +58,17 @@ var
   TimeElapsed: Extended;
 begin
   trigger.Value := True;
-  WriteLn(ErrOutput, 'TRIGGER set to TRUE');
-  Sleep(10);
+  WriteLn(ErrOutput, 'TRIGGER set to: ', trigger.Value);
+  Sleep(100);
   trigger.Value := False;
-  WriteLn(ErrOutput, 'TRIGGER set to FALSE');
+  WriteLn(ErrOutput, 'TRIGGER set to: ', trigger.Value);
 
   StartTime := Now;
 
-  while not Terminate or echo.Value = False do
+  while not Terminate or not echo.Value do
     StartTime := Now;
 
-  while not Terminate or echo.Value = True do
+  while not Terminate or echo.Value do
     StopTime := Now;
 
   TimeElapsed := StopTime - StartTime;
