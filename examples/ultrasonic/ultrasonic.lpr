@@ -33,7 +33,7 @@
 
 program ultrasonic;
 
-uses sysutils, pascalio, fpgpio, baseunix;
+uses sysutils, pascalio, fpgpio, baseunix, math;
 
 const
   GPIO_TRIGGER = 18;
@@ -65,10 +65,10 @@ begin
 
   StartTime := Now;
 
-  while not Terminate and echo.Value = False do
+  while not Terminate or echo.Value = False do
     StartTime := Now;
 
-  while not Terminate and echo.Value = True do
+  while not Terminate or echo.Value = True do
     StopTime := Now;
 
   TimeElapsed := StopTime - StartTime;
