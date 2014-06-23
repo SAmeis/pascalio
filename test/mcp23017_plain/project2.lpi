@@ -32,7 +32,7 @@
     </RunParams>
     <RequiredPackages Count="1">
       <Item1>
-        <PackageName Value="rpiio"/>
+        <PackageName Value="pascalio"/>
       </Item1>
     </RequiredPackages>
     <Units Count="3">

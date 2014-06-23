@@ -44,7 +44,7 @@ program project1;
 {$mode objfpc}{$H+}
 
 uses
-  sysutils, rpiio, fpi2c, mcp23017, gpioexp, fpgpio;
+  sysutils, pascalio, fpi2c, mcp23017, gpioexp, fpgpio;
 
 var
   i2cdev: TI2CDevice;

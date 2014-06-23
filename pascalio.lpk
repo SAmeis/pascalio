@@ -2,7 +2,7 @@
 <CONFIG>
   <Package Version="4">
     <PathDelim Value="\"/>
-    <Name Value="rpiio"/>
+    <Name Value="pascalio"/>
     <AddToProjectUsesSection Value="True"/>
     <Author Value="Simon Ameis"/>
     <CompilerOptions>

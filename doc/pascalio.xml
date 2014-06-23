@@ -1,0 +1,1932 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fpdoc-descriptions>
+  <package name="pascalio">
+    <module name="fpadc">
+      <element name="TADConverter">
+        <short>Abstract class for Analog/Digital Converters</short>
+        <descr>This is an abstract class for Analgo/Digital Converters (ADC). Typically each ADC requires an individual implementation for data access, so create derived classes for each ADC. You must override all abstract methods to enable reading of single pin data. If the chip also supports differential or pseudo differential measurement, you should override 
+
+<link id="TADConverter.DifferentialValue">DifferentialValue</link> and 
+
+<link id="TADConverter.GetDifferentialValue">GetDifferentialValue</link>, also.</descr>
+      </element>
+      <element name="TADConverter.MaxValue">
+        <short>Maximum returned value</short>
+      </element>
+      <element name="TADConverter.Value">
+        <short>Get value for input channel</short>
+      </element>
+      <element name="TADConverter.Count">
+        <short>Count of input channels</short>
+      </element>
+      <element name="TADConverter.DifferentialValue">
+        <short>Get differential value from input</short>
+        <descr>Some A/D-converters support differential or pseudo differential measurement. Check 
+
+<link id="TADConverter.SupportsDifferentialValue">SupportsDifferentialValue</link> before usage. Please consult the datasheet of your device on information how connectors are used in differential measuring.</descr>
+        <errors>Raises 
+
+<link id="EDifferentialNotSupported"/> if used but is not supported.</errors>
+        <seealso>
+          <link id="TADConverter.SupportsDifferentialValue"/>
+        </seealso>
+      </element>
+      <element name="TADConverter.SupportsDifferentialValue">
+        <short>Indication of differantial measurement capability</short>
+      </element>
+      <element name="EDifferentialNotSupported">
+        <short>Missing support for differential measurement</short>
+        <seealso>
+          <link id="TADConverter.DifferentialValue"/>
+          <link id="TADConverter.SupportsDifferentialValue"/>
+        </seealso>
+      </element>
+      <element name="EADCError">
+        <short>Generic ADC exception</short>
+      </element>
+      <element name="TADConverter.GetSupportsDifferentialValue">
+        <short>Indicator of support for differential measurement</short>
+        <descr>Returns <var>False</var> by default. Override it and return <var>True</var> if <link id="TADConverter.GetDifferentialValue">GetDifferentialValue</link> implements something useful.</descr>
+        <seealso>
+          <link id="TADConverter.GetDifferentialValue"/>
+        </seealso>
+      </element>
+      <element name="TADConverter.GetDifferentialValue">
+        <short>Returns differential value</short>
+        <descr>Override this function if your ADC supports differential measurement. Override <link id="TADConverter.GetSupportsDifferentialValue">GetSupportsDifferentialValue</link>, too.</descr>
+        <errors>Raises <link id="EDifferentialNotSupported"/> if not implemented in child class.</errors>
+        <seealso>
+          <link id="TADConverter.GetSupportsDifferentialValue"/>
+          <link id="EDifferentialNotSupported"/>
+        </seealso>
+      </element>
+      <element name="TADConverter.GetMaxValue">
+        <short>Returns maximum value provided by ADC</short>
+        <descr>
+          <p>Override this method and return the highst value, the controller may measure.</p>
+          <p>Example: a 10 bit ADC may return 1024 different values. Therfore 1023 is the highest value and has to be returned by this method.</p>
+        </descr>
+      </element>
+      <element name="TADConverter.GetCount">
+        <short>Return count of input channels</short>
+      </element>
+      <element name="TADConverter.GetValue">
+        <short>Retrives actual value</short>
+        <descr>Override this method and implement somthing to get the acual values from the AD Converter.</descr>
+      </element>
+      <element name="TADConverter.GetDifferentialValue.Index">
+        <short>Index of channel</short>
+        <descr>It depends on the AD Converter how this number is interpreted. Read the datasheet.</descr>
+      </element>
+      <element name="TADConverter.GetValue.Index">
+        <short>Index of input channel</short>
+      </element>
+      <element name="EDifferentialNotSupported.Create">
+        <short>Create new instance with predefined message</short>
+        <descr>Creates a new exception object <link id="EDifferentialNotSupported"/> with predefined text.</descr>
+        <seealso>
+          <link id="sDiffNotSupported"/>
+        </seealso>
+      </element>
+      <element name="sDiffNotSupported">
+        <short>Class doesn't support differential values.</short>
+        <seealso>
+          <link id="EDifferentialNotSupported.Create"/>
+        </seealso>
+      </element>
+      <short>Analog/Digital Converters</short>
+      <descr>This unit contains an abstract base class <link id="TADConverter"/> for Analog to Digital Converters (ADC).</descr>
+    </module>
+    <module name="bitmanip">
+      <element name="CHAR_BIT">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TByteSize">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TWordSize">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TDWordSize">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TQWordSizw">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="BITSET">
+        <short>Set bit</short>
+      </element>
+      <element name="BITSET.Result">
+        <short>Changed value</short>
+      </element>
+      <element name="BITSET.aVal">
+        <short>Input Value</short>
+      </element>
+      <element name="BITSET.Index">
+        <short>Bit Index</short>
+      </element>
+      <element name="BITCLS">
+        <short>Clear bit</short>
+      </element>
+      <element name="BITCLS.Result">
+        <short>Changed value</short>
+      </element>
+      <element name="BITCLS.aVal">
+        <short/>
+      </element>
+      <element name="BITCLS.Index">
+        <short/>
+      </element>
+      <element name="BITVAL">
+        <short>Bit Value</short>
+      </element>
+      <element name="BITVAL.Result">
+        <short>Value of bit</short>
+      </element>
+      <element name="BITVAL.aVal">
+        <short/>
+      </element>
+      <element name="BITVAL.Index">
+        <short/>
+      </element>
+      <element name="BITTGL">
+        <short>Toggle bit</short>
+      </element>
+      <element name="BITTGL.Result">
+        <short>Changed value</short>
+      </element>
+      <element name="BITTGL.aVal">
+        <short/>
+      </element>
+      <element name="BITTGL.Index">
+        <short/>
+      </element>
+      <element name="CountBits">
+        <short>Count bits set</short>
+        <descr>Returns the count of bits in <var>v</var> set.
+
+<code>var
+  value: Byte;
+  c: PtrUInt;
+begin
+  value := 5;
+  // bits set
+  c := CountBits(value);
+  // bits not set
+  c := CountBits(not value);
+end.
+</code>
+        </descr>
+      </element>
+      <element name="CountBits.Result">
+        <short/>
+      </element>
+      <element name="CountBits.v">
+        <short/>
+      </element>
+      <short>Bit manipulations</short>
+    </module>
+    <module name="fpgpio">
+      <element name="TGpioPin.PollChange">
+        <short>Polls GPIO pin for change</short>
+      </element>
+      <element name="TGpioPin">
+        <short>Abstract GPIO class</short>
+      </element>
+      <element name="TGpioPin.PollChange.delay">
+        <short>Delay between polls in milliseconds</short>
+        <descr>If <var>delay</var> is negative (-1 or less), the next poll will be done imediatly.
+If <var>delay</var> is exactly 0, <code>sleep(0)</code> will be called. Thus the remaining time slice will be returned to the OS' scheduler and your application/thread will sleep until it gets a new time slice.
+If <var>delay</var> is greater than 0, <code>sleep(delay)</code> will be called. Your application/thread will be paused for at least this amount of time (but maybe a little longer).</descr>
+      </element>
+      <element name="TGpioPin.PollChange.timeout">
+        <short>Maximum time for polling in milliseconds</short>
+        <descr>Method will return, when <var>timeout</var> milliseconds have passed without changing <link id="TGpioPin.Value"/>.</descr>
+      </element>
+      <element name="TGpioPin.Value">
+        <short>Value of GPIO pin</short>
+      </element>
+      <element name="TGpioPin.PollChange.changed">
+        <short>New value</short>
+      </element>
+      <element name="TGpioPin.PollChange.value">
+        <short>New Value</short>
+        <descr>Contains the new value if not timed out.</descr>
+      </element>
+      <element name="TGpioPin.PollChange.Result">
+        <short>Indicates timeout or change</short>
+        <descr>
+          <var>True</var> indicates a change in 
+          <link id="TGpioPin.Value"/>; the value is stored in 
+          <var>value</var>. 
+          <var>False</var> indicates a timeout.</descr>
+      </element>
+      <element name="TGpioGroup">
+        <short>Group of joint GPIO pins</short>
+        <descr>Some GPIO expanders allow the manipulation of a group of pins only. Only the group may be configured as output or input---not each pin individually.</descr>
+      </element>
+      <element name="TGpioPin.WaitForInterruptIndirect.timeout">
+        <short>Timeout in milliseconds</short>
+      </element>
+      <element name="TGpioPin.WaitForInterrupt.timeout">
+        <short>Timeout in milliseconds</short>
+      </element>
+      <short>General Purpose Input/Output access classes for Free Pascal</short>
+      <element name="TGpioDirection.gdOut">
+        <short>GPIO in output mode</short>
+        <seealso>
+          <link id="TGpioDirection.gdIn"/>
+          <link id="TGpioPin.Direction"/>
+        </seealso>
+      </element>
+      <element name="TGpioDirection.gdIn">
+        <short>GPIO in input mode</short>
+        <seealso>
+          <link id="TGpioDirection.gdOut"/>
+          <link id="TGpioPin.Direction"/>
+        </seealso>
+      </element>
+      <element name="TGpioDirection">
+        <short>Direction of GPIO Pins</short>
+        <seealso>
+          <link id="TGpioPin.Direction"/>
+        </seealso>
+      </element>
+      <element name="TGpioPin.Direction">
+        <short>Configure pin as Input or as Output</short>
+      </element>
+      <element name="TGpioInterruptModes">
+        <short>Basic interrupt condition</short>
+      </element>
+      <element name="TGpioInterruptMode">
+        <short>Combination of Interrupt modes</short>
+      </element>
+      <element name="gimBoth">
+        <short>Interrupt on rising edge and on falling edge</short>
+      </element>
+      <element name="gimNone">
+        <short>No interrupt</short>
+      </element>
+      <element name="TGpioPin.WaitForInterrupt">
+        <short>Waits for interrupt</short>
+        <errors>If (direct) interrupts are not supported (e.g. I/O expanders), an <link id="EDirectInterruptError"/> exception is raised.</errors>
+        <seealso>
+          <link id="TGpioPin.InterruptMode"/>
+        </seealso>
+      </element>
+      <element name="EDirectInterruptError">
+        <short>Interrupt not supported</short>
+      </element>
+      <element name="EIndirectInterruptError">
+        <short>Indirect Interrupt not supported</short>
+      </element>
+      <element name="TGpioPin.WaitForInterruptIndirect">
+        <short>Waits for indirect interrupt</short>
+        <descr>A change on a pin of an I/O expander can't be detected by the host. So most (or at least some of them) can be configured to indicate a change on a outgoing interrupt pin. The provided TGpioPin object has to be fully configured.</descr>
+      </element>
+      <element name="TGpioPin.WaitForInterruptIndirect.aInterruptPin"/>
+      <element name="TGpioPin.AcitveHigh"/>
+      <element name="TGpioInterruptModes.gimRising">
+        <short>Interrupt on rising edge</short>
+      </element>
+      <element name="TGpioInterruptModes.gimFalling">
+        <short>Interrupt on falling edge</short>
+      </element>
+      <element name="EInterruptError">
+        <short>Generic exception for interrupt errors</short>
+      </element>
+      <element name="TGpioPin.InterruptMode">
+        <short>Interrupt mode</short>
+      </element>
+      <element name="TGpioController">
+        <short>Generic class for a goup of GPIO pins controlled together</short>
+      </element>
+      <element name="TPinPosition">
+        <short>All possible positions of a Pin in a Register</short>
+        <seealso>
+          <link id="TRegisterValue"/>
+        </seealso>
+      </element>
+      <element name="TRegisterValue">
+        <short>Value of a 8 bit register</short>
+        <seealso>
+          <link id="TPinPosition"/>
+        </seealso>
+      </element>
+      <element name="TRegisterType">
+        <short>All register types a I/O expander might support</short>
+        <seealso>
+          <link id="TGpioRegisterController.GetRegister"/>
+        </seealso>
+        <descr>This enumeration contains all possible types of registers an I/O expander might have. These types are named by usage. Thus a microcontroller may have seperate registers for setting and reading a GPIO pins value.
+
+A register type is converted to an address which an I/O expander can understand within <link id="TGpioRegisterController.GetRegister"/>.</descr>
+      </element>
+      <element name="TGpioRegisterController">
+        <short>Generic class for I/O controller using registers</short>
+        <descr>Many external I/O expanders provide an interace which exposes the internal registers to the contoller. This base class provides an basic interface to these expanders.
+
+Setting and getting values basically operate on 3 methods:
+
+<ol>
+            <li>
+              <link id="TGpioRegisterController.GetRegister">function GetRegister():</link> Getting the              
+              
+    
+              <link id="TRegisterAddress">adress of the register</link> and the 
+              
+              
+    
+              <link id="TPinPosition">position of the pin within this register</link>.</li>
+            <li>
+              <link id="TGpioRegisterController.GetRegisterValue">function GetRegisterValue():</link> Reading the current 
+              
+              
+    
+              <link id="TRegisterValue"/>.</li>
+            <li>
+              <link id="TGpioRegisterController.SetRegisterValue">procedure SetRegisterValue():</link> Setting the new value if desired.</li>
+            <li>If you are interested in only one bit of a register, you may use the convenience methods <link id="TGpioRegisterController.GetRegisterValueS"/> and <link id="TGpioRegisterController.SetRegisterValueS"/>.</li>
+          </ol><p>
+            <b>Only expanders with 8 bit registers are supported.</b> This does not mean, the expander may have at maximum 8 GPIO channels. An expander may provide more than one register for one task.</p>
+        </descr>
+      </element>
+      <element name="TGpioRegisterController.GetRegister">
+        <short>Address of a requested register</short>
+        <descr>Has to be implemented!</descr>
+      </element>
+      <element name="TGpioRegisterController.GetRegisterValue">
+        <descr>Has to be implemented!</descr>
+        <short>Retrieves the value of a given register</short>
+      </element>
+      <element name="TGpioRegisterController.SetRegisterValue">
+        <short>Set the value of a given register</short>
+        <descr>Has to be implemented!</descr>
+      </element>
+      <element name="TGpioRegisterController.RegisterValue">
+        <short>Value of a given register</short>
+      </element>
+      <element name="TGpioController.Pins">
+        <short>All pins in this controller</short>
+        <seealso>
+          <link id="TGpioControlledPin"/>
+        </seealso>
+        <descr>The controller holds all pins which it controls. The pins are of the class <link id="TGpioControlledPin"/>, which is a special implementation for this controller class (but who cares---it has no special abilities).</descr>
+      </element>
+      <element name="TGpioController.Count">
+        <short>Count of pins</short>
+      </element>
+      <element name="TGpioController.ActiveLow">
+        <short>Inverted logic</short>
+      </element>
+      <element name="TGpioController.Value">
+        <short>Value of pin</short>
+      </element>
+      <element name="TGpioController.Direction">
+        <short>Direction of pin</short>
+      </element>
+      <element name="TGpioController.Create">
+        <short>Creates required Pin instances</short>
+        <descr>Has to be overridden!</descr>
+      </element>
+      <element name="TGpioControlledPin">
+        <short>GPIO pin class for TGPIOController</short>
+        <descr>This class is an implementation for <link id="TGpioController"/>. All actions are forwarded to the controller.</descr>
+        <seealso>
+          <link id="TGpioController"/>
+        </seealso>
+      </element>
+      <element name="TRegisterType.rtGetValue">
+        <short>Register for getting the values</short>
+      </element>
+      <element name="TGpioRegisterController.GetRegisterValueS">
+        <short>Convenience method for getting a value for a specific pin</short>
+        <seealso>
+          <link id="TGpioRegisterController.SetRegisterValueS"/>
+          <link id="TGpioRegisterController.GetRegister"/>
+          <link id="TGpioRegisterController.GetRegisterValue"/>
+        </seealso>
+      </element>
+      <element name="TGpioRegisterController.SetRegisterValueS">
+        <short>Convenience method for setting a value for a specific pin</short>
+        <seealso>
+          <link id="TGpioRegisterController.GetRegisterValueS"/>
+          <link id="TGpioRegisterController.GetRegister"/>
+          <link id="TGpioRegisterController.GetRegisterValue"/>
+          <link id="TGpioRegisterController.SetRegisterValue"/>
+        </seealso>
+      </element>
+      <element name="TRegisterAddress">
+        <short>Register address in expander</short>
+      </element>
+      <element name="TGpioLinuxPin">
+        <short>Implementation using the Linux Kernel Driver</short>
+        <descr>The Linux Kernel exposes GPIO pins to user mode applications through the filesystem interface located at /sys/class/gpio/. This is used by this class.
+
+This class should be threadsafe (not tested!). You should be able to read values in one thread while another thread is waiting for an interrupt.</descr>
+      </element>
+      <element name="TGpioLinuxPin.Create">
+        <short>Creates a new instance</short>
+      </element>
+      <element name="TGpioLinuxPin.Create.aID">
+        <short>GPIO pin ID</short>
+        <descr>This the internal Pin ID of the microcontroller running Linux. Typically it is <b>not </b>any Pin number printed on the board.
+
+Regarding the Raspberry Pi, this is the BCM pin number, not the one of the connectors.</descr>
+      </element>
+      <element name="GPIO_LINUX_BASE_DIR">
+        <short>Base directory for Linux Kernel GPIO interface</short>
+      </element>
+      <element name="GPIO_LINUX_GPIOPIN_DIR">
+        <short>Base directory for Linux Kernel GPIO interface for specific Pin</short>
+      </element>
+      <element name="TGpioControlledPin.Create">
+        <short>Creates new controlled GPIO pin</short>
+        <descr>This constructor should be called by <link id="TGpioController.Create"/> only.</descr>
+      </element>
+      <element name="TGpioControlledPin.Create.aController">
+        <short>Responsible Controller for this pin</short>
+      </element>
+      <element name="TGpioControlledPin.Create.aIndex">
+        <short>Internal index of this pin</short>
+      </element>
+      <element name="TGpioLinuxPin.PinID">
+        <short>The GPIO's ID in the Linux Kernel driver</short>
+        <seealso>
+          <link id="TGpioLinuxPin.Create"/>
+        </seealso>
+      </element>
+    </module>
+	<module name="fpi2c">
+      <element name="sI2CSlaveAddress">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="sI2CWrite">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CAddress">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CRegister">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice">
+        <short>Abstract I2C device class</short>
+      </element>
+      <element name="TI2CDevice.fAddress">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.Create.aAddress">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.ReadByte.Result">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteByte.aByte">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.ReadRegByte.Result">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadRegByte.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.ReadRegWord.Result">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadRegWord.aRegsiter">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteRegByte.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteRegByte.aByte">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteRegWord.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteRegWord.aWord">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadBlockData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.ReadBlockData.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadBlockData.aBuffer">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadBlockData.aCount">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteData.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteData.Buffer">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteData.aCount">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteByte.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteWord.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteWord.aWord">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteLongWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteLongWord.aRegsiter">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteLongWord.aLongWord">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteQWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteQWord.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteQWord.aQWord">
+        <short/>
+      </element>
+      <element name="TI2CDevice.Address">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice">
+        <short>Accesing I2C bus using Linux File interface</short>
+      </element>
+      <element name="TI2CLinuxDevice.fHandle">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.SetSlaveAddress">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.Create.aAddress">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.Create.aBusID">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadBlockData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadBlockData.Result">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadBlockData.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadBlockData.aBuffer">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadBlockData.aCount">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadByte.Result">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegByte.Result">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegByte.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegWord.Result">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegWord.aRegsiter">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteByte.aByte">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteData.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteData.Buffer">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteData.aCount">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegByte.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegByte.aByte">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegWord.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegWord.aWord">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.Handle">
+        <short>File Handle</short>
+      </element>
+      <short>Free Pascal I2C abstraction layer</short>
+    </module>
+    <module name="fpspilib"><element name="TMCP3008.Create"><short>Create new object</short>
+      </element><element name="TMCP3008.Create.aBus"><short>The SPI bus to operate on</short>
+      </element>
+    <element name="TMCP300X"><short>Generic class for MCP3004/MCP3008</short><descr>This is an abstract class. Use a class for a specific device instead.</descr><seealso><link id="TMCP3004"/><link id="TMCP3008"/>
+        </seealso>
+      </element><element name="TMCP3008"><short>Analog/Digital Converter MCP3008</short>
+      </element><element name="TMCP3004"><short>Analog/Digital Converter MCP3004</short>
+      </element><element name="TMCP300X.Create"/><element name="TMCP300X.Create.aBus"><short>Bus to communicate with device</short>
+      </element>
+    <short>Free Pascal SPI device library</short><descr>This unit contains a collection of classes wicht access SPI devices</descr>
+    </module>
+	<module name="gpioexp">
+      <element name="TGpioI2CController">
+        <short>Abstract class for I2C expander</short>
+        <descr>All GPIO expander providing an I2C interface should inerhit from this class.</descr>
+      </element>
+      <element name="TGpioI2CController.fI2CDevice">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TGpioI2CController.I2C">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TGpioI2CController.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TGpioI2CController.Create.aDevice">
+        <short/>
+      </element>
+      <element name="TGpioSPIController">
+        <short>Abstract class for SPI expander</short>
+        <descr>All GPIO expander providing an SPI interface should inerhit from this class.</descr>
+      </element>
+      <element name="TGpioSPIController.fSPIDevice">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TGpioSPIController.SPI">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TGpioSPIController.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TGpioSPIController.Create.aDevice">
+        <short/>
+      </element>
+      <element name="TMCP23X17">
+        <short>Generic Class for MCP23017 and MCP23018</short>
+        <descr>This class is an 
+
+<link id="fpgpio.TGpioController">TGpioController</link> wrapper for 
+
+<link id="mcp23017.TMCP23X17Controller">TMCP23X17Controller</link>.</descr>
+      </element>
+      <element name="TMCP23X17.fmcp23X17">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17.GetActiveLow">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17.GetActiveLow.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17.GetActiveLow.Index">
+        <short/>
+      </element>
+      <element name="TMCP23X17.GetCount">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17.GetCount.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17.GetDirection">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17.GetDirection.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17.GetDirection.Index">
+        <short/>
+      </element>
+      <element name="TMCP23X17.GetInterruptMode">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17.GetInterruptMode.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17.GetInterruptMode.Index">
+        <short/>
+      </element>
+      <element name="TMCP23X17.GetValue">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17.GetValue.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17.GetValue.index">
+        <short/>
+      </element>
+      <element name="TMCP23X17.SetActiveLow">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17.SetActiveLow.Index">
+        <short/>
+      </element>
+      <element name="TMCP23X17.SetActiveLow.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23X17.SetDirection">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17.SetDirection.Index">
+        <short/>
+      </element>
+      <element name="TMCP23X17.SetDirection.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23X17.SetInterruptMode">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17.SetInterruptMode.Index">
+        <short/>
+      </element>
+      <element name="TMCP23X17.SetInterruptMode.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23X17.SetValue">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17.SetValue.index">
+        <short/>
+      </element>
+      <element name="TMCP23X17.SetValue.aValue">
+        <short/>
+      </element>
+      <element name="TMCP23X17.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17.Create.aMCP23X17">
+        <short/>
+      </element>
+      <element name="TMCP23017">
+        <short>Gpio Controller class for MCP23017</short>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017.fProxy">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017.fMCP23X17Controller">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017.GetActiveLow">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017.GetActiveLow.Result">
+        <short/>
+      </element>
+      <element name="TMCP23017.GetActiveLow.Index">
+        <short/>
+      </element>
+      <element name="TMCP23017.GetCount">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017.GetCount.Result">
+        <short/>
+      </element>
+      <element name="TMCP23017.GetDirection">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017.GetDirection.Result">
+        <short/>
+      </element>
+      <element name="TMCP23017.GetDirection.Index">
+        <short/>
+      </element>
+      <element name="TMCP23017.GetInterruptMode">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017.GetInterruptMode.Result">
+        <short/>
+      </element>
+      <element name="TMCP23017.GetInterruptMode.Index">
+        <short/>
+      </element>
+      <element name="TMCP23017.GetValue">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017.GetValue.Result">
+        <short/>
+      </element>
+      <element name="TMCP23017.GetValue.Index">
+        <short/>
+      </element>
+      <element name="TMCP23017.SetActiveLow">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017.SetActiveLow.Index">
+        <short/>
+      </element>
+      <element name="TMCP23017.SetActiveLow.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23017.SetDirection">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017.SetDirection.Index">
+        <short/>
+      </element>
+      <element name="TMCP23017.SetDirection.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23017.SetInterruptMode">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017.SetInterruptMode.Index">
+        <short/>
+      </element>
+      <element name="TMCP23017.SetInterruptMode.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23017.SetValue">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017.SetValue.Index">
+        <short/>
+      </element>
+      <element name="TMCP23017.SetValue.aValue">
+        <short/>
+      </element>
+      <element name="TMCP23017.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017.Create.aDevice">
+        <short/>
+      </element>
+      <element name="TMCP23017.Destroy">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17">
+        <short>Gpio Controller class for MCP23S17</short>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17.fProxy">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17.fMCP23X17Controller">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17.GetActiveLow">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17.GetActiveLow.Result">
+        <short/>
+      </element>
+      <element name="TMCP23S17.GetActiveLow.Index">
+        <short/>
+      </element>
+      <element name="TMCP23S17.GetCount">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17.GetCount.Result">
+        <short/>
+      </element>
+      <element name="TMCP23S17.GetDirection">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17.GetDirection.Result">
+        <short/>
+      </element>
+      <element name="TMCP23S17.GetDirection.Index">
+        <short/>
+      </element>
+      <element name="TMCP23S17.GetInterruptMode">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17.GetInterruptMode.Result">
+        <short/>
+      </element>
+      <element name="TMCP23S17.GetInterruptMode.Index">
+        <short/>
+      </element>
+      <element name="TMCP23S17.GetValue">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17.GetValue.Result">
+        <short/>
+      </element>
+      <element name="TMCP23S17.GetValue.Index">
+        <short/>
+      </element>
+      <element name="TMCP23S17.SetActiveLow">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17.SetActiveLow.Index">
+        <short/>
+      </element>
+      <element name="TMCP23S17.SetActiveLow.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23S17.SetDirection">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17.SetDirection.Index">
+        <short/>
+      </element>
+      <element name="TMCP23S17.SetDirection.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23S17.SetInterruptMode">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17.SetInterruptMode.Index">
+        <short/>
+      </element>
+      <element name="TMCP23S17.SetInterruptMode.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23S17.SetValue">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17.SetValue.Index">
+        <short/>
+      </element>
+      <element name="TMCP23S17.SetValue.aValue">
+        <short/>
+      </element>
+      <element name="TMCP23S17.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17.Create.aDevice">
+        <short/>
+      </element>
+      <element name="TMCP23S17.Destroy">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <short>GPIO expanders</short>
+      <descr>This unit provides support for GPIO expanders. You will need an GPIO expander if your processor/microcontroller doesn't provide as much GPIO ports as you need.</descr>
+    </module>
+	<module name="i2c_dev"><short>Basic i2c functions for Linux</short><descr>This is a translation of libi2c-dev and allows using the Inter Integrated Circuits Bus with Free Pascal under Linux.</descr></module>
+	<module name="mcp23017">
+      <element name="sInvalidAddress">
+        <seealso>
+          <link id="EInvalidMCP23X17Address"/>
+        </seealso>
+      </element>
+      <element name="MCP23X17_DEFAULT_ADDRESS">
+        <short>Default address of MCP23017</short>
+        <descr>This is the default address of a bunch of GPIO extenders like the MCP23017, MCP23S17, MCP23018 and MCP23S18. You have to bias the chip's address by connecting the address pin(s) to GND or VCC. See your chip's datasheet for more information.</descr>
+      </element>
+      <element name="EInvalidMCP23X17Address">
+        <short>Invalid chip address</short>
+        <seealso>
+          <link id="sInvalidAddress"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller">
+        <short>Abstract base controller for MCP23017 and MCP23S17</short>
+        <descr>Provides an abstract interface for accessing MCP23017 and MCP23S17 following their internal registers.
+
+Use this class only if you need direct access to the internal registers. Otherwise use <link id="gpioexp.TMCP23017">TMCP23017</link> or <link id="gpioexp.TMCP23S17">TMCP23S17</link> from unit <link id="gpioexp"/>.</descr>
+        <seealso>
+          <link id="TMCP23017Controller"/>
+          <link id="TMCP23S17Controller"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.fIOCON">
+        <short>Internal IOCON buffer</short>
+        <descr>This field holds a internal backup of 
+<link id="TMCP23X17Controller.IOCON">Input/Output configuration register</link>. It is used for easy access of the single bit properties.</descr>
+        <seealso>
+          <link id="TMCP23X17Controller.IOCON"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.fOwnsDevice">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.GetAddress">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.GetAddress.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetIOCONValue">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.SetIOCONValue.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetIOCONValue.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetIOCONValue">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.GetIOCONValue.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetIOCONValue.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetDEFVAL">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.GetDEFVAL.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetDEFVAL.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetGPINTEN">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.GetGPINTEN.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetGPINTEN.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetGPIO">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.GetGPIO.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetGPIO.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetGPPU">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.GetGPPU.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetGPPU.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetINTCAP">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.GetINTCAP.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetINTCAP.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetINTCON">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.GetINTCON.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetINTCON.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetINTF">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.GetINTF.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetINTF.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetIOCON">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.GetIOCON.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetIOCON.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetIODIR">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.GetIODIR.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetIODIR.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetIPOL">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.GetIPOL.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetIPOL.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetOLAT">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.GetOLAT.Result">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetOLAT.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetDEFVAL">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.SetDEFVAL.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetDEFVAL.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetGPINTEN">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.SetGPINTEN.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetGPINTEN.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetGPIO">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.SetGPIO.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetGPIO.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetGPPU">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.SetGPPU.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetGPPU.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetINTCON">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.SetINTCON.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetINTCON.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetIOCON">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.SetIOCON.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetIOCON.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetIODIR">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.SetIODIR.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetIODIR.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetIPOL">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.SetIPOL.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetIPOL.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetOLAT">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23X17Controller.SetOLAT.AIndex">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.SetOLAT.AValue">
+        <short/>
+      </element>
+      <element name="TMCP23X17Controller.GetRegisterValue">
+        <short>Abstract value retrival method</short>
+      </element>
+      <element name="TMCP23X17Controller.GetRegisterValue.Result">
+        <short>Register value</short>
+      </element>
+      <element name="TMCP23X17Controller.GetRegisterValue.aRegister">
+        <short>Register address</short>
+        <errors>Invalid register address may result in garbage result or application failure.</errors>
+      </element>
+      <element name="TMCP23X17Controller.SetRegisterValue">
+        <short>Abstract register value setter</short>
+      </element>
+      <element name="TMCP23X17Controller.SetRegisterValue.aRegister">
+        <short>Register address</short>
+        <descr>Value is not validated.</descr>
+        <errors>Invalid register address may result in unexpected behaviour.</errors>
+      </element>
+      <element name="TMCP23X17Controller.SetRegisterValue.aValue">
+        <short>New register value</short>
+      </element>
+      <element name="TMCP23X17Controller.Create">
+        <short>New instance</short>
+        <descr>This constructor should be overwritten in subclass.</descr>
+      </element>
+      <element name="TMCP23X17Controller.IODIRA">
+        <short>Input/Output Direction - Port A</short>
+        <descr>
+          <table>
+            <tr>
+              <td>Value</td>
+              <td>Description</td>
+            </tr>
+            <tr>
+              <td>0</td>
+              <td>output</td>
+            </tr>
+            <tr>
+              <td>1 (default)</td>
+              <td>input</td>
+            </tr>
+          </table>
+        </descr>
+      </element>
+      <element name="TMCP23X17Controller.IPOLA">
+        <short>Input Polarity - Port A</short>
+        <descr>Input polarity 1 = reverted value, 0 = real value (default)</descr>
+      </element>
+      <element name="TMCP23X17Controller.GPINTENA">
+        <short>Interrupt Enable - Port A</short>
+      </element>
+      <element name="TMCP23X17Controller.DEFVALA">
+        <short>Default Value for interrupt condition - Port A</short>
+        <seealso>
+          <link id="TMCP23X17Controller.DEFVALB"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.INTCONA">
+        <short>Interrupt Condition - Port A</short>
+      </element>
+      <element name="TMCP23X17Controller.IOCONA">
+        <short>Input/Output Configuration</short>
+        <descr>Register IOCON is shared between both GPIO ports.
+
+See IOCON for details.</descr>
+        <seealso>
+          <link id="TMCP23X17Controller.IOCON"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.GPPUA">
+        <short>Pull Up resitors - Port A</short>
+      </element>
+      <element name="TMCP23X17Controller.INTFA">
+        <short>Interrupt Flag - Port A</short>
+        <descr>Shows which GPIO port caused the interrupt.</descr>
+      </element>
+      <element name="TMCP23X17Controller.INTCAPA">
+        <short>Interrupt Capture - Port A</short>
+      </element>
+      <element name="TMCP23X17Controller.GPIOA">
+        <short>GPIO values - Port A</short>
+        <descr>Shows the current status of GPIO pins.
+
+Write updates <link id="TMCP23X17Controller.OLATA">Output Latches register</link>.</descr>
+        <seealso>
+          <link id="TMCP23X17Controller.OLATA"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.OLATA">
+        <short>Output Latches - Port A</short>
+        <seealso>
+          <link id="TMCP23X17Controller.GPIOA"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.IODIRB">
+        <short>Input/Output Direction - Port B</short>
+        <descr>
+          <table>
+            <tr>
+              <td>Value</td>
+              <td>Description</td>
+            </tr>
+            <tr>
+              <td>0</td>
+              <td>output</td>
+            </tr>
+            <tr>
+              <td>1 (default)</td>
+              <td>input</td>
+            </tr>
+          </table>
+        </descr>
+      </element>
+      <element name="TMCP23X17Controller.IPOLB">
+        <short>Input Polarity - Port B</short>
+        <descr>Input polarity 1 = reverted value, 0 = real value (default)</descr>
+      </element>
+      <element name="TMCP23X17Controller.GPINTENB">
+        <short>Interrupt Enable - Port A</short>
+      </element>
+      <element name="TMCP23X17Controller.DEFVALB">
+        <short>Default Value for interrupt condition - Port B</short>
+        <seealso>
+          <link id="TMCP23X17Controller.DEFVALA"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.INTCONB">
+        <short>Interrupt Condition - Port A</short>
+      </element>
+      <element name="TMCP23X17Controller.IOCONB">
+        <short>Input/Output Configuration</short>
+        <descr>Register IOCON is shared between both GPIO ports.
+
+See IOCON for details.</descr>
+        <seealso>
+          <link id="TMCP23X17Controller.IOCON"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.GPPUB">
+        <short>Pull Up resitors - Port B</short>
+      </element>
+      <element name="TMCP23X17Controller.INTFB">
+        <short>Interrupt Flag - Port B</short>
+        <descr>Shows which GPIO port caused the interrupt.</descr>
+      </element>
+      <element name="TMCP23X17Controller.INTCAPB">
+        <short>Interrupt Capture - Port B</short>
+      </element>
+      <element name="TMCP23X17Controller.GPIOB">
+        <short>GPIO values - Port B</short>
+        <descr>Shows the current status of GPIO pins.
+
+Write updates <link id="TMCP23X17Controller.OLATB">Output Latches register</link>.</descr>
+        <seealso>
+          <link id="TMCP23X17Controller.OLATB"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.OLATB">
+        <short>Output Latches - Port B</short>
+        <seealso>
+          <link id="TMCP23X17Controller.GPIOB"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.IOCON">
+        <short>Input/Output Configuration</short>
+        <descr>Configuration register for both GPIO ports.
+
+This property allows access to the whole register. Each configuration bit has also it's own property. Please refer to the chip's datasheet or each individual property for more information.</descr>
+        <seealso>
+          <link id="TMCP23X17Controller.INTPOL"/>
+          <link id="TMCP23X17Controller.ODR"/>
+          <link id="TMCP23X17Controller.SEQOP"/>
+          <link id="TMCP23X17Controller.MIRROR"/>
+          <link id="TMCP23X17Controller.HAEN"/>
+          <link id="TMCP23X17Controller.DISSLW"/>
+          <link id="TMCP23X17Controller.BANK"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.BANK">
+        <short>BANK mode</short>
+        <descr>BANK biases the register's addresses. This class can handle both addressing methods.</descr>
+      </element>
+      <element name="TMCP23X17Controller.MIRROR">
+        <short>Mirror Interrupt</short>
+        <descr>0 = seperate interrupts (default),
+ 1 = interrrupts are shared between ports and interrupt pins</descr>
+        <seealso>
+          <link id="TMCP23X17Controller.IOCON"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.SEQOP">
+        <short>Sequential Operation</short>
+        <descr>If set, internal register pointer is updated after each operation.</descr>
+        <seealso>
+          <link id="TMCP23X17Controller.IOCON"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.DISSLW">
+        <short>Slew Rate</short>
+        <seealso>
+          <link id="TMCP23X17Controller.IOCON"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.HAEN">
+        <short>Hardware Address Enable</short>
+        <descr>Only used in <link id="TMCP23S17Controller">MCP23S17</link>.
+
+If set, the address pins bias the chip's address. Default <var>False</var>.</descr>
+      </element>
+      <element name="TMCP23X17Controller.ODR">
+        <short>Open Drain for interrupt pins</short>
+        <descr>0 = INTPOL used,
+1 = open-drain output (overrides INTPOL)</descr>
+        <seealso>
+          <link id="TMCP23X17Controller.IOCON"/>
+          <link id="TMCP23X17Controller.INTPOL"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.INTPOL">
+        <short>Interrupt Polarity</short>
+        <descr>Is overridden by <link id="TMCP23X17Controller.ODR">Open Drain flag</link>.
+<table>
+            <tr>
+              <td>Value</td>
+              <td>Description</td>
+            </tr>
+            <tr>
+              <td>0 (default)</td>
+              <td>active-low</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>active-high</td>
+            </tr>
+          </table>
+        </descr>
+        <seealso>
+          <link id="TMCP23X17Controller.IOCON"/>
+          <link id="TMCP23X17Controller.ODR"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.Address">
+        <short>Chip address</short>
+        <descr>MCP23017 and MCP23S17 have 3 address pins, MCP23018 and MCP23S18 have 1 address pin biasing the last three bits of the chip's internal address.
+
+The SPI devices don't use addresses; this must be enabled in the IOCON register.</descr>
+        <seealso>
+          <link id="TMCP23X17Controller.HAEN"/>
+          <link id="TMCP23X17Controller.IOCON"/>
+        </seealso>
+      </element>
+      <element name="TMCP23X17Controller.OwnsDevice">
+        <short>Free Device on destruction</short>
+        <descr>If set, the assigned device will be freed at destruction.
+
+This has to be implented in a subclass destructor.</descr>
+      </element>
+      <element name="TMCP23017Controller">
+        <short>Accessing MCP23017 using I2C device</short>
+      </element>
+      <element name="TMCP23017Controller.fI2CDevice">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017Controller.GetRegisterValue">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017Controller.GetRegisterValue.Result">
+        <short/>
+      </element>
+      <element name="TMCP23017Controller.GetRegisterValue.aRegister">
+        <short/>
+      </element>
+      <element name="TMCP23017Controller.SetRegisterValue">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017Controller.SetRegisterValue.aRegister">
+        <short/>
+      </element>
+      <element name="TMCP23017Controller.SetRegisterValue.aValue">
+        <short/>
+      </element>
+      <element name="TMCP23017Controller.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017Controller.Create.aI2CDevice">
+        <short/>
+      </element>
+      <element name="TMCP23017Controller.Create.aOwnsDevice">
+        <short/>
+      </element>
+      <element name="TMCP23017Controller.Destroy">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23017Controller.I2CDevice">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17Controller">
+        <short>Accessing MCP23S17 using SPI device</short>
+      </element>
+      <element name="TMCP23S17Controller.fSPIDevice">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17Controller.GetRegisterValue">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17Controller.GetRegisterValue.Result">
+        <short/>
+      </element>
+      <element name="TMCP23S17Controller.GetRegisterValue.aRegister">
+        <short/>
+      </element>
+      <element name="TMCP23S17Controller.SetRegisterValue">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17Controller.SetRegisterValue.aRegister">
+        <short/>
+      </element>
+      <element name="TMCP23S17Controller.SetRegisterValue.aValue">
+        <short/>
+      </element>
+      <element name="TMCP23S17Controller.Create">
+        <short>Create new instance</short>
+      </element>
+      <element name="TMCP23S17Controller.Create.aSPIDevice">
+        <short>SPI device</short>
+        <seealso>
+          <link id="TMCP23S17Controller.SPIDevice"/>
+        </seealso>
+      </element>
+      <element name="TMCP23S17Controller.Create.aOwnsDevice">
+        <short>Free device on destruction</short>
+        <seealso>
+          <link id="TMCP23X17Controller.OwnsDevice"/>
+        </seealso>
+      </element>
+      <element name="TMCP23S17Controller.Destroy">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TMCP23S17Controller.SPIDevice">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <short>Plain MCP23017 and MCP23S17 access</short>
+      <descr>This unit provides classes for plain access of MCP23017 and MCP23S17 (and compatible chips).</descr>
+      <seealso>
+        <link id="TMCP23X17Controller"/>
+        <link id="TMCP23017Controller"/>
+        <link id="TMCP23S17Controller"/>
+      </seealso>
+    </module>
+	<module name="spidev"><short>Translation of spidev.h</short><descr>This is a translation of the spidev.h header file of the Linux kernel. Unfortunatly the Free Pascal Compiler doesn't ship with a portable translation of some basic C macros which are essantial for the IoCtl system call. These macros and constans may move to another unit.</descr>
+    </module>
+  </package>
+</fpdoc-descriptions>

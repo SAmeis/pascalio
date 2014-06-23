@@ -4,7 +4,7 @@ program project1;
 
 uses
   sysutils,
-  rpiio, fpi2c,
+  pascalio, fpi2c,
   { you can add units after this };
 
 var

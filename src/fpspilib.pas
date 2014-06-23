@@ -1,6 +1,6 @@
 { Free Pascal SPI Library
 
-  Copyright (C) 2013, Simon Ameis <simon.ameis@web.de>
+  Copyright (C) 2013 Simon Ameis <simon.ameis@web.de>
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
