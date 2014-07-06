@@ -13,7 +13,7 @@ unit bcm2708;
 interface
 
 uses
-  Classes, SysUtils, baseunix, rtlconsts;
+  Classes, SysUtils, baseunix, unix, rtlconsts;
 (*
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,7 +25,7 @@ uses
 // Access from ARM Running Linux
 const
   BCM2708_PERI_BASE = $20000000;
-  GPIO_BASE         = (BCM2708_PERI_BASE + $200000); // GPIO controller
+  GPIO_BASE         = (BCM2708_PERI_BASE + $00200000); // GPIO controller
   PAGE_SIZE         = (4*1024);
   BLOCK_SIZE        = (4*1024);
 
@@ -43,6 +43,11 @@ procedure SET_GPIO_ALT(g, a: PtrUInt);
 function GPIO_SET: PPtrUInt;
 function GPIO_CLR: PPtrUInt;
 procedure setup_io();
+
+{$LINKLIB c}
+function mmap(addr: Pointer; _length: size_t; prot: cint; flags: cint; fd: cint; offset: off_t): Pointer; cdecl; external 'libc';
+//void *mmap(void *addr, size_t length, int prot, int flags,
+//                int fd, off_t offset);
 
 implementation
 
@@ -95,22 +100,22 @@ begin
   mem_fd := FpOpen('/dev/mem', O_RDWR OR O_SYNC);
   if (mem_fd < 0) then
     raise EFOpenError.CreateFmt(SFOpenError, ['/dev/mem']);
+  try
+    // mmap GPIO
+    gpio_map := mmap(
+      nil,             //Any adddress in our space will do
+      BLOCK_SIZE,       //Map length
+      PROT_READ OR PROT_WRITE,// Enable reading & writting to mapped memory
+      MAP_SHARED,       //Shared with other processes
+      mem_fd,           //File to map
+      GPIO_BASE         //Offset to GPIO peripheral
+    );
 
-  // mmap GPIO
-  gpio_map := Fpmmap(
-    nil,             //Any adddress in our space will do
-    BLOCK_SIZE,       //Map length
-    PROT_READ OR PROT_WRITE,// Enable reading & writting to mapped memory
-    MAP_SHARED,       //Shared with other processes
-    mem_fd,           //File to map
-    GPIO_BASE         //Offset to GPIO peripheral
-  );
-
-  FpClose(mem_fd); //No need to keep mem_fd open after mmap
-
-  if (gpio_map = MAP_FAILED) then
-    raise EOSError.CreateFmt('mmap error %d.', [PtrInt(gpio_map)]);//errno also set!
-
+    if (gpio_map = MAP_FAILED) then
+       raise EOSError.CreateFmt('mmap error %d.', [fpgeterrno]);//errno also set!
+  finally
+    FpClose(mem_fd); //No need to keep mem_fd open after mmap
+  end;
   gpio := gpio_map;
 end; // setup_io
 
