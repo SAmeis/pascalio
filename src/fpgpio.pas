@@ -198,7 +198,7 @@ type
     class procedure WriteToFile(const aFileName: String; const aBuffer: String);
     class procedure SetExport(aExport: Boolean; aPin: Longword);
     class function GetEdgeString(aInterruptMode: TGpioInterruptMode): String;
-    class function EgeStringToInterruptMode(const aValue: String): TGpioInterruptMode;
+    class function EdgeStringToInterruptMode(const aValue: String): TGpioInterruptMode;
   protected
     function GetDirection: TGpioDirection; override;
     function GetInterruptMode: TGpioInterruptMode; override;
@@ -489,7 +489,7 @@ begin
     raise EInvalidEgde.Create(sInvalidEdge);
 end;
 
-class function TGpioLinuxPin.EgeStringToInterruptMode(const aValue: String
+class function TGpioLinuxPin.EdgeStringToInterruptMode(const aValue: String
   ): TGpioInterruptMode;
 begin
   case aValue of
@@ -522,7 +522,7 @@ var
 begin
   f := Format(GPIO_LINUX_BASE_DIR+'edge', [PinID]);
   s := ReadFromFile(f, 7);
-  Result := EgeStringToInterruptMode(s);
+  Result := EdgeStringToInterruptMode(s);
 end;
 
 function TGpioLinuxPin.GetValue: Boolean;
