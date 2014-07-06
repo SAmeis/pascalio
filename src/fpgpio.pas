@@ -505,7 +505,7 @@ var
   f: String;
 begin
   f := Format(GPIO_LINUX_GPIOPIN_DIR+'direction', [PinID]);
-  s := ReadFromFile(f, 1);
+  s := ReadFromFile(f, 3);
   case s of
     'in' : Result := gdIn ;
     'out': Result := gdOut;
