@@ -414,6 +414,9 @@ begin
     raise EFOpenError.CreateFmt(SFOpenError, [aFileName]);
   CharsRead := FpRead(fd, Result[1], length(Result));
   SetLength(Result, CharsRead);
+  // the files contain the value followed by a line feed
+  Result := Trim(Result);
+  CharsRead := Length(Result);
   fpClose(fd);
 end;
 
