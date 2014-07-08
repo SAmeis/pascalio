@@ -36,11 +36,7 @@ unit fpspi;
 interface
 
 uses
-  Classes,
-  {$IFDEF InheritFromTStream}
-  SysUtils,
-  {$ENDIF InheritFromTStream}
-  spidev, baseunix, RtlConsts;
+  Classes, SysUtils, spidev, baseunix, RtlConsts;
 
 resourcestring
   rsSPIIoCtlErr = 'System call IoCtl failed. Request code %d.';
