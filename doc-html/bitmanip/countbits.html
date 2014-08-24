@@ -46,18 +46,51 @@
 <td><p><tt><span class="code"><span class="sym">):</span>PtrUInt<span class="sym">;</span></span></tt></p></td>
 </tr>
 </table>
-<h2>Description</h2>Returns the count of bits in 
-<var>v</var> set.  
+<h2>Arguments</h2>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><p><tt><span class="code">v</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Input value</p></td>
+</tr>
+</table>
+<h2>Arguments</h2>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><p><tt><span class="code">v</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Input value</p></td>
+</tr>
+</table>
+<h2>Arguments</h2>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><p><tt><span class="code">v</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Input value</p></td>
+</tr>
+</table>
+<h2>Arguments</h2>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><p><tt><span class="code">v</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Input value</p></td>
+</tr>
+</table>
+<h2>Description</h2>
+<p>Returns the count of bits set in  <var>v</var>.</p>
 <pre><span class="kw">var</span>
   value<span class="sym">:</span> Byte<span class="sym">;</span>
   c<span class="sym">:</span> PtrUInt<span class="sym">;</span>
 <span class="kw">begin</span>
   value <span class="sym">:=</span> <span class="num">5</span><span class="sym">;</span>
   <span class="cmt">// bits set</span>
-  c <span class="sym">:=</span> CountBits<span class="sym">(</span>value<span class="sym">)</span><span class="sym">;</span>
+  c <span class="sym">:=</span> CountBits<span class="sym">(</span>value<span class="sym">)</span><span class="sym">;</span> <span class="cmt">// c is now 2</span>
   <span class="cmt">// bits not set</span>
-  c <span class="sym">:=</span> CountBits<span class="sym">(</span><span class="kw">not</span> value<span class="sym">)</span><span class="sym">;</span>
+  c <span class="sym">:=</span> CountBits<span class="sym">(</span><span class="kw">not</span> value<span class="sym">)</span><span class="sym">;</span> <span class="cmt">// c is now 6</span>
 <span class="kw">end</span><span class="sym">.</span>
 </pre>
+<p>The used algorith is taken from <a href="http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetParallel">Bit Twiddling Hacks</a></p>
 </body>
 </html>

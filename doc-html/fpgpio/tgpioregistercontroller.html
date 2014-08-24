@@ -99,10 +99,12 @@
 <td align="center"><p><tt><span class="code">TObject</span></tt></p></td>
 </tr>
 </table>
-<h2>Description</h2>Many external I/O expanders provide an interace which exposes the internal registers to the contoller. This base class provides an basic interface to these expanders.  Setting and getting values basically operate on 3 methods:  
+<h2>Description</h2>
+<p>Many external I/O expanders provide an interface which exposes the internal registers to the contoller. This base class provides an basic interface to these I/O expanders.</p>
+<p>Setting and getting values basically operate on 3 methods:</p>
 <ol>
-<li><a href="../fpgpio/tgpioregistercontroller.getregister.html">function GetRegister():</a> Getting the                                                 <a href="../fpgpio/tregisteraddress.html">adress of the register</a> and the                                                   <a href="../fpgpio/tpinposition.html">position of the pin within this register</a>.</li>
-<li><a href="../fpgpio/tgpioregistercontroller.getregistervalue.html">function GetRegisterValue():</a> Reading the current                                                   <a href="../fpgpio/tregistervalue.html">TRegisterValue</a>.</li>
+<li><a href="../fpgpio/tgpioregistercontroller.getregister.html">function GetRegister():</a> Getting the                                                                                                                                           <a href="../fpgpio/tregisteraddress.html">adress of the register</a> and the                                                                                                                                             <a href="../fpgpio/tpinposition.html">position of the pin within this register</a>.</li>
+<li><a href="../fpgpio/tgpioregistercontroller.getregistervalue.html">function GetRegisterValue():</a> Reading the current                                                                                                                                             <a href="../fpgpio/tregistervalue.html">TRegisterValue</a>.</li>
 <li><a href="../fpgpio/tgpioregistercontroller.setregistervalue.html">procedure SetRegisterValue():</a> Setting the new value if desired.</li>
 <li>If you are interested in only one bit of a register, you may use the convenience methods <a href="../fpgpio/tgpioregistercontroller.getregistervalues.html">TGpioRegisterController.GetRegisterValueS</a> and <a href="../fpgpio/tgpioregistercontroller.setregistervalues.html">TGpioRegisterController.SetRegisterValueS</a>.</li>
 </ol>
