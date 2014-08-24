@@ -98,30 +98,17 @@
       <descr>This unit contains an abstract base class <link id="TADConverter"/> for Analog to Digital Converters (ADC).</descr>
     </module>
     <module name="bitmanip">
-      <element name="CHAR_BIT">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
       <element name="TByteSize">
-        <short/>
-        <descr/>
-        <seealso/>
+        <short>Index of Bit in byte</short>
       </element>
       <element name="TWordSize">
-        <short/>
-        <descr/>
-        <seealso/>
+        <short>Index of Bit in word</short>
       </element>
       <element name="TDWordSize">
-        <short/>
-        <descr/>
-        <seealso/>
+        <short>Index of Bit in double word</short>
       </element>
-      <element name="TQWordSizw">
-        <short/>
-        <descr/>
-        <seealso/>
+      <element name="TQWordSize">
+        <short>Index of Bit in quad word</short>
       </element>
       <element name="BITSET">
         <short>Set bit</short>
@@ -173,28 +160,34 @@
       </element>
       <element name="CountBits">
         <short>Count bits set</short>
-        <descr>Returns the count of bits in <var>v</var> set.
-
-<code>var
+        <descr>
+          <p>Returns the count of bits set in 
+<var>v</var>.</p>
+          <code>var
   value: Byte;
   c: PtrUInt;
 begin
   value := 5;
   // bits set
-  c := CountBits(value);
+  c := CountBits(value); // c is now 2
   // bits not set
-  c := CountBits(not value);
+  c := CountBits(not value); // c is now 6
 end.
 </code>
+          <p>The used algorith is taken from <url href="http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetParallel">Bit Twiddling Hacks</url>
+          </p>
         </descr>
       </element>
       <element name="CountBits.Result">
         <short/>
       </element>
       <element name="CountBits.v">
-        <short/>
+        <short>Input value</short>
       </element>
       <short>Bit manipulations</short>
+      <descr>
+        <p>This unit provides functions for manipulating bits in a functional manner.</p>
+      </descr>
     </module>
     <module name="fpgpio">
       <element name="TGpioPin.PollChange">
@@ -227,8 +220,26 @@ If <var>delay</var> is greater than 0, <code>sleep(delay)</code> will be called.
         <short>Indicates timeout or change</short>
         <descr>
           <var>True</var> indicates a change in 
+          
+          
+          
+          
+          
+          
           <link id="TGpioPin.Value"/>; the value is stored in 
+          
+          
+          
+          
+          
+          
           <var>value</var>. 
+          
+          
+          
+          
+          
+          
           <var>False</var> indicates a timeout.</descr>
       </element>
       <element name="TGpioGroup">
@@ -334,30 +345,48 @@ A register type is converted to an address which an I/O expander can understand 
       </element>
       <element name="TGpioRegisterController">
         <short>Generic class for I/O controller using registers</short>
-        <descr>Many external I/O expanders provide an interace which exposes the internal registers to the contoller. This base class provides an basic interface to these expanders.
-
-Setting and getting values basically operate on 3 methods:
-
-<ol>
+        <descr>
+          <p>Many external I/O expanders provide an interface which exposes the internal registers to the contoller. This base class provides an basic interface to these I/O expanders.</p>
+          <p>Setting and getting values basically operate on 3 methods:</p>
+          <ol>
             <li>
               <link id="TGpioRegisterController.GetRegister">function GetRegister():</link> Getting the              
               
     
+              
+              
+              
+              
+              
+              
               <link id="TRegisterAddress">adress of the register</link> and the 
               
               
     
+              
+              
+              
+              
+              
+              
               <link id="TPinPosition">position of the pin within this register</link>.</li>
             <li>
               <link id="TGpioRegisterController.GetRegisterValue">function GetRegisterValue():</link> Reading the current 
               
               
     
+              
+              
+              
+              
+              
+              
               <link id="TRegisterValue"/>.</li>
             <li>
               <link id="TGpioRegisterController.SetRegisterValue">procedure SetRegisterValue():</link> Setting the new value if desired.</li>
             <li>If you are interested in only one bit of a register, you may use the convenience methods <link id="TGpioRegisterController.GetRegisterValueS"/> and <link id="TGpioRegisterController.SetRegisterValueS"/>.</li>
-          </ol><p>
+          </ol>
+          <p>
             <b>Only expanders with 8 bit registers are supported.</b> This does not mean, the expander may have at maximum 8 GPIO channels. An expander may provide more than one register for one task.</p>
         </descr>
       </element>
@@ -467,7 +496,7 @@ Regarding the Raspberry Pi, this is the BCM pin number, not the one of the conne
         </seealso>
       </element>
     </module>
-	<module name="fpi2c">
+    <module name="fpi2c">
       <element name="sI2CSlaveAddress">
         <short/>
         <descr/>
@@ -478,18 +507,527 @@ Regarding the Raspberry Pi, this is the BCM pin number, not the one of the conne
         <descr/>
         <seealso/>
       </element>
+      <!-- resource string Visibility: default -->
+      <element name="rsBufferNotSet">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- resource string Visibility: default -->
+      <element name="rsBufferToLarge">
+        <short>Buffer is not 1 byte in length</short>
+        <seealso>
+          <link id="EI2CQueueObjectInconsistency"/>
+          <link id="TI2CQueueObject.CheckConsistency"/>
+          <link id="TI2CQueueObject.UseCommand"/>
+        </seealso>
+      </element>
+      <!-- resource string Visibility: default -->
+      <element name="rsReadWriteBitSet">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
       <element name="TI2CAddress">
         <short/>
         <descr/>
         <seealso/>
       </element>
+      <!-- alias type Visibility: default -->
       <element name="TI2CRegister">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- class Visibility: default -->
+      <element name="EI2CQueueObjectInconsistency">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- class Visibility: default -->
+      <element name="TI2CQueueObject">
+        <short>Description of a queued action on a I2C bus</short>
+        <descr>This object describes a read or write request on an <link id="TI2CBus">I2C bus</link>. The <link id="TI2CThreadSaveDevice"/> queues all it's actions on a bus; use this class as an example usage.</descr>
+        <seealso>
+          <link id="TI2CBus"/>
+          <link id="TI2CBus.QueueObject"/>
+          <link id="TI2CThreadSaveDevice"/>
+        </seealso>
+      </element>
+      <!-- range type Visibility: public -->
+      <element name="TI2CQueueObject.TBufferLength">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fFatalException">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fReadyEvent">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fWriteEvent">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fAddress">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fCommand">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fUseCommand">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fRead">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fBufLen">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fBuffer">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: private -->
+      <element name="TI2CQueueObject.SetCommand">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: private -->
+      <element name="TI2CQueueObject.SetCommand.aValue">
+        <short/>
+      </element>
+      <!-- constructor Visibility: public -->
+      <element name="TI2CQueueObject.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- destructor Visibility: public -->
+      <element name="TI2CQueueObject.Destroy">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CQueueObject.CheckConsistency">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CQueueObject.WaitForWrite">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CQueueObject.SetDataWritten">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CQueueObject.SetReadBufferLength">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.SetReadBufferLength.aLen">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CQueueObject.SetWriteBuffer">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.SetWriteBuffer.aBuf">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.SetWriteBuffer.aLen">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CQueueObject.SetResultBuffer">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.SetResultBuffer.aBuf">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.SetResultBuffer.aLen">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CQueueObject.GetResultBuffer">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CQueueObject.GetResultBuffer.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.GetResultBuffer.aBuf">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.GetResultBuffer.aLen">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CQueueObject.GetWriteBuffer">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.GetWriteBuffer.aBuf">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.GetWriteBuffer.aMaxLen">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.GetWriteBuffer.aLen">
+        <short/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CQueueObject.BufferLength">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CQueueObject.Address">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CQueueObject.Read">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CQueueObject.Command">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CQueueObject.UseCommand">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CQueueObject.FatalException">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- class Visibility: default -->
+      <element name="TI2CBus">
+        <short>Threadsafe I2C Bus</short>
+        <descr>One I2C bus is connected to several devices. This object is threadsafe.</descr>
+      </element>
+      <!-- variable Visibility: strict private -->
+      <element name="TI2CBus.fBus">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: protected -->
+      <element name="TI2CBus.fQueue">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: protected -->
+      <element name="TI2CBus.fThreadWakeup">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: protected -->
+      <element name="TI2CBus.Execute">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: protected -->
+      <element name="TI2CBus.ProcessObject">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: protected -->
+      <element name="TI2CBus.ProcessObject.aObj">
+        <short/>
+      </element>
+      <!-- property Visibility: protected -->
+      <element name="TI2CBus.Queue">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constructor Visibility: public -->
+      <element name="TI2CBus.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.Create.aBus">
+        <short/>
+      </element>
+      <!-- destructor Visibility: public -->
+      <element name="TI2CBus.Destroy">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CBus.QueueObject">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.QueueObject.aObj">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CBus.ReadByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CBus.ReadByte.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadByte.aAddress">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CBus.WriteByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteByte.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteByte.aByte">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CBus.ReadRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CBus.ReadRegByte.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadRegByte.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadRegByte.aRegister">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CBus.ReadRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CBus.ReadRegWord.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadRegWord.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadRegWord.aRegister">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CBus.WriteRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteRegByte.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteRegByte.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteRegByte.aByte">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CBus.WriteRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteRegWord.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteRegWord.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteRegWord.aWord">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CBus.ReadBlockData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CBus.ReadBlockData.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadBlockData.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadBlockData.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadBlockData.aBuffer">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadBlockData.aCount">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CBus.WriteBlockData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteBlockData.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteBlockData.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteBlockData.Buffer">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteBlockData.aCount">
+        <short/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CBus.Bus">
         <short/>
         <descr/>
         <seealso/>
       </element>
       <element name="TI2CDevice">
         <short>Abstract I2C device class</short>
+        <descr>This class is an abstact interface for sending data to and receiving data from a I2C device attached to an I2C Bus.
+
+If you are using only one device in your application, you should use a derived class, e.g. 
+<link id="TI2CLinuxDevice"/>.
+
+If there are multiple conccurrent threads in your multi threaded application accessing on bus, you may want to use 
+<link id="TI2CBus"/> for request serialization. As an alternative, you should be able to create multiple instances of 
+<link id="TI2CDevice"/>---one for each device (not tested).
+
+This class is 
+<b>not threadsafe</b>.</descr>
       </element>
       <element name="TI2CDevice.fAddress">
         <short/>
@@ -501,6 +1039,17 @@ Regarding the Raspberry Pi, this is the BCM pin number, not the one of the conne
         <descr/>
         <errors/>
         <seealso/>
+      </element>
+      <!-- procedure Visibility: protected -->
+      <element name="TI2CDevice.SetAddress">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: protected -->
+      <element name="TI2CDevice.SetAddress.aValue">
+        <short/>
       </element>
       <element name="TI2CDevice.Create.aAddress">
         <short/>
@@ -601,9 +1150,6 @@ Regarding the Raspberry Pi, this is the BCM pin number, not the one of the conne
       <element name="TI2CDevice.WriteData.aCount">
         <short/>
       </element>
-      <element name="TI2CDevice.WriteByte.aRegister">
-        <short/>
-      </element>
       <element name="TI2CDevice.WriteWord">
         <short/>
         <descr/>
@@ -645,8 +1191,184 @@ Regarding the Raspberry Pi, this is the BCM pin number, not the one of the conne
         <descr/>
         <seealso/>
       </element>
+      <!-- class Visibility: default -->
+      <element name="TI2CThreadSaveDevice">
+        <short>Thread safe I2C Device</short>
+      </element>
+      <!-- variable Visibility: strict private -->
+      <element name="TI2CThreadSaveDevice.fBus">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constructor Visibility: public -->
+      <element name="TI2CThreadSaveDevice.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.Create.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.Create.aBus">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadBlockData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadBlockData.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadBlockData.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadBlockData.aBuffer">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadBlockData.aCount">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadByte.Result">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadRegByte.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadRegByte.aRegister">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadRegWord.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadRegWord.aRegister">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteBlockData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteBlockData.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteBlockData.Buffer">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteBlockData.aCount">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteByte.aByte">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteRegByte.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteRegByte.aByte">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteRegWord.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteRegWord.aWord">
+        <short/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CThreadSaveDevice.Bus">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
       <element name="TI2CLinuxDevice">
         <short>Accesing I2C bus using Linux File interface</short>
+        <descr>
+          <p>This class implements the access to a single I2C device using Linux' file system interface.</p>
+          <p>Please check you have loaded the Kernel module
+
+<url href="http://www.mjmwired.net/kernel/Documentation/i2c/dev-interface">i2c-dev</url> before creating an instance of this class. This module creates the /dev/i2c-* files, which are used by user space programms (like yours).
+
+You may need to load another kernel module, for making the I2C busses accessible by the kernel itself.
+</p>
+          <table>
+            <tr>
+              <td>Board</td>
+              <td>SoC</td>
+              <td>Kernel Module</td>
+            </tr>
+            <tr>
+              <td>Raspberry Pi (all revisions)</td>
+              <td>BCM2835</td>
+              <td>i2c-bcm2708 </td>
+            </tr>
+          </table>
+        </descr>
       </element>
       <element name="TI2CLinuxDevice.fHandle">
         <short/>
@@ -775,18 +1497,35 @@ Regarding the Raspberry Pi, this is the BCM pin number, not the one of the conne
       </element>
       <short>Free Pascal I2C abstraction layer</short>
     </module>
-    <module name="fpspilib"><element name="TMCP3008.Create"><short>Create new object</short>
-      </element><element name="TMCP3008.Create.aBus"><short>The SPI bus to operate on</short>
+    <module name="fpspilib">
+      <element name="TMCP3008.Create">
+        <short>Create new object</short>
       </element>
-    <element name="TMCP300X"><short>Generic class for MCP3004/MCP3008</short><descr>This is an abstract class. Use a class for a specific device instead.</descr><seealso><link id="TMCP3004"/><link id="TMCP3008"/>
+      <element name="TMCP3008.Create.aBus">
+        <short>The SPI bus to operate on</short>
+      </element>
+      <element name="TMCP300X">
+        <short>Generic class for MCP3004/MCP3008</short>
+        <descr>This is an abstract class. Use a class for a specific device instead.</descr>
+        <seealso>
+          <link id="TMCP3004"/>
+          <link id="TMCP3008"/>
         </seealso>
-      </element><element name="TMCP3008"><short>Analog/Digital Converter MCP3008</short>
-      </element><element name="TMCP3004"><short>Analog/Digital Converter MCP3004</short>
-      </element><element name="TMCP300X.Create"/><element name="TMCP300X.Create.aBus"><short>Bus to communicate with device</short>
       </element>
-    <short>Free Pascal SPI device library</short><descr>This unit contains a collection of classes wicht access SPI devices</descr>
+      <element name="TMCP3008">
+        <short>Analog/Digital Converter MCP3008</short>
+      </element>
+      <element name="TMCP3004">
+        <short>Analog/Digital Converter MCP3004</short>
+      </element>
+      <element name="TMCP300X.Create"/>
+      <element name="TMCP300X.Create.aBus">
+        <short>Bus to communicate with device</short>
+      </element>
+      <short>Free Pascal SPI device library</short>
+      <descr>This unit contains a collection of classes wicht access SPI devices</descr>
     </module>
-	<module name="gpioexp">
+    <module name="gpioexp">
       <element name="TGpioI2CController">
         <short>Abstract class for I2C expander</short>
         <descr>All GPIO expander providing an I2C interface should inerhit from this class.</descr>
@@ -1235,8 +1974,189 @@ Regarding the Raspberry Pi, this is the BCM pin number, not the one of the conne
       <short>GPIO expanders</short>
       <descr>This unit provides support for GPIO expanders. You will need an GPIO expander if your processor/microcontroller doesn't provide as much GPIO ports as you need.</descr>
     </module>
-	<module name="i2c_dev"><short>Basic i2c functions for Linux</short><descr>This is a translation of libi2c-dev and allows using the Inter Integrated Circuits Bus with Free Pascal under Linux.</descr></module>
-	<module name="mcp23017">
+    <module name="i2c_dev">
+      <short>Linux i2c-dev.h</short>
+      <descr>This unit is a translation of the i2c-dev.h header file of the Linux Kernel. Use this unit for low level direct access to I2C (Inter Integrated Circuit) or SMBus (System Management Bus) on Linux.</descr>
+      <element name="i2c_msg"/>
+      <element name="i2c_msg.addr">
+        <short>slave address</short>
+      </element>
+      <element name="i2c_msg.flags"/>
+      <element name="i2c_msg.len">
+        <short>Message length</short>
+      </element>
+      <element name="i2c_msg.buf">
+        <short>Pointer to message data</short>
+      </element>
+      <element name="Pi2c_msg"/>
+      <element name="I2C_M_TEN"/>
+      <element name="I2C_M_RD"/>
+      <element name="I2C_M_NOSTART"/>
+      <element name="I2C_M_REV_DIR_ADDR"/>
+      <element name="I2C_M_IGNORE_NAK"/>
+      <element name="I2C_M_NO_RD_ACK"/>
+      <element name="I2C_FUNC_I2C"/>
+      <element name="I2C_FUNC_10BIT_ADDR"/>
+      <element name="I2C_FUNC_PROTOCOL_MANGLING"/>
+      <element name="I2C_FUNC_SMBUS_PEC"/>
+      <element name="I2C_FUNC_SMBUS_BLOCK_PROC_CALL"/>
+      <element name="I2C_FUNC_SMBUS_QUICK"/>
+      <element name="I2C_FUNC_SMBUS_READ_BYTE"/>
+      <element name="I2C_FUNC_SMBUS_WRITE_BYTE"/>
+      <element name="I2C_FUNC_SMBUS_READ_BYTE_DATA"/>
+      <element name="I2C_FUNC_SMBUS_WRITE_BYTE_DATA"/>
+      <element name="I2C_FUNC_SMBUS_WRITE_WORD_DATA"/>
+      <element name="I2C_FUNC_SMBUS_PROC_CALL"/>
+      <element name="I2C_FUNC_SMBUS_READ_BLOCK_DATA"/>
+      <element name="I2C_FUNC_SMBUS_WRITE_BLOCK_DATA"/>
+      <element name="I2C_FUNC_SMBUS_READ_I2C_BLOCK"/>
+      <element name="I2C_FUNC_SMBUS_WRITE_I2C_BLOCK"/>
+      <element name="I2C_FUNC_SMBUS_BYTE"/>
+      <element name="I2C_FUNC_SMBUS_BYTE_DATA"/>
+      <element name="I2C_FUNC_SMBUS_WORD_DATA"/>
+      <element name="I2C_FUNC_SMBUS_BLOCK_DATA"/>
+      <element name="I2C_FUNC_SMBUS_I2C_BLOCK"/>
+      <element name="I2C_FUNC_SMBUS_HWPEC_CALC"/>
+      <element name="I2C_SMBUS_BLOCK_MAX">
+        <short>Maximum block count for SMBus</short>
+      </element>
+      <element name="I2C_SMBUS_I2C_BLOCK_MAX"/>
+      <element name="TI2C_SMBUS_VALUES"/>
+      <element name="i2c_smbus_data"/>
+      <element name="i2c_smbus_data._byte"/>
+      <element name="i2c_smbus_data._word"/>
+      <element name="i2c_smbus_data.block"/>
+      <element name="Pi2c_smbus_data"/>
+      <element name="TI2C_SMBUS_RW_MODE"/>
+      <element name="TI2C_SMBUS_RW_MODE.I2C_SMBUS_WRITE">
+        <short>Write data to bus</short>
+      </element>
+      <element name="TI2C_SMBUS_RW_MODE.I2C_SMBUS_READ">
+        <short>Read data from bus</short>
+      </element>
+      <element name="TI2C_SMBUS_TRANSACTION">
+        <short>SMBus transaction type</short>
+      </element>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_QUICK"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_BYTE"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_WORD_DATA"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_PROC_CALL"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_BYTE_DATA"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_BLOCK_DATA"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_I2C_BLOCK_BROKEN"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_BLOCK_PROC_CALL"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_I2C_BLOCK_DATA"/>
+      <element name="I2C_RETRIES"/>
+      <element name="I2C_TIMEOUT"/>
+      <element name="I2C_SLAVE"/>
+      <element name="I2C_SLAVE_FORCE"/>
+      <element name="I2C_TENBIT"/>
+      <element name="I2C_FUNCS"/>
+      <element name="I2C_RDWR"/>
+      <element name="I2C_PEC"/>
+      <element name="I2C_SMBUS"/>
+      <element name="i2c_smbus_ioctl_data">
+        <short>Structure for I2C_SMBUS ioctl call</short>
+      </element>
+      <element name="i2c_smbus_ioctl_data.read_write">
+        <short>Read or write mode</short>
+      </element>
+      <element name="i2c_smbus_ioctl_data.command"/>
+      <element name="i2c_smbus_ioctl_data.size"/>
+      <element name="i2c_smbus_ioctl_data.data"/>
+      <element name="Pi2c_smbus_ioctl_data"/>
+      <element name="i2c_rdwr_ioctl_data">
+        <short>Structure for I2C_RDWR ioctl call</short>
+      </element>
+      <element name="i2c_rdwr_ioctl_data.msgs">
+        <short>Pointer to i2c_msgs</short>
+      </element>
+      <element name="i2c_rdwr_ioctl_data.nmsgs">
+        <short>number of i2c_msgs</short>
+      </element>
+      <element name="Pi2c_rdwr_ioctl_data"/>
+      <element name="i2c_smbus_access"/>
+      <element name="i2c_smbus_block_process_call"/>
+      <element name="i2c_smbus_process_call"/>
+      <element name="i2c_smbus_read_block_data"/>
+      <element name="i2c_smbus_read_byte"/>
+      <element name="i2c_smbus_read_byte_data"/>
+      <element name="i2c_smbus_read_i2c_block_data">
+        <descr>Until kernel 2.6.22, the length is hardcoded to 32 bytes. If you ask for less than 32 bytes, your code will only work with kernels 2.6.23 and later.</descr>
+      </element>
+      <element name="i2c_smbus_read_word_data"/>
+      <element name="i2c_smbus_write_block_data"/>
+      <element name="i2c_smbus_write_byte"/>
+      <element name="i2c_smbus_write_byte_data"/>
+      <element name="i2c_smbus_write_i2c_block_data"/>
+      <element name="i2c_smbus_write_quick"/>
+      <element name="i2c_smbus_write_word_data"/>
+      <element name="i2c_smbus_access._file">
+        <short>File descriptor of I2C/SMBus file</short>
+      </element>
+      <element name="i2c_smbus_access.read_write"/>
+      <element name="i2c_smbus_access.command"/>
+      <element name="i2c_smbus_access.size"/>
+      <element name="i2c_smbus_access.data"/>
+      <element name="i2c_smbus_access.Result"/>
+      <element name="i2c_smbus_block_process_call._file"/>
+      <element name="i2c_smbus_block_process_call.command"/>
+      <element name="i2c_smbus_block_process_call._length"/>
+      <element name="i2c_smbus_block_process_call.values"/>
+      <element name="i2c_smbus_block_process_call.Result">
+        <short>Number of read bytes</short>
+      </element>
+      <element name="i2c_smbus_process_call._file"/>
+      <element name="i2c_smbus_process_call.command"/>
+      <element name="i2c_smbus_process_call.value"/>
+      <element name="i2c_smbus_process_call.Result"/>
+      <element name="i2c_smbus_read_block_data.Result">
+        <short>Number of read bytes</short>
+      </element>
+      <element name="i2c_smbus_read_block_data.values"/>
+      <element name="i2c_smbus_read_block_data.command"/>
+      <element name="i2c_smbus_read_block_data._file"/>
+      <element name="i2c_smbus_read_byte._file"/>
+      <element name="i2c_smbus_read_byte.Result"/>
+      <element name="i2c_smbus_read_byte_data._file"/>
+      <element name="i2c_smbus_read_byte_data.command"/>
+      <element name="i2c_smbus_read_byte_data.Result"/>
+      <element name="i2c_smbus_read_i2c_block_data._file"/>
+      <element name="i2c_smbus_read_i2c_block_data.command"/>
+      <element name="i2c_smbus_read_i2c_block_data._length"/>
+      <element name="i2c_smbus_read_i2c_block_data.values"/>
+      <element name="i2c_smbus_read_i2c_block_data.Result">
+        <short>Number of read bytes</short>
+      </element>
+      <element name="i2c_smbus_read_word_data._file"/>
+      <element name="i2c_smbus_read_word_data.command"/>
+      <element name="i2c_smbus_read_word_data.Result"/>
+      <element name="i2c_smbus_write_block_data._file"/>
+      <element name="i2c_smbus_write_block_data.command"/>
+      <element name="i2c_smbus_write_block_data._length"/>
+      <element name="i2c_smbus_write_block_data.values"/>
+      <element name="i2c_smbus_write_block_data.Result"/>
+      <element name="i2c_smbus_write_byte._file"/>
+      <element name="i2c_smbus_write_byte.value"/>
+      <element name="i2c_smbus_write_byte.Result"/>
+      <element name="i2c_smbus_write_byte_data._file"/>
+      <element name="i2c_smbus_write_byte_data.command"/>
+      <element name="i2c_smbus_write_byte_data.value"/>
+      <element name="i2c_smbus_write_byte_data.Result"/>
+      <element name="i2c_smbus_write_i2c_block_data._file"/>
+      <element name="i2c_smbus_write_i2c_block_data.command"/>
+      <element name="i2c_smbus_write_i2c_block_data._length"/>
+      <element name="i2c_smbus_write_i2c_block_data.values"/>
+      <element name="i2c_smbus_write_i2c_block_data.Result"/>
+      <element name="i2c_smbus_write_quick._file"/>
+      <element name="i2c_smbus_write_quick.value"/>
+      <element name="i2c_smbus_write_quick.Result"/>
+      <element name="i2c_smbus_write_word_data._file"/>
+      <element name="i2c_smbus_write_word_data.command"/>
+      <element name="i2c_smbus_write_word_data.value"/>
+      <element name="i2c_smbus_write_word_data.Result"/>
+    </module>
+    <module name="mcp23017">
       <element name="sInvalidAddress">
         <seealso>
           <link id="EInvalidMCP23X17Address"/>
@@ -1768,8 +2688,10 @@ If set, the address pins bias the chip's address. Default <var>False</var>.</des
       </element>
       <element name="TMCP23X17Controller.INTPOL">
         <short>Interrupt Polarity</short>
-        <descr>Is overridden by <link id="TMCP23X17Controller.ODR">Open Drain flag</link>.
-<table>
+        <descr>
+          <p>Is overridden by 
+<link id="TMCP23X17Controller.ODR">Open Drain flag</link>.</p>
+          <table>
             <tr>
               <td>Value</td>
               <td>Description</td>
@@ -1926,7 +2848,976 @@ This has to be implented in a subclass destructor.</descr>
         <link id="TMCP23S17Controller"/>
       </seealso>
     </module>
-	<module name="spidev"><short>Translation of spidev.h</short><descr>This is a translation of the spidev.h header file of the Linux kernel. Unfortunatly the Free Pascal Compiler doesn't ship with a portable translation of some basic C macros which are essantial for the IoCtl system call. These macros and constans may move to another unit.</descr>
+    <module name="spidev">
+      <short>Translation of spidev.h</short>
+      <descr>This is a translation of the spidev.h header file of the Linux kernel. Unfortunatly the Free Pascal Compiler doesn't ship with a portable translation of some basic C macros which are essantial for the IoCtl system call. These macros and constans may move to another unit.</descr>
+      <!-- constant Visibility: default -->
+      <element name="SPI_CPHA">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_CPOL">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_MODE_0">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_MODE_1">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_MODE_2">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_MODE_3">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_CS_HIGH">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_LSB_FIRST">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_3WIRE">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_LOOP">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_NO_CS">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_READY">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_MAGIC">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- record type Visibility: default -->
+      <element name="spi_ioc_transfer">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: default -->
+      <element name="spi_ioc_transfer.len">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: default -->
+      <element name="spi_ioc_transfer.speed_hz">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: default -->
+      <element name="spi_ioc_transfer.delay_usecs">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: default -->
+      <element name="spi_ioc_transfer.bits_per_word">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: default -->
+      <element name="spi_ioc_transfer.cs_change">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: default -->
+      <element name="spi_ioc_transfer.pad">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_NRBITS">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_TYPEBITS">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_SIZEBITS">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_DIRBITS">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_NONE">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_WRITE">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_READ">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_NRMASK">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_TYPEMASK">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_SIZEMASK">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_DIRMASK">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_NRSHIFT">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_TYPESHIFT">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_SIZESHIFT">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_DIRSHIFT">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- function Visibility: default -->
+      <element name="_IOC">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: default -->
+      <element name="_IOC.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOC.dir">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOC._type">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOC.nr">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOC.size">
+        <short/>
+      </element>
+      <!-- function Visibility: default -->
+      <element name="_IOR">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: default -->
+      <element name="_IOR.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOR._type">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOR.nr">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOR.size">
+        <short/>
+      </element>
+      <!-- function Visibility: default -->
+      <element name="_IOW">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: default -->
+      <element name="_IOW.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOW._type">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOW.nr">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOW.size">
+        <short/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_RD_MODE">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_WR_MODE">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_RD_LSB_FIRST">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_WR_LSB_FIRST">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_RD_BITS_PER_WORD">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_WR_BITS_PER_WORD">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_RD_MAX_SPEED_HZ">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_WR_MAX_SPEED_HZ">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- function Visibility: default -->
+      <element name="SPI_MSGSIZE">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: default -->
+      <element name="SPI_MSGSIZE.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="SPI_MSGSIZE.n">
+        <short/>
+      </element>
+      <!-- function Visibility: default -->
+      <element name="SPI_IOC_MESSAGE">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: default -->
+      <element name="SPI_IOC_MESSAGE.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="SPI_IOC_MESSAGE.N">
+        <short/>
+      </element>
     </module>
+    <module name="flqueue">
+      <element name="tNodeQueue">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue">
+        <short>Lock free queue of tObject (pointer)</short>
+      </element>
+      <element name="tFLQueue.fSize">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.fMask">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.tab">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.tail">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.head">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.temp">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.setobject">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.setobject.lp">
+        <short/>
+      </element>
+      <element name="tFLQueue.setobject.aobject">
+        <short/>
+      </element>
+      <element name="tFLQueue.getLength">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.getLength.Result">
+        <short/>
+      </element>
+      <element name="tFLQueue.getObject">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.getObject.Result">
+        <short/>
+      </element>
+      <element name="tFLQueue.getObject.lp">
+        <short/>
+      </element>
+      <element name="tFLQueue.create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.create.aPower">
+        <short/>
+      </element>
+      <element name="tFLQueue.push">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.push.tm">
+        <short/>
+      </element>
+      <element name="tFLQueue.pop">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.pop.Result">
+        <short/>
+      </element>
+      <element name="tFLQueue.length">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <short>Lock free queue</short>
+      <descr>
+        <p>Has two implementation queue based on curcular array proposed by Dariusz Mazur use only single CAS.</p>
+        <ul>
+          <li>
+            <link id="tFLQueue"/>: for queue of tObject (pointer)</li>
+          <li>gFlQueue: generic queue of any record (not included in theses sources)</li>
+        </ul>
+        <p>
+          <b>Caution:</b> if You set too small size of array and store data excess size of queue data will be lost</p>
+      </descr>
+    </module>
+    <!-- flqueue -->
+    <module name="fpspi">
+      <element name="rsSPIIoCtlErr">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPIMode">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPIMode.SPI_CPHA">
+        <short/>
+      </element>
+      <element name="TSPIMode.SPI_CPOL">
+        <short/>
+      </element>
+      <element name="SPI_MODE_0">
+        <short>SPI Mode 0 - CPOL=0, CPHA=0</short>
+        <descr>
+          <table>
+            <th>
+              <td>Mode</td>
+              <td>Clock Polarity (CPOL)</td>
+              <td>Clock Phase (CPHA)</td>
+            </th>
+            <tr>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>0</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>1</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>1</td>
+              <td>1</td>
+            </tr>
+          </table>
+        </descr>
+        <seealso>
+          <link id="SPI_MODE_0"/>
+          <link id="SPI_MODE_1"/>
+          <link id="SPI_MODE_2"/>
+          <link id="SPI_MODE_3"/>
+        </seealso>
+      </element>
+      <element name="SPI_MODE_1">
+        <short>SPI Mode 0 - CPOL=0, CPHA=1</short>
+        <descr>
+          <table>
+            <th>
+              <td>Mode</td>
+              <td>Clock Polarity (CPOL)</td>
+              <td>Clock Phase (CPHA)</td>
+            </th>
+            <tr>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>0</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>1</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>1</td>
+              <td>1</td>
+            </tr>
+          </table>
+        </descr>
+        <seealso>
+          <link id="SPI_MODE_0"/>
+          <link id="SPI_MODE_1"/>
+          <link id="SPI_MODE_2"/>
+          <link id="SPI_MODE_3"/>
+        </seealso>
+      </element>
+      <element name="SPI_MODE_2">
+        <short>SPI Mode 0 - CPOL=1, CPHA=0</short>
+        <descr>
+          <table>
+            <th>
+              <td>Mode</td>
+              <td>Clock Polarity (CPOL)</td>
+              <td>Clock Phase (CPHA)</td>
+            </th>
+            <tr>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>0</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>1</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>1</td>
+              <td>1</td>
+            </tr>
+          </table>
+        </descr>
+        <seealso>
+          <link id="SPI_MODE_0"/>
+          <link id="SPI_MODE_1"/>
+          <link id="SPI_MODE_2"/>
+          <link id="SPI_MODE_3"/>
+        </seealso>
+      </element>
+      <element name="SPI_MODE_3">
+        <short>SPI Mode 0 - CPOL=1, CPHA=1</short>
+        <descr>
+          <table>
+            <th>
+              <td>Mode</td>
+              <td>Clock Polarity (CPOL)</td>
+              <td>Clock Phase (CPHA)</td>
+            </th>
+            <tr>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>0</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>1</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>1</td>
+              <td>1</td>
+            </tr>
+          </table>
+        </descr>
+        <seealso>
+          <link id="SPI_MODE_0"/>
+          <link id="SPI_MODE_1"/>
+          <link id="SPI_MODE_2"/>
+          <link id="SPI_MODE_3"/>
+        </seealso>
+      </element>
+      <element name="TSPIDevice">
+        <short>Abstract SPI device</short>
+      </element>
+      <element name="TSPIDevice.GetBitsPerWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.GetBitsPerWord.Result">
+        <short/>
+      </element>
+      <element name="TSPIDevice.SetBitsPerWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.SetBitsPerWord.AValue">
+        <short/>
+      </element>
+      <element name="TSPIDevice.GetLSBFirst">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.GetLSBFirst.Result">
+        <short/>
+      </element>
+      <element name="TSPIDevice.GetMaxFrequency">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.GetMaxFrequency.Result">
+        <short/>
+      </element>
+      <element name="TSPIDevice.GetMode">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.GetMode.Result">
+        <short/>
+      </element>
+      <element name="TSPIDevice.SetLSBFirst">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.SetLSBFirst.AValue">
+        <short/>
+      </element>
+      <element name="TSPIDevice.SetMaxFrequency">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.SetMaxFrequency.AValue">
+        <short/>
+      </element>
+      <element name="TSPIDevice.SetMode">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.SetMode.AValue">
+        <short/>
+      </element>
+      <element name="TSPIDevice.ReadAndWrite">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.ReadAndWrite.aWriteBuffer">
+        <short/>
+      </element>
+      <element name="TSPIDevice.ReadAndWrite.aWriteCount">
+        <short/>
+      </element>
+      <element name="TSPIDevice.ReadAndWrite.aReadBuffer">
+        <short/>
+      </element>
+      <element name="TSPIDevice.ReadAndWrite.aReadCount">
+        <short/>
+      </element>
+      <element name="TSPIDevice.Mode">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.LSBFirst">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.MaxFrequency">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.BitsPerWord">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPI_IOC_Transfer_Array">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice">
+        <short>SPI device for Linux</short>
+        <descr>
+          <p>This class implements the <link id="TSPIDevice"/> using the file system interface of the Linux kernel.</p>
+        </descr>
+      </element>
+      <element name="TSPILinuxDevice.fBus">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.fCS">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.fHandle">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.GetBitsPerWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.GetBitsPerWord.Result">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.GetLSBFirst">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.GetLSBFirst.Result">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.GetMaxFrequency">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.GetMaxFrequency.Result">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.GetMode">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.GetMode.Result">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.SetBitsPerWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.SetBitsPerWord.AValue">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.SetLSBFirst">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.SetLSBFirst.AValue">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.SetMaxFrequency">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.SetMaxFrequency.AValue">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.SetMode">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.SetMode.AValue">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.GetDevicePath">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.GetDevicePath.Result">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.DoIoCtlError">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.DoIoCtlError.Ndx">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.Create.aBus">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.Create.aChipSelect">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.Destroy">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.Read">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.Read.Result">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.Read.Buffer">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.Read.Count">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.Write">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.Write.Result">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.Write.Buffer">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.Write.Count">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite.aWriteBuffer">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite.aWriteCount">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite.aReadBuffer">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite.aReadCount">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite.in_out_data">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.Bus">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.ChipSelect">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <short>Free Pascal SPI abstraction layer</short>
+      <descr>
+        <p>This unit provides an object oriented access to the <url href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus">Serial Peripheral Interface (SPI)</url>. The base class for accessing an SPI device is <link id="TSPIDevice"/>.</p>
+        <p>The default implementation for Linux is <link id="TSPILinuxDevice"/>
+        </p>
+      </descr>
+      <seealso>
+        <link id="TSPIDevice"/>
+        <link id="TSPILinuxDevice"/>
+      </seealso>
+    </module>
+    <!-- fpspi -->
   </package>
 </fpdoc-descriptions>
