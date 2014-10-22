@@ -554,7 +554,7 @@ procedure TGpioLinuxPin.SetInterruptMode(AValue: TGpioInterruptMode);
 var
   f, s: String;
 begin
-  f := Format(GPIO_LINUX_BASE_DIR+'edge', [PinID]);
+  f := Format(GPIO_LINUX_GPIOPIN_DIR+'edge', [PinID]);
   s := GetEdgeString(AValue);
   WriteToFile(f, s);
 end;
