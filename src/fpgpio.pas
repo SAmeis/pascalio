@@ -520,7 +520,7 @@ var
   s: String;
   f: String;
 begin
-  f := Format(GPIO_LINUX_BASE_DIR+'edge', [PinID]);
+  f := Format(GPIO_LINUX_GPIOPIN_DIR+'edge', [PinID]);
   s := ReadFromFile(f, 7);
   Result := EdgeStringToInterruptMode(s);
 end;
