@@ -1042,47 +1042,38 @@ This class is
       </element>
       <!-- procedure Visibility: protected -->
       <element name="TI2CDevice.SetAddress">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
+        <short>Set device addresse</short>
+        <descr>Usually it's a better idea to create one object for each device but for some reasons you may want to use only one object and change the address.</descr>
       </element>
       <!-- argument Visibility: protected -->
       <element name="TI2CDevice.SetAddress.aValue">
-        <short/>
+        <short>New address</short>
       </element>
       <element name="TI2CDevice.Create.aAddress">
         <short/>
       </element>
       <element name="TI2CDevice.ReadByte">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
+        <short>Read single byte</short>
+        <descr>Reads a single byte from the device</descr>
       </element>
       <element name="TI2CDevice.ReadByte.Result">
         <short/>
       </element>
       <element name="TI2CDevice.WriteByte">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
+        <short>Writes a single byte to the device</short>
       </element>
       <element name="TI2CDevice.WriteByte.aByte">
         <short/>
       </element>
       <element name="TI2CDevice.ReadRegByte">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
+        <short>Read byte from register</short>
+        <descr>Reads a single byte from a register</descr>
       </element>
       <element name="TI2CDevice.ReadRegByte.Result">
         <short/>
       </element>
       <element name="TI2CDevice.ReadRegByte.aRegister">
-        <short/>
+        <short>Register to read from</short>
       </element>
       <element name="TI2CDevice.ReadRegWord">
         <short/>
@@ -1094,7 +1085,7 @@ This class is
         <short/>
       </element>
       <element name="TI2CDevice.ReadRegWord.aRegsiter">
-        <short/>
+        <short>Register to read from</short>
       </element>
       <element name="TI2CDevice.WriteRegByte">
         <short/>
@@ -1103,7 +1094,7 @@ This class is
         <seealso/>
       </element>
       <element name="TI2CDevice.WriteRegByte.aRegister">
-        <short/>
+        <short>Register to write to</short>
       </element>
       <element name="TI2CDevice.WriteRegByte.aByte">
         <short/>
@@ -1115,7 +1106,7 @@ This class is
         <seealso/>
       </element>
       <element name="TI2CDevice.WriteRegWord.aRegister">
-        <short/>
+        <short>Register to write to</short>
       </element>
       <element name="TI2CDevice.WriteRegWord.aWord">
         <short/>
@@ -1136,28 +1127,25 @@ This class is
         <short/>
       </element>
       <element name="TI2CDevice.WriteData">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
+        <short>Write data of arbitrary length to a register</short>
       </element>
       <element name="TI2CDevice.WriteData.aRegister">
-        <short/>
+        <short>Register to write to</short>
       </element>
       <element name="TI2CDevice.WriteData.Buffer">
-        <short/>
+        <short>Data to be written</short>
       </element>
       <element name="TI2CDevice.WriteData.aCount">
-        <short/>
+        <short>Length of Buffer in bytes</short>
+        <seealso>
+          <link id="TI2CDevice.WriteData.Buffer">Buffer</link>
+        </seealso>
       </element>
       <element name="TI2CDevice.WriteWord">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
+        <short>Writes word to a register</short>
       </element>
       <element name="TI2CDevice.WriteWord.aRegister">
-        <short/>
+        <short>Register to write to</short>
       </element>
       <element name="TI2CDevice.WriteWord.aWord">
         <short/>
@@ -1169,7 +1157,7 @@ This class is
         <seealso/>
       </element>
       <element name="TI2CDevice.WriteLongWord.aRegsiter">
-        <short/>
+        <short>Register to write to</short>
       </element>
       <element name="TI2CDevice.WriteLongWord.aLongWord">
         <short/>
@@ -1181,7 +1169,7 @@ This class is
         <seealso/>
       </element>
       <element name="TI2CDevice.WriteQWord.aRegister">
-        <short/>
+        <short>Register to write to</short>
       </element>
       <element name="TI2CDevice.WriteQWord.aQWord">
         <short/>
@@ -1371,27 +1359,19 @@ You may need to load another kernel module, for making the I2C busses accessible
         </descr>
       </element>
       <element name="TI2CLinuxDevice.fHandle">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="TI2CLinuxDevice.SetSlaveAddress">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
+        <short>File handle</short>
       </element>
       <element name="TI2CLinuxDevice.Create">
-        <short/>
+        <short>Create new Linux device</short>
         <descr/>
         <errors/>
         <seealso/>
       </element>
       <element name="TI2CLinuxDevice.Create.aAddress">
-        <short/>
+        <short>Address of the device</short>
       </element>
       <element name="TI2CLinuxDevice.Create.aBusID">
-        <short/>
+        <short>I2C Bus ID</short>
       </element>
       <element name="TI2CLinuxDevice.ReadBlockData">
         <short/>
