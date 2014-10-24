@@ -47,7 +47,7 @@ begin
   {$ifdef Linux}               // Linux specific
    na^.Sa_Restorer:=Nil;
   {$endif}
-  fpSigAction(SIGINT,na,oa);
+  if fpSigAction(SIGINT,na,oa) <> 0 then
   begin
     writeln('Error: ',fpgeterrno,'.');
     halt(1);
