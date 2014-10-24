@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <PathDelim Value="\"/>
@@ -14,10 +14,9 @@
       </SearchPaths>
       <Other>
         <CustomOptions Value="-dUseCThreads"/>
-        <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Description Value="Input/Output Library for Raspberry Pi"/>
+    <Description Value="Input/Output Library for Raspberry Pi or any other Linux based microcontroller"/>
     <License Value="GPLv2"/>
     <Files Count="12">
       <Item1>
@@ -74,13 +73,11 @@
       <EnableI18N Value="True"/>
       <OutDir Value="language"/>
     </i18n>
-    <RequiredPkgs Count="2">
+    <Type Value="RunTimeOnly"/>
+    <RequiredPkgs Count="1">
       <Item1>
-        <PackageName Value="LCLBase"/>
-      </Item1>
-      <Item2>
         <PackageName Value="FCL"/>
-      </Item2>
+      </Item1>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
