@@ -37,7 +37,7 @@ end;
 
 procedure InstallSignalHandler;
 var
-  na, oa: sigactionrec;
+  na, oa: psigactionrec;
 begin
   new(na);
   new(oa);
