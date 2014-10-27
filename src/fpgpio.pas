@@ -599,7 +599,7 @@ begin
   if InterruptMode = [] then
     raise EInterruptError.Create(sInterruptModeNotSet);
 
-  fd := fpOpen(s, O_RDONLY, 0);
+  fd := fpOpen(s, O_RDONLY or O_NONBLOCK);
   if fd = -1 then
     raise EFOpenError.CreateFmt(SFOpenError, [s]);
   try
