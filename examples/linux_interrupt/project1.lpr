@@ -64,7 +64,7 @@ begin
   input.Direction := gdIn;
   input.InterruptMode := [gimRising, gimFalling]; // interrupt on open and close
   repeat
-    if input.WaitForInterrupt(TGpioLinuxPin.INTERRUPT_TIMEOUT_INFINITE,
+    if input.WaitForInterrupt(TGpioLinuxPin.INTERRUPT_WAIT_INFINITE,
       NewValue) then
       Writeln('Interrupt on Pin ', input.PinID, ' with value ', NewValue)
     else

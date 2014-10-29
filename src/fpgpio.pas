@@ -207,6 +207,9 @@ type
     procedure SetDirection(AValue: TGpioDirection); override;
     procedure SetInterruptMode(AValue: TGpioInterruptMode); override;
     procedure SetValue(AValue: Boolean); override;
+  public const
+    INTERRUPT_WAIT_NONE     =  0;
+    INTERRUPT_WAIT_INFINITE = -1;
   public
     constructor Create(aID: Longword);
     destructor Destroy; override;
@@ -619,7 +622,7 @@ begin
     if (fdset[0].revents and POLLPRI) <> 0 then
     begin
       FpRead(fd, NewFileContent, SizeOf(NewFileContent));
-      NewValue = NewFileContent = '1';
+      NewValue := NewFileContent = '1';
 
       exit(True); // interrupt occured
     end;
