@@ -96,6 +96,7 @@ type
     procedure SetValue(AValue: Boolean); virtual; abstract;
   public
     function WaitForInterrupt(timeout: LongInt): Boolean; virtual;
+    function WaitForInterrupt(timeout: LongInt; out NewValue: Boolean): Boolean; virtual;
     function WaitForInterruptIndirect(timeout: Longint; Const Cascade: array of TGpioPin): Boolean; virtual;
     function PollChange(delay: Longint; timeout: Longint; out value: Boolean): Boolean; virtual;
     property Direction: TGpioDirection read GetDirection write SetDirection;
@@ -209,7 +210,7 @@ type
   public
     constructor Create(aID: Longword);
     destructor Destroy; override;
-    function WaitForInterrupt(timeout: LongInt): Boolean; override;
+    function WaitForInterrupt(timeout: LongInt; out NewValue: Boolean): Boolean; override;
     property PinID: Longword read fPinID;
   end;
 
@@ -586,12 +587,14 @@ begin
   inherited Destroy;
 end;
 
-function TGpioLinuxPin.WaitForInterrupt(timeout: LongInt): Boolean;
+function TGpioLinuxPin.WaitForInterrupt(timeout: LongInt; out NewValue: Boolean
+  ): Boolean;
 var
   s: String;
   fd: cint;
   fdset: array[0..0] of pollfd;
   rc: cint;
+  NewFileContent: Char;
 begin
   s := Format(GPIO_LINUX_GPIOPIN_DIR + 'value', [PinID]);
 
@@ -614,7 +617,12 @@ begin
       exit(False); // timeout;
 
     if (fdset[0].revents and POLLPRI) <> 0 then
+    begin
+      FpRead(fd, NewFileContent, SizeOf(NewFileContent));
+      NewValue = NewFileContent = '1';
+
       exit(True); // interrupt occured
+    end;
   finally
     fpClose(fd);
   end;
@@ -623,6 +631,14 @@ end;
 { TGpioPin }
 
 function TGpioPin.WaitForInterrupt(timeout: LongInt): Boolean;
+var
+  nv: Boolean;
+begin
+  Result := WaitForInterrupt(timeout, nv);
+end;
+
+function TGpioPin.WaitForInterrupt(timeout: LongInt; out NewValue: Boolean
+  ): Boolean;
 begin
   raise EDirectInterruptError.Create(sDirectInterrupt);
 end;
