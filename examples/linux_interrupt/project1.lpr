@@ -26,6 +26,7 @@ uses
 var
   input: TGpioLinuxPin;
   Terminate: Boolean = False;
+  NewValue: Boolean;
 
 
 Procedure DoSig(sig : cint);cdecl;
@@ -63,8 +64,9 @@ begin
   input.Direction := gdIn;
   input.InterruptMode := [gimRising, gimFalling]; // interrupt on open and close
   repeat
-    if input.WaitForInterrupt(0) then
-      Writeln('Interrupt on Pin ', input.PinID)
+    if input.WaitForInterrupt(TGpioLinuxPin.INTERRUPT_TIMEOUT_INFINITE,
+      NewValue) then
+      Writeln('Interrupt on Pin ', input.PinID, ' with value ', NewValue)
     else
       WriteLn('Timeout');
 
