@@ -597,7 +597,7 @@ var
   fd: cint;
   fdset: array[0..0] of pollfd;
   rc: cint;
-  NewFileContent: Char;
+  NewFileContent: array[0..1] of Char;
 begin
   s := Format(GPIO_LINUX_GPIOPIN_DIR + 'value', [PinID]);
 
@@ -609,6 +609,10 @@ begin
   if fd = -1 then
     raise EFOpenError.CreateFmt(SFOpenError, [s]);
   try
+    // clear file, otherwise the current value at opening the file
+    // leads poll() to return immediately
+    FpRead(fd, NewFileContent[0], length(NewFileContent));
+
     FillByte(fdset[0], sizeof(fdset), 0);
     fdset[0].fd := fd;
     fdset[0].events := POLLPRI;
@@ -621,8 +625,9 @@ begin
 
     if (fdset[0].revents and POLLPRI) <> 0 then
     begin
-      FpRead(fd, NewFileContent, SizeOf(NewFileContent));
-      NewValue := NewFileContent = '1';
+      // readin fd didn't give a reliable result
+      // but reading from a new file descriptor does
+      NewValue := Self.GetValue;
 
       exit(True); // interrupt occured
     end;
