@@ -33,7 +33,7 @@ unit i2c_dev;
 interface
 
 uses
-  baseunix, ctypes;
+  {$IFDEF LINUX}baseunix, {$ELSE} sysutils, {$ENDIF} ctypes;
 
 {$PACKRECORDS C}
 
@@ -83,7 +83,7 @@ const
   I2C_FUNC_SMBUS_I2C_BLOCK = (I2C_FUNC_SMBUS_READ_I2C_BLOCK or I2C_FUNC_SMBUS_WRITE_I2C_BLOCK);
 
 (* Old name, for compatibility *)
-  I2C_FUNC_SMBUS_HWPEC_CALC	= I2C_FUNC_SMBUS_PEC;
+  I2C_FUNC_SMBUS_HWPEC_CALC	= I2C_FUNC_SMBUS_PEC deprecated;
 
 (*
  * Data for SMBus Messages
@@ -181,7 +181,7 @@ function i2c_smbus_write_quick(_file: cint; value: byte): Longint; inline;
 function i2c_smbus_write_word_data(_file: cint; command: byte; value: word): Longint; inline;
 
 implementation
-
+{$IFDEF LINUX}
 function i2c_smbus_access(_file: cint; read_write: TI2C_SMBUS_RW_MODE;
   command: byte; size: TI2C_SMBUS_TRANSACTION; data: Pi2c_smbus_data): Longint; inline;
 var
@@ -194,6 +194,14 @@ begin
 
   Result := FpIOCtl(_file, I2C_SMBUS, @args);
 end;
+
+{$ELSE}
+function i2c_smbus_access(_file: cint; read_write: TI2C_SMBUS_RW_MODE;
+  command: byte; size: TI2C_SMBUS_TRANSACTION; data: Pi2c_smbus_data): Longint; inline;
+begin
+  raise ENotImplemented.CreateFmt('Method %s not implemented.', ['i2c_smbus_access']);
+end;
+{$ENDIF}
 
 function i2c_smbus_write_quick(_file: cint; value: byte): Longint; inline;
 begin

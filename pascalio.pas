@@ -7,8 +7,7 @@ unit pascalio;
 interface
 
 uses
-  i2c_dev, spidev, fpspi, fpspilib, fpadc, fpgpio, fpi2c, gpioexp, mcp23017, 
-  bitmanip, bcm2708, flqueue;
+  fpspi, fpspilib, fpadc, fpgpio, fpi2c, gpioexp, mcp23017, bitmanip, flqueue;
 
 implementation
 

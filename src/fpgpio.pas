@@ -42,7 +42,7 @@ unit fpgpio;
 interface
 
 uses
-  Classes, SysUtils, baseunix, rtlconsts;
+  Classes, SysUtils, {$IFDEF LINUX}baseunix, {$ENDIF} rtlconsts;
 
 resourcestring
   sInvalidEdge         = 'Invalid interrupt mode.';
@@ -86,8 +86,8 @@ type
 
   TGpioPin = class(TObject)
   protected
-    function GetAcitveLow: Boolean; virtual; abstract;
-    procedure SetAcitveLow(AValue: Boolean); virtual; abstract;
+    function GetActiveLow: Boolean; virtual; abstract;
+    procedure SetActiveLow(AValue: Boolean); virtual; abstract;
     function GetDirection: TGpioDirection; virtual; abstract;
     function GetInterruptMode: TGpioInterruptMode; virtual; abstract;
     function GetValue: Boolean; virtual; abstract;
@@ -102,7 +102,7 @@ type
     property Direction: TGpioDirection read GetDirection write SetDirection;
     property Value: Boolean read GetValue write SetValue;
     property InterruptMode: TGpioInterruptMode read GetInterruptMode write SetInterruptMode;
-    property AcitveLow: Boolean read GetAcitveLow write SetAcitveLow;
+    property ActiveLow: Boolean read GetActiveLow write SetActiveLow;
   end;
 
   { TGpioController }
@@ -144,11 +144,11 @@ type
     // keep the constructor private - it should be called only called from TGpioController!
     constructor Create(aController: TGpioController; aIndex: Longword);
   protected
-    function GetAcitveLow: Boolean; override;
+    function GetActiveLow: Boolean; override;
     function GetDirection: TGpioDirection; override;
     function GetInterruptMode: TGpioInterruptMode; override;
     function GetValue: Boolean; override;
-    procedure SetAcitveLow(AValue: Boolean); override;
+    procedure SetActiveLow(AValue: Boolean); override;
     procedure SetDirection(AValue: TGpioDirection); override;
     procedure SetInterruptMode(AValue: TGpioInterruptMode); override;
     procedure SetValue(AValue: Boolean); override;
@@ -185,16 +185,17 @@ type
   ENoEdge = class(Exception);
   EInvalidEgde = class(Exception);
 
+{$IFDEF LINUX}
   { TGpioLinuxPin }
 
   TGpioLinuxPin = class(TGpioPin)
   private
     fPinID: Longword;
   protected
-    function GetAcitveLow: Boolean; override;
+    function GetActiveLow: Boolean; override;
     class function ReadFromFile(const aFileName: String; aChars: SizeInt; out CharsRead: SizeInt): String;
     class function ReadFromFile(const aFileName: String; aChars: SizeInt): String;
-    procedure SetAcitveLow(AValue: Boolean); override;
+    procedure SetActiveLow(AValue: Boolean); override;
     class procedure WriteToFile(const aFileName: String; const aBuffer; aCount: SizeInt);
     class procedure WriteToFile(const aFileName: String; const aBuffer: String);
     class procedure SetExport(aExport: Boolean; aPin: Longword);
@@ -216,6 +217,7 @@ type
     function WaitForInterrupt(timeout: LongInt; out NewValue: Boolean): Boolean; override;
     property PinID: Longword read fPinID;
   end;
+{$ENDIF}
 
 implementation
 
@@ -281,7 +283,7 @@ begin
   fIndex := aIndex;
 end;
 
-function TGpioControlledPin.GetAcitveLow: Boolean;
+function TGpioControlledPin.GetActiveLow: Boolean;
 begin
   Result := fController.ActiveLow[fIndex];
 end;
@@ -301,7 +303,7 @@ begin
   Result := fController.Value[fIndex];
 end;
 
-procedure TGpioControlledPin.SetAcitveLow(AValue: Boolean);
+procedure TGpioControlledPin.SetActiveLow(AValue: Boolean);
 begin
   fController.ActiveLow[fIndex] := AValue;
 end;
@@ -393,9 +395,11 @@ begin
   SetRegisterValue(ra, rv);
 end;
 
+{$IFDEF LINUX}
+
 { TGpioLinuxPin }
 
-function TGpioLinuxPin.GetAcitveLow: Boolean;
+function TGpioLinuxPin.GetActiveLow: Boolean;
 var
   f, s: String;
 begin
@@ -432,7 +436,7 @@ begin
   Result := ReadFromFile(aFileName, aChars, i);
 end;
 
-procedure TGpioLinuxPin.SetAcitveLow(AValue: Boolean);
+procedure TGpioLinuxPin.SetActiveLow(AValue: Boolean);
 var
   s, f: String;
 begin
@@ -635,6 +639,7 @@ begin
     fpClose(fd);
   end;
 end;
+{$ENDIF}
 
 { TGpioPin }
 

@@ -21,10 +21,12 @@
     <Files Count="12">
       <Item1>
         <Filename Value="src\i2c_dev.pas"/>
+        <AddToUsesPkgSection Value="False"/>
         <UnitName Value="i2c_dev"/>
       </Item1>
       <Item2>
         <Filename Value="src\spidev.pas"/>
+        <AddToUsesPkgSection Value="False"/>
         <UnitName Value="spidev"/>
       </Item2>
       <Item3>
@@ -61,6 +63,7 @@
       </Item10>
       <Item11>
         <Filename Value="src\bcm2708.pas"/>
+        <AddToUsesPkgSection Value="False"/>
         <UnitName Value="bcm2708"/>
       </Item11>
       <Item12>
@@ -73,7 +76,6 @@
       <EnableI18N Value="True"/>
       <OutDir Value="language"/>
     </i18n>
-    <Type Value="RunTimeOnly"/>
     <RequiredPkgs Count="1">
       <Item1>
         <PackageName Value="FCL"/>

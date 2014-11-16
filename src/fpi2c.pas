@@ -36,7 +36,8 @@ unit fpi2c;
 interface
 
 uses
-  Classes, SysUtils, i2c_dev, baseunix, rtlconsts, flqueue;
+  Classes, SysUtils, {$IFDEF LINUX}i2c_dev, baseunix, rtlconsts, {$ENDIF}
+  flqueue;
 
 resourcestring
   sI2CSlaveAddress = 'Could not set slave address.';
@@ -134,10 +135,10 @@ type
     constructor Create(aBus: Longword); virtual;
     destructor Destroy; override;
 
-    // use this for non blocking queueing, returns immediatly
+    // use this for non blocking enquequeing, returns immediatly
     procedure QueueObject(aObj: TI2CQueueObject);
 
-    // blocking queuing, threadsafe
+    // blocking enquequeing, threadsafe
     // returns on action done
     function ReadByte(aAddress: TI2CAddress): Byte;
     procedure WriteByte(aAddress: TI2CAddress; aByte: Byte);
@@ -206,6 +207,7 @@ type
     property Bus: TI2CBus read fBus;
   end;
 
+{$IFDEF LINUX}
   { TI2CLinuxDevice
     Only this class uses the Linux' Kernel interface
     Thus by moving this class (and all depending classes)
@@ -244,6 +246,7 @@ type
     constructor Create(aBus: Longword); override;
     property Device: TI2CLinuxDevice read fDevice;
   end;
+{$ENDIF}
 
 implementation
 
@@ -299,6 +302,7 @@ begin
   fBus.WriteRegWord(Address, aRegister, aWord);
 end;
 
+{$IFDEF LINUX}
 { TI2CLinuxBus }
 
 constructor TI2CLinuxBus.Create(aBus: Longword);
@@ -388,6 +392,7 @@ begin
     end;
   end;
 end;
+{$ENDIF}
 
 { TI2CBus }
 
@@ -692,6 +697,7 @@ begin
     aLen := 0;
 end;
 
+{$IFDEF LINUX}
 { TI2CLinuxDevice }
 
 procedure TI2CLinuxDevice.SetAddress(aValue: TI2CAddress);
@@ -817,6 +823,7 @@ begin
     RaiseLastOSError;
 end;
 
+{$ENDIF}
 
 { TI2CDevice }
 
@@ -831,4 +838,4 @@ begin
 end;
 
 end.
-
+

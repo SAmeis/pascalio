@@ -36,7 +36,7 @@ unit fpspi;
 interface
 
 uses
-  Classes, SysUtils, spidev, baseunix, RtlConsts;
+  Classes, SysUtils, {$IFDEF LINUX}spidev, baseunix, {$ENDIF}RtlConsts;
 
 resourcestring
   rsSPIIoCtlErr = 'System call IoCtl failed. Request code %d.';
@@ -80,6 +80,7 @@ type
     property BitsPerWord: Byte read GetBitsPerWord write SetBitsPerWord default 8;
   end;
 
+{$IFDEF LINUX}
   TSPI_IOC_Transfer_Array = array of spi_ioc_transfer;
 
   { TSPILinuxDevice }
@@ -113,6 +114,7 @@ type
     property Bus: Longword read fBus;
     property ChipSelect: Longword read fCS;
   end;
+{$ENDIF}
 
 (* Please implement a software spi device
   TSPISoftDevice = class(TSPIDevice)
@@ -120,6 +122,7 @@ type
   *)
 implementation
 
+{$IFDEF LINUX}
 { TSPILinuxDevice }
 
 function TSPILinuxDevice.GetBitsPerWord: Byte;
@@ -281,6 +284,7 @@ begin
   if status < 0 then
     DoIoCtlError(SPI_IOC_MESSAGE(Length(in_out_data)));
 end;
+{$ENDIF}
 
 end.
 
