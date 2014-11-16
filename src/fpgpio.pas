@@ -81,6 +81,8 @@ type
   end;
   TGpioInterruptStatusArray = array of TGpioInterruptStatus;
   TOnGpioInterrupt = procedure (Sender: TGpioPin; InterruptValue: Boolean) of object;
+  TGpioPollIdle = procedure (Sender: TGpioPin; var CancelPoll: Boolean) of object;
+  TGpioPollResult = (gprChanged, gprTimeout, gprCancelled);
 
   { TGpioPin }
 
@@ -99,6 +101,8 @@ type
     function WaitForInterrupt(timeout: LongInt; out NewValue: Boolean): Boolean; virtual;
     function WaitForInterruptIndirect(timeout: Longint; Const Cascade: array of TGpioPin): Boolean; virtual;
     function PollChange(delay: Longint; timeout: Longint; out value: Boolean): Boolean; virtual;
+    function PollChange(delay: Longint; timeout: Longint; out value: Boolean;
+      OnIdle: TGpioPollIdle): TGpioPollResult;
     property Direction: TGpioDirection read GetDirection write SetDirection;
     property Value: Boolean read GetValue write SetValue;
     property InterruptMode: TGpioInterruptMode read GetInterruptMode write SetInterruptMode;
@@ -675,6 +679,12 @@ end;
 
 function TGpioPin.PollChange(delay: Longint; timeout: Longint;
   out value: Boolean): Boolean;
+begin
+  Result := PollChange(delay, timeout, value, nil) = gprChanged;
+end;
+
+function TGpioPin.PollChange(delay: Longint; timeout: Longint; out
+  value: Boolean; OnIdle: TGpioPollIdle): TGpioPollResult;
 
   function NowMS: QWord; inline;
   begin
@@ -684,21 +694,36 @@ function TGpioPin.PollChange(delay: Longint; timeout: Longint;
 var
   d1: QWord;
   nval: Boolean;
+  Cancel: Boolean;
 begin
+  Cancel := False;
   d1 := NowMS;
   value := GetValue;
   repeat
-     nval := GetValue;
-     if nval <> value then
-     begin
-       value := nval;
-       Result := True;
-       exit;  // hard exit to avoid changing result
-     end;
+    nval := GetValue;
+    if nval <> value then
+    begin
+      value := nval;
+      Result := gprChanged;
+      exit;  // hard exit to avoid changing result
+    end;
+
+    // check if method should be cancelled
+    if Assigned(OnIdle) then
+    begin
+      OnIdle(Self, Cancel);
+      if Cancel then
+      begin
+        Result := gprCancelled;
+        exit;
+      end;
+    end;
+
+
     if delay >= 0 then
       sleep(delay);
   until NowMS >  (d1 + timeout);
-  Result := False;
+  Result := gprTimeout;
 end;
 
 end.
