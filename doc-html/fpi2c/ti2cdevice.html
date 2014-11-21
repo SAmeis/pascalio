@@ -17,7 +17,7 @@
 <p>[<a href="../fpi2c/ti2cdevice-1.html" onClick="window.open('../fpi2c/ti2cdevice-1.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">Properties</a> (<a href="../fpi2c/ti2cdevice-2.html" onClick="window.open('../fpi2c/ti2cdevice-2.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">by Name</a>)] [<a href="../fpi2c/ti2cdevice-3.html" onClick="window.open('../fpi2c/ti2cdevice-3.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">Methods</a> (<a href="../fpi2c/ti2cdevice-4.html" onClick="window.open('../fpi2c/ti2cdevice-4.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">by Name</a>)] [<a href="../fpi2c/ti2cdevice-5.html" onClick="window.open('../fpi2c/ti2cdevice-5.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">Events</a> (<a href="../fpi2c/ti2cdevice-6.html" onClick="window.open('../fpi2c/ti2cdevice-6.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">by Name</a>)] </p>
 <p>Abstract I2C device class</p>
 <h2>Declaration</h2>
-<p>Source position: fpi2c.pas line 164</p>
+<p>Source position: fpi2c.pas line 165</p>
 <table cellpadding="0" cellspacing="0">
 <tr>
 <td><p><tt><span class="code"><span class="kw">type</span> TI2CDevice <span class="sym">=</span> <span class="kw">class</span><span class="sym">(</span>TObject<span class="sym">)</span></span></tt></p></td>
@@ -28,7 +28,7 @@
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fpi2c/ti2cdevice.setaddress.html">SetAddress</a><span class="sym">();</span><span class="kw"> virtual</span><span class="sym">;</span></span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
-<td><p class="cmt"></p></td>
+<td><p class="cmt">Set device addresse</p></td>
 </tr>
 <tr>
 <td><p><tt><span class="code"><span class="kw">public</span></span></tt></p></td>
@@ -41,17 +41,17 @@
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpi2c/ti2cdevice.readbyte.html">ReadByte</a><span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span><span class="kw"> abstract</span><span class="sym">;</span></span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
-<td><p class="cmt"></p></td>
+<td><p class="cmt">Read single byte</p></td>
 </tr>
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fpi2c/ti2cdevice.writebyte.html">WriteByte</a><span class="sym">();</span><span class="kw"> virtual</span><span class="sym">;</span><span class="kw"> abstract</span><span class="sym">;</span></span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
-<td><p class="cmt"></p></td>
+<td><p class="cmt">Writes a single byte to the device</p></td>
 </tr>
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpi2c/ti2cdevice.readregbyte.html">ReadRegByte</a><span class="sym">();</span><span class="kw"> virtual</span><span class="sym">;</span><span class="kw"> abstract</span><span class="sym">;</span></span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
-<td><p class="cmt"></p></td>
+<td><p class="cmt">Read byte from register</p></td>
 </tr>
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpi2c/ti2cdevice.readregword.html">ReadRegWord</a><span class="sym">();</span><span class="kw"> virtual</span><span class="sym">;</span><span class="kw"> abstract</span><span class="sym">;</span></span></tt></p></td>
@@ -100,6 +100,6 @@
 </tr>
 </table>
 <h2>Description</h2>
-<p>This class is an abstact interface for sending data to and receiving data from a I2C device attached to an I2C Bus.  If you are using only one device in your application, you should use a derived class, e.g.  <a href="../fpi2c/ti2clinuxdevice.html">TI2CLinuxDevice</a>.  If there are multiple conccurrent threads in your multi threaded application accessing on bus, you may want to use  <a href="../fpi2c/ti2cbus.html">TI2CBus</a> for request serialization. As an alternative, you should be able to create multiple instances of  <a href="../fpi2c/ti2cdevice.html">TI2CDevice</a>---one for each device (not tested).  This class is  <b>not threadsafe</b>.</p>
+<p>This class is an abstact interface for sending data to and receiving data from a I2C device attached to an I2C Bus.  If you are using only one device in your application, you should use a derived class, e.g.  <b>TI2CLinuxDevice</b>.  If there are multiple conccurrent threads in your multi threaded application accessing on bus, you may want to use  <a href="../fpi2c/ti2cbus.html">TI2CBus</a> for request serialization. As an alternative, you should be able to create multiple instances of  <a href="../fpi2c/ti2cdevice.html">TI2CDevice</a>---one for each device (not tested).  This class is  <b>not threadsafe</b>.</p>
 </body>
 </html>

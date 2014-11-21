@@ -16,7 +16,7 @@
 <h1>TGpioPin.PollChange</h1>
 <p>Polls GPIO pin for change</p>
 <h2>Declaration</h2>
-<p>Source position: fpgpio.pas line 100</p>
+<p>Source position:  line 0</p>
 <table cellpadding="0" cellspacing="0">
 <tr>
 <td><p><tt><span class="code"> <span class="kw">public</span> <span class="kw">function</span> <a href="../fpgpio/tgpiopin.html">TGpioPin</a><span class="sym">.</span>PollChange<span class="sym">(</span></span></tt></p></td>
@@ -31,7 +31,22 @@
 <td><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">out </span>value<span class="sym">: </span>Boolean</span></tt></p></td>
 </tr>
 <tr>
-<td><p><tt><span class="code"><span class="sym">):</span>Boolean<span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span></span></tt></p></td>
+<td><p><tt><span class="code"><span class="sym">):</span>Boolean<span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span><br><br><span class="kw">function</span> <a href="../fpgpio/tgpiopin.html">TGpioPin</a><span class="sym">.</span>PollChange<span class="sym">(</span></span></tt></p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code">&nbsp;&nbsp;delay<span class="sym">: </span>LongInt<span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code">&nbsp;&nbsp;timeout<span class="sym">: </span>LongInt<span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">out </span>value<span class="sym">: </span>Boolean<span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code">&nbsp;&nbsp;OnIdle<span class="sym">: </span><a href="../fpgpio/tgpiopollidle.html">TGpioPollIdle</a></span></tt></p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code"><span class="sym">):</span><a href="../fpgpio/tgpiopollresult.html">TGpioPollResult</a><span class="sym">;</span></span></tt></p></td>
 </tr>
 </table>
 <h2>Arguments</h2>
@@ -53,6 +68,29 @@
 </tr>
 </table>
 <h2>Function result</h2>
-<p><var>True</var> indicates a change in                                                                              <a href="../fpgpio/tgpiopin.value.html">TGpioPin.Value</a>; the value is stored in                                                                              <var>value</var>.                                                                              <var>False</var> indicates a timeout.</p>
+<p><var>True</var> indicates a change in                                             <a href="../fpgpio/tgpiopin.value.html">TGpioPin.Value</a>; the value is stored in                                                       <var>value</var>.                                             <var>False</var> indicates a timeout or cancel.  In the other overloaded version, see                                             <a href="../fpgpio/tgpiopollresult.html">TGpioPollResult</a> for documentation.</p>
+<h2>Arguments</h2>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><p><tt><span class="code">delay</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Delay between polls in milliseconds</p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">timeout</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Maximum time for polling in milliseconds</p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">value</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">New Value</p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">OnIdle</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Callback after each poll</p></td>
+</tr>
+</table>
 </body>
 </html>

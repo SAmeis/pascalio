@@ -125,22 +125,27 @@
 <table Width="80%" cellpadding="0" cellspacing="0">
 <tr>
 <td valign="top"><a href="fpgpio/tgpiocapability.html">gcIndirectInterrupt</a></td>
-<td valign="top"><a href="fpgpio/tgpiodirection.html">gdIn</a></td>
-<td valign="top"><a href="fpgpio/gimnone.html">gimNone</a></td>
-</tr>
-<tr>
-<td valign="top"><a href="fpgpio/tgpiocapability.html">gcInterrupt</a></td>
 <td valign="top"><a href="fpgpio/tgpiodirection.html">gdOut</a></td>
-<td valign="top"><a href="fpgpio/tgpiointerruptmodes.html">gimRising</a></td>
-</tr>
-<tr>
-<td valign="top"><a href="fpgpio/tgpiocapability.html">gcPulldown</a></td>
-<td valign="top"><a href="fpgpio/gimboth.html">gimBoth</a></td>
 <td valign="top"><a href="gpioexp/index.html">gpioexp</a></td>
 </tr>
 <tr>
-<td valign="top"><a href="fpgpio/tgpiocapability.html">gcPullup</a></td>
+<td valign="top"><a href="fpgpio/tgpiocapability.html">gcInterrupt</a></td>
+<td valign="top"><a href="fpgpio/gimboth.html">gimBoth</a></td>
+<td valign="top"><a href="fpgpio/tgpiopollresult.html">gprCancelled</a></td>
+</tr>
+<tr>
+<td valign="top"><a href="fpgpio/tgpiocapability.html">gcPulldown</a></td>
 <td valign="top"><a href="fpgpio/tgpiointerruptmodes.html">gimFalling</a></td>
+<td valign="top"><a href="fpgpio/tgpiopollresult.html">gprChanged</a></td>
+</tr>
+<tr>
+<td valign="top"><a href="fpgpio/tgpiocapability.html">gcPullup</a></td>
+<td valign="top"><a href="fpgpio/gimnone.html">gimNone</a></td>
+<td valign="top"><a href="fpgpio/tgpiopollresult.html">gprTimeout</a></td>
+</tr>
+<tr>
+<td valign="top"><a href="fpgpio/tgpiodirection.html">gdIn</a></td>
+<td valign="top"><a href="fpgpio/tgpiointerruptmodes.html">gimRising</a></td>
 <td valign="top"></td>
 </tr>
 </table>
@@ -329,27 +334,27 @@
 <tr>
 <td valign="top"><a href="fpadc/index-1.html#schanneloutofbounds">sChannelOutOfBounds</a></td>
 <td valign="top"><a href="spidev/spi_ioc_magic.html">SPI_IOC_MAGIC</a></td>
-<td valign="top"><a href="fpspi/spi_mode_0.html">SPI_MODE_0</a></td>
+<td valign="top"><a href="spidev/spi_mode_0.html">SPI_MODE_0</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="fpadc/index-1.html#sdiffnotsupported">sDiffNotSupported</a></td>
 <td valign="top"><a href="spidev/spi_ioc_message.html">SPI_IOC_MESSAGE</a></td>
-<td valign="top"><a href="fpspi/spi_mode_1.html">SPI_MODE_1</a></td>
+<td valign="top"><a href="spidev/spi_mode_1.html">SPI_MODE_1</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="fpgpio/index-1.html#sdirectinterrupt">sDirectInterrupt</a></td>
 <td valign="top"><a href="spidev/spi_ioc_rd_bits_per_word.html">SPI_IOC_RD_BITS_PER_WORD</a></td>
-<td valign="top"><a href="spidev/spi_mode_1.html">SPI_MODE_1</a></td>
+<td valign="top"><a href="fpspi/spi_mode_1.html">SPI_MODE_1</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="fpi2c/index-1.html#si2cslaveaddress">sI2CSlaveAddress</a></td>
 <td valign="top"><a href="spidev/spi_ioc_rd_lsb_first.html">SPI_IOC_RD_LSB_FIRST</a></td>
-<td valign="top"><a href="spidev/spi_mode_2.html">SPI_MODE_2</a></td>
+<td valign="top"><a href="fpspi/spi_mode_2.html">SPI_MODE_2</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="fpi2c/index-1.html#si2cwrite">sI2CWrite</a></td>
 <td valign="top"><a href="spidev/spi_ioc_rd_max_speed_hz.html">SPI_IOC_RD_MAX_SPEED_HZ</a></td>
-<td valign="top"><a href="fpspi/spi_mode_2.html">SPI_MODE_2</a></td>
+<td valign="top"><a href="spidev/spi_mode_2.html">SPI_MODE_2</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="fpgpio/index-1.html#sindirectinterrupt">sIndirectInterrupt</a></td>
@@ -393,7 +398,7 @@
 </tr>
 <tr>
 <td valign="top"><a href="spidev/spi_cs_high.html">SPI_CS_HIGH</a></td>
-<td valign="top"><a href="spidev/spi_mode_0.html">SPI_MODE_0</a></td>
+<td valign="top"><a href="fpspi/spi_mode_0.html">SPI_MODE_0</a></td>
 <td valign="top"></td>
 </tr>
 </table>
@@ -401,63 +406,63 @@
 <table Width="80%" cellpadding="0" cellspacing="0">
 <tr>
 <td valign="top"><a href="fpadc/tadconverter.html">TADConverter</a></td>
-<td valign="top"><a href="i2c_dev/ti2c_smbus_rw_mode.html">TI2C_SMBUS_RW_MODE</a></td>
-<td valign="top"><a href="mcp23017/tmcp23x17controller.html">TMCP23X17Controller</a></td>
+<td valign="top"><a href="fpgpio/tgpioregistercontroller.html">TGpioRegisterController</a></td>
+<td valign="top"><a href="gpioexp/tmcp23x17.html">TMCP23X17</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="bitmanip/tbytesize.html">TByteSize</a></td>
-<td valign="top"><a href="i2c_dev/ti2c_smbus_transaction.html">TI2C_SMBUS_TRANSACTION</a></td>
-<td valign="top"><a href="fpspilib/tmcp3004.html">TMCP3004</a></td>
+<td valign="top"><a href="gpioexp/tgpiospicontroller.html">TGpioSPIController</a></td>
+<td valign="top"><a href="mcp23017/tmcp23x17controller.html">TMCP23X17Controller</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="bitmanip/tdwordsize.html">TDWordSize</a></td>
-<td valign="top"><a href="i2c_dev/ti2c_smbus_values.html">TI2C_SMBUS_VALUES</a></td>
-<td valign="top"><a href="fpspilib/tmcp3008.html">TMCP3008</a></td>
+<td valign="top"><a href="i2c_dev/ti2c_smbus_rw_mode.html">TI2C_SMBUS_RW_MODE</a></td>
+<td valign="top"><a href="fpspilib/tmcp3004.html">TMCP3004</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="flqueue/tflqueue.html">tFLQueue</a></td>
-<td valign="top"><a href="fpi2c/ti2caddress.html">TI2CAddress</a></td>
-<td valign="top"><a href="fpspilib/tmcp300x.html">TMCP300X</a></td>
+<td valign="top"><a href="i2c_dev/ti2c_smbus_transaction.html">TI2C_SMBUS_TRANSACTION</a></td>
+<td valign="top"><a href="fpspilib/tmcp3008.html">TMCP3008</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="fpgpio/tgpiocapability.html">TGpioCapability</a></td>
-<td valign="top"><a href="fpi2c/ti2cbus.html">TI2CBus</a></td>
-<td valign="top"><a href="flqueue/tnodequeue.html">tNodeQueue</a></td>
+<td valign="top"><a href="i2c_dev/ti2c_smbus_values.html">TI2C_SMBUS_VALUES</a></td>
+<td valign="top"><a href="fpspilib/tmcp300x.html">TMCP300X</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="fpgpio/tgpiocontrolledpin.html">TGpioControlledPin</a></td>
-<td valign="top"><a href="fpi2c/ti2cdevice.html">TI2CDevice</a></td>
-<td valign="top"><a href="fpgpio/tongpiointerrupt.html">TOnGpioInterrupt</a></td>
+<td valign="top"><a href="fpi2c/ti2caddress.html">TI2CAddress</a></td>
+<td valign="top"><a href="flqueue/tnodequeue.html">tNodeQueue</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="fpgpio/tgpiocontroller.html">TGpioController</a></td>
-<td valign="top"><a href="fpi2c/ti2clinuxbus.html">TI2CLinuxBus</a></td>
-<td valign="top"><a href="fpgpio/tpinposition.html">TPinPosition</a></td>
+<td valign="top"><a href="fpi2c/ti2cbus.html">TI2CBus</a></td>
+<td valign="top"><a href="fpgpio/tongpiointerrupt.html">TOnGpioInterrupt</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="fpgpio/tgpiodirection.html">TGpioDirection</a></td>
-<td valign="top"><a href="fpi2c/ti2clinuxdevice.html">TI2CLinuxDevice</a></td>
-<td valign="top"><a href="bitmanip/tqwordsize.html">TQWordSize</a></td>
+<td valign="top"><a href="fpi2c/ti2cdevice.html">TI2CDevice</a></td>
+<td valign="top"><a href="fpgpio/tpinposition.html">TPinPosition</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="gpioexp/tgpioi2ccontroller.html">TGpioI2CController</a></td>
 <td valign="top"><a href="fpi2c/ti2cqueueobject.html">TI2CQueueObject</a></td>
-<td valign="top"><a href="fpgpio/tregisteraddress.html">TRegisterAddress</a></td>
+<td valign="top"><a href="bitmanip/tqwordsize.html">TQWordSize</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="fpgpio/tgpiointerruptmode.html">TGpioInterruptMode</a></td>
 <td valign="top"><a href="fpi2c/ti2cregister.html">TI2CRegister</a></td>
-<td valign="top"><a href="fpgpio/tregistertype.html">TRegisterType</a></td>
+<td valign="top"><a href="fpgpio/tregisteraddress.html">TRegisterAddress</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="fpgpio/tgpiointerruptmodes.html">TGpioInterruptModes</a></td>
 <td valign="top"><a href="fpi2c/ti2cthreadsavedevice.html">TI2CThreadSaveDevice</a></td>
-<td valign="top"><a href="fpgpio/tregistervalue.html">TRegisterValue</a></td>
+<td valign="top"><a href="fpgpio/tregistertype.html">TRegisterType</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="fpgpio/tgpiointerruptstatus.html">TGpioInterruptStatus</a></td>
 <td valign="top"><a href="fpgpio/tinterruptcascade.html">TInterruptCascade</a></td>
-<td valign="top"><a href="fpspi/tspi_ioc_transfer_array.html">TSPI_IOC_Transfer_Array</a></td>
+<td valign="top"><a href="fpgpio/tregistervalue.html">TRegisterValue</a></td>
 </tr>
 <tr>
 <td valign="top"><a href="fpgpio/tgpiointerruptstatusarray.html">TGpioInterruptStatusArray</a></td>
@@ -465,23 +470,18 @@
 <td valign="top"><a href="fpspi/tspidevice.html">TSPIDevice</a></td>
 </tr>
 <tr>
-<td valign="top"><a href="fpgpio/tgpiolinuxpin.html">TGpioLinuxPin</a></td>
-<td valign="top"><a href="mcp23017/tmcp23017controller.html">TMCP23017Controller</a></td>
-<td valign="top"><a href="fpspi/tspilinuxdevice.html">TSPILinuxDevice</a></td>
-</tr>
-<tr>
 <td valign="top"><a href="fpgpio/tgpiopin.html">TGpioPin</a></td>
-<td valign="top"><a href="gpioexp/tmcp23s17.html">TMCP23S17</a></td>
+<td valign="top"><a href="mcp23017/tmcp23017controller.html">TMCP23017Controller</a></td>
 <td valign="top"><a href="fpspi/tspimode.html">TSPIMode</a></td>
 </tr>
 <tr>
-<td valign="top"><a href="fpgpio/tgpioregistercontroller.html">TGpioRegisterController</a></td>
-<td valign="top"><a href="mcp23017/tmcp23s17controller.html">TMCP23S17Controller</a></td>
+<td valign="top"><a href="fpgpio/tgpiopollidle.html">TGpioPollIdle</a></td>
+<td valign="top"><a href="gpioexp/tmcp23s17.html">TMCP23S17</a></td>
 <td valign="top"><a href="bitmanip/twordsize.html">TWordSize</a></td>
 </tr>
 <tr>
-<td valign="top"><a href="gpioexp/tgpiospicontroller.html">TGpioSPIController</a></td>
-<td valign="top"><a href="gpioexp/tmcp23x17.html">TMCP23X17</a></td>
+<td valign="top"><a href="fpgpio/tgpiopollresult.html">TGpioPollResult</a></td>
+<td valign="top"><a href="mcp23017/tmcp23s17controller.html">TMCP23S17Controller</a></td>
 <td valign="top"></td>
 </tr>
 </table>
