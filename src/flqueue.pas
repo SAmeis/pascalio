@@ -9,7 +9,7 @@
 *                                                                           *
 * Author:               Dariusz Mazur                                       *
 * Date:                 20.01.2008                                          *
-* Version:              0.6                                                 *
+* Version:              0.7                                                 *
 * Licence:              MPL or GPL
 *                                                                           *
 *        Send bug reports and feedback to  darekm @@ emadar @@ com          *
@@ -61,7 +61,8 @@ of this file under either the MPL or the GPL.
 *                     END LICENSE BLOCK                                     * }
 
 { changelog
-v.0.06 27.01.2008 change implementation of circural array (bug find by Martin Friebe }
+v.0.06 27.01.2008 change implementation of circural array (bug find by Martin Friebe
+v.0.07 08.12.2014 make it compilable with FPC 2.6.0 on x86_64}
 
 
 
@@ -72,61 +73,57 @@ uses
   {$IFNDEF FPC}
    windows,
   {$ELSE}
-    {$IFDEF ver2_2}
+    {$IF ((FPC_VERSION = 2) AND (FPC_RELEASE >= 2)) OR (FPC_VERSION > 2)}
        {$DEFINE USEGENERIC}
-    {$ENDIF}
+    {$END}
   {$ENDIF}
-
   classes;
 
 
 
 type
   tNodeQueue = tObject;
+
   tFLQueue = class
   private
-      fSize : longword;
-      fMask : longword;
-      tab : array of tNodeQueue;
+      fSize : PtrUInt;
+      fMask : PtrUInt;
+      tab   : array of tNodeQueue;
       tail,
       head,
-      temp    : integer;
-      procedure setobject(lp : integer;const aobject : tNodeQueue);
-      function getLength:integer;
-      function getObject(lp : integer):tNodeQueue;
+      temp  : PtrInt;
+      procedure setobject(lp : PtrInt;const aobject : tNodeQueue);
+      function getLength:PtrInt;
+      function getObject(lp : PtrInt):tNodeQueue;
   public
-      constructor create(aPower : integer =10);  {allocate tab with size equal 2^aPower, for 10 size is equal 1024}
+      constructor create(aPower : PtrInt =10);  {allocate tab with size equal 2^aPower, for 10 size is equal 1024}
       procedure push(const tm : tNodeQueue);
       function pop: tNodeQueue;
-      property length : integer read getLength;
-
+      property length : PtrInt read getLength;
   end;
 
 {$IFDEF USEGENERIC}
-
   generic gFlQueue<_R>=class
-      tab : array of _R;
-      fSize : longword;
-      fMask : longword;
+      tab   : array of _R;
+      fSize : PtrUInt;
+      fMask : PtrUInt;
       tail,
       head,
-      temp    : integer;
-      procedure setobject(lp : integer;const aobject : _R);
-      function getObject(lp : integer):_R;
+      temp  : PtrInt;
+      procedure setobject(lp : PtrInt;const aobject : _R);
+      function getObject(lp : PtrInt):_R;
   public
-     constructor create(aPower : integer);{allocate tab with size equal 2^aPower}
+     constructor create(aPower : PtrInt);{allocate tab with size equal 2^aPower}
      procedure push(const tm : _R);
      function pop(var tm: _R):boolean;
   end;
-
-
 {$ENDIF}
 
 implementation
 
-constructor tFLQueue.create(aPower : integer );
+constructor tFLQueue.create(aPower: PtrInt);
 begin
-  fMask:=not($FFFFFFFF shl aPower);
+  fMask:=not(high(fMask) shl aPower);
   fSize:=1 shl aPower;
   setLength(tab,fSize);
   temp:=0;
@@ -134,21 +131,21 @@ begin
   head:=0;
 end;
 
-procedure tFLQueue.setObject(lp : integer;const aobject : tNodeQueue);
+procedure tFLQueue.setobject(lp: PtrInt; const aobject: tNodeQueue);
 begin
   tab[lp and fMask]:=aObject;
 end;
 
-function tFLQueue.getObject(lp : integer):tNodeQueue;
+function tFLQueue.getObject(lp: PtrInt): tNodeQueue;
 begin
   result:=tab[lp and fMask];
 end;
 
-procedure tFlQueue.push(const tm : tNodeQueue);
+procedure tFLQueue.push(const tm: tNodeQueue);
 var
   newTemp,
   lastTail,
-  newTail : integer;
+  newTail : PtrInt;
 begin
   newTemp:=interlockedIncrement(temp);
   lastTail:=newTemp-1;
@@ -162,7 +159,7 @@ end;
 function tFLQueue.pop:tNodeQueue;
 var
   newhead,
-  lastHead : integer;
+  lastHead : PtrInt;
 begin
   repeat
     lastHead:=head;
@@ -179,21 +176,16 @@ begin
   until false;
 end;
 
-function tFLQueue.getLength:integer;
-
+function tFLQueue.getLength: PtrInt;
 begin
-
   result:=tail-head;
-
 end;
 
 
 {$IFDEF USEGENERIC}
-
-
-constructor gFLQueue.create(aPower : integer);
+constructor gFlQueue.create(aPower: PtrInt);
 begin
-  fMask:=not($FFFFFFFF shl aPower);
+  fMask:=not(high(fMask) shl aPower);
   fSize:=1 shl aPower;
   setLength(tab,fSize);
   tail:=0;
@@ -201,12 +193,12 @@ begin
   temp:=0;
 end;
 
-procedure gFLQueue.setObject(lp : integer;const aobject : _R);
+procedure gFlQueue.setobject(lp: PtrInt; const aobject: _R);
 begin
   tab[lp and fMask]:=aObject;
 end;
 
-function gFLQueue.getObject(lp : integer):_R;
+function gFlQueue.getObject(lp: PtrInt): _R;
 begin
   result:=tab[lp and fMask];
 end;
@@ -215,7 +207,7 @@ procedure gFlQueue.push(const tm : _R);
 var
   newTemp,
   lastTail,
-  newTail : integer;
+  newTail : PtrInt;
 begin
   newTemp:=interlockedIncrement(temp);
   lastTail:=newTemp-1;
@@ -226,10 +218,10 @@ begin
 
 end;
 
-function gFLQueue.pop(var tm:_R):boolean;
+function gFlQueue.pop(var tm: _R): boolean;
 var
   newhead,
-  lastHead : integer;
+  lastHead : PtrInt;
 begin
   repeat
     lastHead:=head;
@@ -246,11 +238,6 @@ begin
     end;
   until false;
 end;
-
-
-
-
-
 
 {$ENDIF}
 
