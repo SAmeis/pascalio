@@ -75,7 +75,7 @@ uses
   {$ELSE}
     {$IF ((FPC_VERSION = 2) AND (FPC_RELEASE >= 2)) OR (FPC_VERSION > 2)}
        {$DEFINE USEGENERIC}
-    {$END}
+    {$ENDIF}
   {$ENDIF}
   classes;
 
