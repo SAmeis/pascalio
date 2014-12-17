@@ -147,7 +147,11 @@ var
   lastTail,
   newTail : PtrInt;
 begin
+  {$IFDEF CPU64}
+  newTemp:=interlockedIncrement64(temp);
+  {$ELSE}
   newTemp:=interlockedIncrement(temp);
+  {$ENDIF CPU64}
   lastTail:=newTemp-1;
   setObject(lastTail,tm);
   repeat
@@ -209,7 +213,11 @@ var
   lastTail,
   newTail : PtrInt;
 begin
+  {$IFDEF CPU64}
+  newTemp:=interlockedIncrement64(temp);
+  {$ELSE}
   newTemp:=interlockedIncrement(temp);
+  {$ENDIF CPU64}
   lastTail:=newTemp-1;
   setObject(lastTail,tm);
   repeat
