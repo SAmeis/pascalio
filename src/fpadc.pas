@@ -58,11 +58,14 @@ type
   protected
     function GetDifferentialValue(Index: Longword): Longint; virtual;
     class function GetMaxValue: Longint; static; virtual; abstract;
+    // defaults to 0
+    class function GetMinValue: Longint; static; virtual;
     class function GetSupportsDifferentialValue: Boolean; virtual;
     class function GetCount: Longword; static; virtual; abstract;
     function GetValue(Index: Longword): Longint; virtual; abstract;
   public
     class property MaxValue: Longint read GetMaxValue;
+    class property MinValue: Longint read GetMinValue;
     property Value[Index: Longword]: Longint read GetValue;
     class property Count: Longword read GetCount;
     property DifferentialValue[Index: Longword]: Longint read GetDifferentialValue;
@@ -72,6 +75,11 @@ type
 implementation
 
 { TADConverter }
+
+class function TADConverter.GetMinValue: Longint; static;
+begin
+  Result := 0;
+end;
 
 function TADConverter.GetDifferentialValue(Index: Longword): Longint;
 begin
