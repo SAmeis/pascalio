@@ -44,8 +44,8 @@ type
     function GetValue(Index: Longword): Longint; override;
     function GetDifferentialValue(Index: Longword): Longint; override;
     class function GetSupportsDifferentialValue: Boolean; override;
-    function InternalGetValue(Single: Boolean; Channel: Byte
-      ): Longint; virtual; abstract;
+    class function GetBitCount: Byte; static; virtual; abstract;
+    function InternalGetValue(Single: Boolean; Channel: Byte): Longint;
   public
     constructor Create(aBus: TSPIDevice);
   end;
@@ -55,8 +55,7 @@ type
   TMCP300X = class(TMCP3X0X)
   protected                 
     class function GetMaxValue: Longint; static; override;
-    function InternalGetValue(Single: Boolean; Channel: Byte
-      ): Longint; override;
+    class function GetBitCount: Byte; static; override;
   end;
 
   { TMCP3008 }
@@ -76,7 +75,7 @@ type
   TMCP320X = class(TMCP3X0X)
   protected
     class function GetMaxValue: Longint; static; override;
-    function InternalGetValue(Single: Boolean; Channel: Byte): Longint; override;
+    class function GetBitCount: Byte; static; override;
   end;
 
   { TMCP3208 }
@@ -97,7 +96,7 @@ type
   protected
     class function GetMaxValue: Longint; static; override;
     class function GetMinValue: Longint; static; override;
-    function InternalGetValue(Single: Boolean; Channel: Byte): Longint; override;
+    class function GetBitCount: Byte; static; override;
   end;
 
   TMCP3304 = class(TMCP330X)
@@ -130,43 +129,19 @@ end;
 
 class function TMCP330X.GetMaxValue: Longint;
 begin
+  // 12 bit
   Result := +4095;
 end;
 
 class function TMCP330X.GetMinValue: Longint;
 begin
+  // 12 bit + 1 bit sign
   Result := -4096;
 end;
 
-function TMCP330X.InternalGetValue(Single: Boolean; Channel: Byte): Longint;
-const
-  start_bit = $0800;
-  sgl_bit   = $0400;
-var
-  wbuf: array [0..1] of Byte;
-  wword: word absolute wbuf; //< access wbuf as word
-  rbuf: array[0..3] of Byte;
-  rlong: Longword absolute rbuf;
+class function TMCP330X.GetBitCount: Byte;
 begin
-  if (Channel > (Count - 1)) then
-    raise EADCError.CreateFmt(sChannelOutOfBounds, [Channel]);
-  // start bit and channel
-  wword := start_bit or (Channel shl 7);
-  // set single bit, if requested; otherwise differential input is used
-  if not single then
-    wword := wword or sgl_bit;
-
-  // initialize read buffer
-  rlong := 0;
-  // pass second byte of longword (= 3 bytes)
-  fBus.ReadAndWrite(wbuf[0], Length(wbuf), rbuf[1], Length(rbuf)-1);
-  // first byte of longword hasn't been used as read buffer and is still 0
-  // second byte of longowrd / first read byte is ignored/garbage
-  // lowest 4 bits of second byte and third byte
-  Result := rlong and $00000FFF;
-  // negative values
-  if (rlong and $00001000) <> 0 then
-    Result := $FFFFF000 or rlong;
+  Result := 13;
 end;
 
 { TMCP3204 }
@@ -191,32 +166,9 @@ begin
   Result := $0FFF;
 end;
 
-function TMCP320X.InternalGetValue(Single: Boolean; Channel: Byte): Longint;
-const
-  start_bit = $0400;
-  sgl_bit   = $0200;
-var
-  wbuf: array [0..1] of Byte;
-  wword: word absolute wbuf; //< access wbuf as word
-  rbuf: array[0..3] of Byte;
-  rlong: Longword absolute rbuf;
+class function TMCP320X.GetBitCount: Byte;
 begin
-  if (Channel > (Count - 1)) then
-    raise EADCError.CreateFmt(sChannelOutOfBounds, [Channel]);
-  // start bit and channel
-  wword := start_bit or (Channel shl 6);
-  // set single bit, if requested; otherwise differential input is used
-  if not single then
-    wword := wword or sgl_bit;
-
-  // initialize read buffer
-  rlong := 0;
-  // pass second byte of longword (= 3 bytes)
-  fBus.ReadAndWrite(wbuf[0], Length(wbuf), rbuf[1], Length(rbuf)-1);
-  // first byte of longword hasn't been used as read buffer and is still 0
-  // second byte of longowrd / first read byte is ignored/garbage
-  // lowest 4 bits of second byte and third byte
-  Result := rlong and $00000FFF;
+  Result := 12;
 end;
 
 { TMCP3X0X }
@@ -234,6 +186,48 @@ end;
 class function TMCP3X0X.GetSupportsDifferentialValue: Boolean;
 begin
   Result := True;
+end;
+
+function TMCP3X0X.InternalGetValue(Single: Boolean; Channel: Byte): Longint;
+var
+  wbuf: array [0..1] of Byte;
+  wword: word absolute wbuf; //< access wbuf as word
+  rbuf: array[0..3] of Byte;
+  rlong: Longword absolute rbuf;
+begin
+  if (Channel > (Count - 1)) then
+    raise EADCError.CreateFmt(sChannelOutOfBounds, [Channel]);
+
+  // set start bit
+  (* see datatsheet for MCP3004/8, MCP3204/8 or MCP3304/8
+   * ADC   Resolution Index of Start Bit in first byte
+   * 300X   10 bit    0
+   * 320X   12 bit    2
+   * 330X   13 bit    3
+   * Thus it can be shifted from left (+8 for second byte)
+   * the same applies for the Single/Differential Bit and the Channel bits
+   *)
+  Assert(GetBitCount >= 10, 'Expected at least 10 bit resolution');
+  wword := $0001 shl (GetBitCount - 10 + 8);
+  // single bit
+  if not single then
+    wword := wword or ($0001 shl (GetBitCount - 10 + 7));
+  // channel
+  wword := wword or (Channel shl (GetBitCount - 10 + 4));
+
+  // initialize read buffer
+  rlong := 0;
+  // pass second byte of longword (= 3 bytes)
+  fBus.ReadAndWrite(wbuf[0], Length(wbuf), rbuf[1], Length(rbuf)-1);
+
+  // check if the negative sign is set
+  if (rlong and Longword(MinValue)) <> 0 then
+    // if it's set, set all higher bits to 1 (two complement negative)
+    // MinValue is defined as LongInt and thus already has all needed bits set
+    Result := LongInt(rlong or Longword(MinValue))
+  else
+    // use only valid bits
+    Result := rlong and MaxValue;
 end;
 
 constructor TMCP3X0X.Create(aBus: TSPIDevice);
@@ -265,26 +259,9 @@ begin
   Result := $03FF; // 10 bit resolution
 end;
 
-function TMCP300X.InternalGetValue(Single: Boolean; Channel: Byte): Longint;
-const
-  sgl_bit = $80;
-  diff_bit = $00;
-var
-  wbuf: array [0..1] of Byte;
-  rbuf: array[0..2] of Byte;
+class function TMCP300X.GetBitCount: Byte;
 begin
-  if (Channel > (Count - 1)) then
-    raise EADCError.CreateFmt(sChannelOutOfBounds, [Channel]);
-  wbuf[0] := 1; // start bit
-  if single then
-    wbuf[1] := sgl_bit or (Channel shl 4)
-  else
-    wbuf[1] := diff_bit or (Channel shl 4);
-  FillChar(rbuf[0], sizeof(rbuf), 0);
-  fBus.ReadAndWrite(wbuf[0], Length(wbuf), rbuf[0], Length(rbuf));
-  // first read byte is ignored/garbage
-  // lowest 2 bits of second byte and third byte
-  Result := ((rbuf[1] and $03) shl 8) + rbuf[2];
+  Result := 10;
 end;
 
 end.
