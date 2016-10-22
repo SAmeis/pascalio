@@ -54,7 +54,7 @@ type
 
   TMCP300X = class(TMCP3X0X)
   protected                 
-    class function GetMaxValue: Longint;
+    class function GetMaxValue: Longint; static; override;
     function InternalGetValue(Single: Boolean; Channel: Byte
       ): Longint; override;
   end;
@@ -93,8 +93,81 @@ type
     class function GetCount: Longword; static; override;
   end;
 
+  TMCP330X = class(TMCP3X0X)
+  protected
+    class function GetMaxValue: Longint; static; override;
+    class function GetMinValue: Longint; static; override;
+    function InternalGetValue(Single: Boolean; Channel: Byte): Longint; override;
+  end;
+
+  TMCP3304 = class(TMCP330X)
+  protected
+    class function GetCount: Longword; static; override;
+  end;
+
+  TMCP3308 = class(TMCP330X)
+  protected
+    class function GetCount: Longword; static; override;
+  end;
 
 implementation
+
+{ TMCP3308 }
+
+class function TMCP3308.GetCount: Longword;
+begin
+  Result := 8;
+end;
+
+{ TMCP3304 }
+
+class function TMCP3304.GetCount: Longword;
+begin
+  Result := 4;
+end;
+
+{ TMCP330X }
+
+class function TMCP330X.GetMaxValue: Longint;
+begin
+  Result := +4095;
+end;
+
+class function TMCP330X.GetMinValue: Longint;
+begin
+  Result := -4096;
+end;
+
+function TMCP330X.InternalGetValue(Single: Boolean; Channel: Byte): Longint;
+const
+  start_bit = $0800;
+  sgl_bit   = $0400;
+var
+  wbuf: array [0..1] of Byte;
+  wword: word absolute wbuf; //< access wbuf as word
+  rbuf: array[0..3] of Byte;
+  rlong: Longword absolute rbuf;
+begin
+  if (Channel > (Count - 1)) then
+    raise EADCError.CreateFmt(sChannelOutOfBounds, [Channel]);
+  // start bit and channel
+  wword := start_bit or (Channel shl 7);
+  // set single bit, if requested; otherwise differential input is used
+  if not single then
+    wword := wword or sgl_bit;
+
+  // initialize read buffer
+  rlong := 0;
+  // pass second byte of longword (= 3 bytes)
+  fBus.ReadAndWrite(wbuf[0], Length(wbuf), rbuf[1], Length(rbuf)-1);
+  // first byte of longword hasn't been used as read buffer and is still 0
+  // second byte of longowrd / first read byte is ignored/garbage
+  // lowest 4 bits of second byte and third byte
+  Result := rlong and $00000FFF;
+  // negative values
+  if (rlong and $00001000) <> 0 then
+    Result := $FFFFF000 or rlong;
+end;
 
 { TMCP3204 }
 
@@ -115,7 +188,7 @@ end;
 class function TMCP320X.GetMaxValue: Longint;
 begin
   // 12 bit
-  Result := $FFF;
+  Result := $0FFF;
 end;
 
 function TMCP320X.InternalGetValue(Single: Boolean; Channel: Byte): Longint;
