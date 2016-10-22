@@ -155,9 +155,6 @@ end;
 
 function TMCP3X0X.GetDifferentialValue(Index: Longword): Longword;
 begin
-  // each 2 single input channels make one differential channel
-  if (Channel > ((Count div 2) - 1) then
-    raise EADCError.CreateFmt(sChannelOutOfBounds, [Channel]);
   Result := InternalGetValue(False, Index);
 end;
 
