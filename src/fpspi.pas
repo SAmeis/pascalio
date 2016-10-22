@@ -69,6 +69,8 @@ type
     procedure SetMaxFrequency(AValue: Longword); virtual; abstract;
     procedure SetMode(AValue: TSPIMode); virtual; abstract;
   public
+    // define abstract methods Read() and Write() if they are not inherited
+    // by TStream.
     {$IFNDEF InheritFromTStream}
     function Read(var Buffer; Count: Longint): Longint; virtual; abstract;
     function Write(const Buffer; Count: Longint): Longint; virtual; abstract;
