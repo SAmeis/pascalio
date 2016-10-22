@@ -56,16 +56,16 @@ type
 
   TADConverter = class(TObject)
   protected
-    function GetDifferentialValue(Index: Longword): Longword; virtual; inline;
-    class function GetMaxValue: Longword; static; virtual; abstract;
+    function GetDifferentialValue(Index: Longword): Longint; virtual; inline;
+    class function GetMaxValue: Longint; static; virtual; abstract;
     class function GetSupportsDifferentialValue: Boolean; virtual; inline;
     class function GetCount: Longword; static; virtual; abstract;
-    function GetValue(Index: Longword): Longword; virtual; abstract;
+    function GetValue(Index: Longword): Longint; virtual; abstract;
   public
-    class property MaxValue: Longword read GetMaxValue;
-    property Value[Index: Longword]: Longword read GetValue;
+    class property MaxValue: Longint read GetMaxValue;
+    property Value[Index: Longword]: Longint read GetValue;
     class property Count: Longword read GetCount;
-    property DifferentialValue[Index: Longword]: Longword read GetDifferentialValue;
+    property DifferentialValue[Index: Longword]: Longint read GetDifferentialValue;
     property SupportsDifferentialValue: Boolean read GetSupportsDifferentialValue;
   end;
 
@@ -73,7 +73,7 @@ implementation
 
 { TADConverter }
 
-function TADConverter.GetDifferentialValue(Index: Longword): Longword;
+function TADConverter.GetDifferentialValue(Index: Longword): Longint;
 begin
   Raise EDifferentialNotSupported.Create(Self.ClassType);
 end;

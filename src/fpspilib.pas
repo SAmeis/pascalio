@@ -41,11 +41,11 @@ type
   TMCP3X0X = class(TADConverter)
   protected                     
     fBus: TSPIDevice;
-    function GetValue(Index: Longword): Longword; override; inline;
-    function GetDifferentialValue(Index: Longword): Longword; override; inline;
+    function GetValue(Index: Longword): Longint; override; inline;
+    function GetDifferentialValue(Index: Longword): Longint; override; inline;
     class function GetSupportsDifferentialValue: Boolean; override; inline;
     function InternalGetValue(Single: Boolean; Channel: Byte
-      ): Longword; virtual; abstract;
+      ): Longint; virtual; abstract;
   public
     constructor Create(aBus: TSPIDevice);
   end;
@@ -54,9 +54,9 @@ type
 
   TMCP300X = class(TMCP3X0X)
   protected                 
-    class function GetMaxValue: Longword;
+    class function GetMaxValue: Longint;
     function InternalGetValue(Single: Boolean; Channel: Byte
-      ): Longword; override;
+      ): Longint; override;
   end;
 
   { TMCP3008 }
@@ -75,8 +75,8 @@ type
 
   TMCP320X = class(TMCP3X0X)
   protected
-    class function GetMaxValue: Longword; static; override;
-    function InternalGetValue(Single: Boolean; Channel: Byte): Longword; override;
+    class function GetMaxValue: Longint; static; override;
+    function InternalGetValue(Single: Boolean; Channel: Byte): Longint; override;
   end;
 
   { TMCP3208 }
@@ -112,13 +112,13 @@ end;
 
 { TMCP320X }
 
-class function TMCP320X.GetMaxValue: Longword;
+class function TMCP320X.GetMaxValue: Longint;
 begin
   // 12 bit
   Result := $FFF;
 end;
 
-function TMCP320X.InternalGetValue(Single: Boolean; Channel: Byte): Longword;
+function TMCP320X.InternalGetValue(Single: Boolean; Channel: Byte): Longint;
 const
   start_bit = $0400;
   sgl_bit   = $0200;
@@ -148,12 +148,12 @@ end;
 
 { TMCP3X0X }
 
-function TMCP3X0X.GetValue(Index: Longword): Longword;
+function TMCP3X0X.GetValue(Index: Longword): Longint;
 begin
   Result := InternalGetValue(True, Index);
 end;
 
-function TMCP3X0X.GetDifferentialValue(Index: Longword): Longword;
+function TMCP3X0X.GetDifferentialValue(Index: Longword): Longint;
 begin
   Result := InternalGetValue(False, Index);
 end;
@@ -187,12 +187,12 @@ end;
 
 { TMCP300X }
 
-class function TMCP300X.GetMaxValue: Longword;
+class function TMCP300X.GetMaxValue: Longint;
 begin
   Result := $03FF; // 10 bit resolution
 end;
 
-function TMCP300X.InternalGetValue(Single: Boolean; Channel: Byte): Longword;
+function TMCP300X.InternalGetValue(Single: Boolean; Channel: Byte): Longint;
 const
   sgl_bit = $80;
   diff_bit = $00;
