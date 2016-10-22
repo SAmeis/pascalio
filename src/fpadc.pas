@@ -56,9 +56,9 @@ type
 
   TADConverter = class(TObject)
   protected
-    function GetDifferentialValue(Index: Longword): Longint; virtual; inline;
+    function GetDifferentialValue(Index: Longword): Longint; virtual;
     class function GetMaxValue: Longint; static; virtual; abstract;
-    class function GetSupportsDifferentialValue: Boolean; virtual; inline;
+    class function GetSupportsDifferentialValue: Boolean; virtual;
     class function GetCount: Longword; static; virtual; abstract;
     function GetValue(Index: Longword): Longint; virtual; abstract;
   public

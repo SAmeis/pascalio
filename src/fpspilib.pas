@@ -41,9 +41,9 @@ type
   TMCP3X0X = class(TADConverter)
   protected                     
     fBus: TSPIDevice;
-    function GetValue(Index: Longword): Longint; override; inline;
-    function GetDifferentialValue(Index: Longword): Longint; override; inline;
-    class function GetSupportsDifferentialValue: Boolean; override; inline;
+    function GetValue(Index: Longword): Longint; override;
+    function GetDifferentialValue(Index: Longword): Longint; override;
+    class function GetSupportsDifferentialValue: Boolean; override;
     function InternalGetValue(Single: Boolean; Channel: Byte
       ): Longint; virtual; abstract;
   public
