@@ -20,7 +20,7 @@
 <p>Source position: fpgpio.pas line 114</p>
 <table cellpadding="0" cellspacing="0">
 <tr>
-<td><p><tt><span class="code"><span class="kw">type</span> TGpioController <span class="sym">=</span> <span class="kw">class</span><span class="sym">(</span>TObject<span class="sym">)</span></span></tt></p></td>
+<td><p><tt><span class="code"><span class="kw">type</span> TGpioController <span class="sym">=</span> <span class="kw">class</span><span class="sym">(</span>TObject<span class="sym">)</span> <span class="kw">end</span><span class="sym">;</span></span></tt></p></td>
 </tr>
 <tr>
 <td><p><tt><span class="code"><span class="kw">protected</span></span></tt></p></td>
@@ -64,20 +64,20 @@
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">destructor </span><a href="../fpgpio/tgpiocontroller.destroy.html">Destroy</a><span class="sym">;</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpgpio/tgpiocontroller.interruptmode.html">InterruptMode</a><span class="sym">: </span><a href="../fpgpio/tgpiointerruptmode.html">TGpioInterruptMode</a><span class="sym">;</span>  [rw]</span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpgpio/tgpiocontroller.interruptmode.html">InterruptMode</a> []<span class="sym">: </span><a href="../fpgpio/tgpiointerruptmode.html">TGpioInterruptMode</a><span class="sym">;</span>  [rw]</span></tt></p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpgpio/tgpiocontroller.direction.html">Direction</a><span class="sym">: </span><a href="../fpgpio/tgpiodirection.html">TGpioDirection</a><span class="sym">;</span>  [rw]</span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpgpio/tgpiocontroller.direction.html">Direction</a> []<span class="sym">: </span><a href="../fpgpio/tgpiodirection.html">TGpioDirection</a><span class="sym">;</span>  [rw]</span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
 <td><p class="cmt">Direction of pin</p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpgpio/tgpiocontroller.value.html">Value</a><span class="sym">: </span>Boolean<span class="sym">;</span>  [rw]</span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpgpio/tgpiocontroller.value.html">Value</a> []<span class="sym">: </span>Boolean<span class="sym">;</span>  [rw]</span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
 <td><p class="cmt">Value of pin</p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpgpio/tgpiocontroller.activelow.html">ActiveLow</a><span class="sym">: </span>Boolean<span class="sym">;</span>  [rw]</span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpgpio/tgpiocontroller.activelow.html">ActiveLow</a> []<span class="sym">: </span>Boolean<span class="sym">;</span>  [rw]</span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
 <td><p class="cmt">Inverted logic</p></td>
 </tr>
@@ -87,12 +87,12 @@
 <td><p class="cmt">Count of pins</p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpgpio/tgpiocontroller.pins.html">Pins</a><span class="sym">: </span><a href="../fpgpio/tgpiopin.html">TGpioPin</a><span class="sym">;</span>  [r]</span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpgpio/tgpiocontroller.pins.html">Pins</a> []<span class="sym">: </span><a href="../fpgpio/tgpiopin.html">TGpioPin</a><span class="sym">;</span>  [r]</span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
 <td><p class="cmt">All pins in this controller</p></td>
 </tr>
 <tr>
-<td><p><tt><span class="code"> <span class="kw">end</span><span class="sym">;</span></span></tt></p></td>
+<td><p><tt><span class="code"></span></tt></p></td>
 </tr>
 </table>
 <h2>Inheritance</h2>

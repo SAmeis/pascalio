@@ -17,22 +17,22 @@
 <p>[<a href="../fpgpio/tgpiolinuxpin-1.html" onClick="window.open('../fpgpio/tgpiolinuxpin-1.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">Properties</a> (<a href="../fpgpio/tgpiolinuxpin-2.html" onClick="window.open('../fpgpio/tgpiolinuxpin-2.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">by Name</a>)] [<a href="../fpgpio/tgpiolinuxpin-3.html" onClick="window.open('../fpgpio/tgpiolinuxpin-3.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">Methods</a> (<a href="../fpgpio/tgpiolinuxpin-4.html" onClick="window.open('../fpgpio/tgpiolinuxpin-4.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">by Name</a>)] [<a href="../fpgpio/tgpiolinuxpin-5.html" onClick="window.open('../fpgpio/tgpiolinuxpin-5.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">Events</a> (<a href="../fpgpio/tgpiolinuxpin-6.html" onClick="window.open('../fpgpio/tgpiolinuxpin-6.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">by Name</a>)] </p>
 <p>Implementation using the Linux Kernel Driver</p>
 <h2>Declaration</h2>
-<p>Source position: fpgpio.pas line 189</p>
+<p>Source position: fpgpio.pas line 195</p>
 <table cellpadding="0" cellspacing="0">
 <tr>
-<td><p><tt><span class="code"><span class="kw">type</span> TGpioLinuxPin <span class="sym">=</span> <span class="kw">class</span><span class="sym">(</span><a href="../fpgpio/tgpiopin.html">TGpioPin</a><span class="sym">)</span></span></tt></p></td>
+<td><p><tt><span class="code"><span class="kw">type</span> TGpioLinuxPin <span class="sym">=</span> <span class="kw">class</span><span class="sym">(</span><a href="../fpgpio/tgpiopin.html">TGpioPin</a><span class="sym">)</span> <span class="kw">end</span><span class="sym">;</span></span></tt></p></td>
 </tr>
 <tr>
 <td><p><tt><span class="code"><span class="kw">protected</span></span></tt></p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpgpio/tgpiolinuxpin.getacitvelow.html">GetAcitveLow</a><span class="sym">;</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpgpio/tgpiolinuxpin.getactivelow.html">GetActiveLow</a><span class="sym">;</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
 </tr>
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">class function </span><a href="../fpgpio/tgpiolinuxpin.readfromfile.html">ReadFromFile</a><span class="sym">();</span></span></tt></p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fpgpio/tgpiolinuxpin.setacitvelow.html">SetAcitveLow</a><span class="sym">();</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fpgpio/tgpiolinuxpin.setactivelow.html">SetActiveLow</a><span class="sym">();</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
 </tr>
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">class procedure </span><a href="../fpgpio/tgpiolinuxpin.writetofile.html">WriteToFile</a><span class="sym">();</span></span></tt></p></td>
@@ -68,6 +68,15 @@
 <td><p><tt><span class="code"><span class="kw">public</span></span></tt></p></td>
 </tr>
 <tr>
+<td><p><tt><span class="code"><span class="kw">Const</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<a href="../fpgpio/tgpiolinuxpin.interrupt_wait_none.html">INTERRUPT_WAIT_NONE</a><span class="sym"> = </span>0</span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<a href="../fpgpio/tgpiolinuxpin.interrupt_wait_infinite.html">INTERRUPT_WAIT_INFINITE</a><span class="sym"> = </span>-1</span></tt></p></td>
+</tr>
+<tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">constructor </span><a href="../fpgpio/tgpiolinuxpin.create.html">Create</a><span class="sym">();</span></span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
 <td><p class="cmt">Creates a new instance</p></td>
@@ -84,7 +93,7 @@
 <td><p class="cmt">The GPIO's ID in the Linux Kernel driver</p></td>
 </tr>
 <tr>
-<td><p><tt><span class="code"> <span class="kw">end</span><span class="sym">;</span></span></tt></p></td>
+<td><p><tt><span class="code"></span></tt></p></td>
 </tr>
 </table>
 <h2>Inheritance</h2>

@@ -20,7 +20,7 @@
 <p>Source position: fpadc.pas line 57</p>
 <table cellpadding="0" cellspacing="0">
 <tr>
-<td><p><tt><span class="code"><span class="kw">type</span> TADConverter <span class="sym">=</span> <span class="kw">class</span><span class="sym">(</span>TObject<span class="sym">)</span></span></tt></p></td>
+<td><p><tt><span class="code"><span class="kw">type</span> TADConverter <span class="sym">=</span> <span class="kw">class</span><span class="sym">(</span>TObject<span class="sym">)</span> <span class="kw">end</span><span class="sym">;</span></span></tt></p></td>
 </tr>
 <tr>
 <td><p><tt><span class="code"><span class="kw">protected</span></span></tt></p></td>
@@ -34,6 +34,9 @@
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">class function </span><a href="../fpadc/tadconverter.getmaxvalue.html">GetMaxValue</a><span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span><span class="kw"> abstract</span><span class="sym">;</span></span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
 <td><p class="cmt">Returns maximum value provided by ADC</p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">class function </span><a href="../fpadc/tadconverter.getminvalue.html">GetMinValue</a><span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span></span></tt></p></td>
 </tr>
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">class function </span><a href="../fpadc/tadconverter.getsupportsdifferentialvalue.html">GetSupportsDifferentialValue</a><span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span></span></tt></p></td>
@@ -54,12 +57,15 @@
 <td><p><tt><span class="code"><span class="kw">public</span></span></tt></p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpadc/tadconverter.maxvalue.html">MaxValue</a><span class="sym">: </span>LongWord<span class="sym">;</span>  [r]</span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpadc/tadconverter.maxvalue.html">MaxValue</a><span class="sym">: </span>LongInt<span class="sym">;</span>  [r]</span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
 <td><p class="cmt">Maximum returned value</p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpadc/tadconverter.value.html">Value</a><span class="sym">: </span>LongWord<span class="sym">;</span>  [r]</span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpadc/tadconverter.minvalue.html">MinValue</a><span class="sym">: </span>LongInt<span class="sym">;</span>  [r]</span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpadc/tadconverter.value.html">Value</a> []<span class="sym">: </span>LongInt<span class="sym">;</span>  [r]</span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
 <td><p class="cmt">Get value for input channel</p></td>
 </tr>
@@ -69,7 +75,7 @@
 <td><p class="cmt">Count of input channels</p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpadc/tadconverter.differentialvalue.html">DifferentialValue</a><span class="sym">: </span>LongWord<span class="sym">;</span>  [r]</span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpadc/tadconverter.differentialvalue.html">DifferentialValue</a> []<span class="sym">: </span>LongInt<span class="sym">;</span>  [r]</span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
 <td><p class="cmt">Get differential value from input</p></td>
 </tr>
@@ -79,7 +85,7 @@
 <td><p class="cmt">Indication of differantial measurement capability</p></td>
 </tr>
 <tr>
-<td><p><tt><span class="code"> <span class="kw">end</span><span class="sym">;</span></span></tt></p></td>
+<td><p><tt><span class="code"></span></tt></p></td>
 </tr>
 </table>
 <h2>Inheritance</h2>
