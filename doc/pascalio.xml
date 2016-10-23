@@ -1,7 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fpdoc-descriptions>
   <package name="pascalio">
-    <module name="fpadc">
+    <module name="bitmanip">
+      <element name="TByteSize">
+        <short>Index of Bit in byte</short>
+      </element>
+      <element name="TWordSize">
+        <short>Index of Bit in word</short>
+      </element>
+      <element name="TDWordSize">
+        <short>Index of Bit in double word</short>
+      </element>
+      <element name="TQWordSize">
+        <short>Index of Bit in quad word</short>
+      </element>
+      <element name="BITSET">
+        <short>Set bit</short>
+      </element>
+      <element name="BITSET.Result">
+        <short>Changed value</short>
+      </element>
+      <element name="BITSET.aVal">
+        <short>Input Value</short>
+      </element>
+      <element name="BITSET.Index">
+        <short>Bit Index</short>
+      </element>
+      <element name="BITCLS">
+        <short>Clear bit</short>
+      </element>
+      <element name="BITCLS.Result">
+        <short>Changed value</short>
+      </element>
+      <element name="BITCLS.aVal">
+        <short/>
+      </element>
+      <element name="BITCLS.Index">
+        <short/>
+      </element>
+      <element name="BITVAL">
+        <short>Bit Value</short>
+      </element>
+      <element name="BITVAL.Result">
+        <short>Value of bit</short>
+      </element>
+      <element name="BITVAL.aVal">
+        <short/>
+      </element>
+      <element name="BITVAL.Index">
+        <short/>
+      </element>
+      <element name="BITTGL">
+        <short>Toggle bit</short>
+      </element>
+      <element name="BITTGL.Result">
+        <short>Changed value</short>
+      </element>
+      <element name="BITTGL.aVal">
+        <short/>
+      </element>
+      <element name="BITTGL.Index">
+        <short/>
+      </element>
+      <element name="CountBits">
+        <short>Count bits set</short>
+        <descr>
+          <p>Returns the count of bits set in 
+<var>v</var>.</p>
+          <code>var
+  value: Byte;
+  c: PtrUInt;
+begin
+  value := 5;
+  // bits set
+  c := CountBits(value); // c is now 2
+  // bits not set
+  c := CountBits(not value); // c is now 6
+end.
+</code>
+          <p>The used algorith is taken from <url href="http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetParallel">Bit Twiddling Hacks</url>
+          </p>
+        </descr>
+      </element>
+      <element name="CountBits.Result">
+        <short/>
+      </element>
+      <element name="CountBits.v">
+        <short>Input value</short>
+      </element>
+      <short>Bit manipulations</short>
+      <descr>
+        <p>This unit provides functions for manipulating bits in a functional manner.</p>
+      </descr>
+    </module>
+  <module name="flqueue">
+      <element name="tNodeQueue">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue">
+        <short>Lock free queue of tObject (pointer)</short>
+      </element>
+      <element name="tFLQueue.fSize">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.fMask">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.tab">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.tail">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.head">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.temp">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.setobject">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.setobject.lp">
+        <short/>
+      </element>
+      <element name="tFLQueue.setobject.aobject">
+        <short/>
+      </element>
+      <element name="tFLQueue.getLength">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.getLength.Result">
+        <short/>
+      </element>
+      <element name="tFLQueue.getObject">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.getObject.Result">
+        <short/>
+      </element>
+      <element name="tFLQueue.getObject.lp">
+        <short/>
+      </element>
+      <element name="tFLQueue.create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.create.aPower">
+        <short/>
+      </element>
+      <element name="tFLQueue.push">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.push.tm">
+        <short/>
+      </element>
+      <element name="tFLQueue.pop">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.pop.Result">
+        <short/>
+      </element>
+      <element name="tFLQueue.length">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <short>Lock free queue</short>
+      <descr>
+        <p>Has two implementation queue based on curcular array proposed by Dariusz Mazur use only single CAS.</p>
+        <ul>
+          <li>
+            <link id="tFLQueue"/>: for queue of tObject (pointer)</li>
+          <li>gFlQueue: generic queue of any record (not included in theses sources)</li>
+        </ul>
+        <p>
+          <b>Caution:</b> if You set too small size of array and store data excess size of queue data will be lost</p>
+      </descr>
+    </module><module name="fpadc">
       <element name="TADConverter">
         <short>Abstract class for Analog/Digital Converters</short>
         <descr>This is an abstract class for Analgo/Digital Converters (ADC). Typically each ADC requires an individual implementation for data access, so create derived classes for each ADC. You must override all abstract methods to enable reading of single pin data. If the chip also supports differential or pseudo differential measurement, you should override 
@@ -96,100 +303,7 @@
       </element>
       <short>Analog/Digital Converters</short>
       <descr>This unit contains an abstract base class <link id="TADConverter"/> for Analog to Digital Converters (ADC).</descr>
-    </module>
-    <module name="bitmanip">
-      <element name="TByteSize">
-        <short>Index of Bit in byte</short>
-      </element>
-      <element name="TWordSize">
-        <short>Index of Bit in word</short>
-      </element>
-      <element name="TDWordSize">
-        <short>Index of Bit in double word</short>
-      </element>
-      <element name="TQWordSize">
-        <short>Index of Bit in quad word</short>
-      </element>
-      <element name="BITSET">
-        <short>Set bit</short>
-      </element>
-      <element name="BITSET.Result">
-        <short>Changed value</short>
-      </element>
-      <element name="BITSET.aVal">
-        <short>Input Value</short>
-      </element>
-      <element name="BITSET.Index">
-        <short>Bit Index</short>
-      </element>
-      <element name="BITCLS">
-        <short>Clear bit</short>
-      </element>
-      <element name="BITCLS.Result">
-        <short>Changed value</short>
-      </element>
-      <element name="BITCLS.aVal">
-        <short/>
-      </element>
-      <element name="BITCLS.Index">
-        <short/>
-      </element>
-      <element name="BITVAL">
-        <short>Bit Value</short>
-      </element>
-      <element name="BITVAL.Result">
-        <short>Value of bit</short>
-      </element>
-      <element name="BITVAL.aVal">
-        <short/>
-      </element>
-      <element name="BITVAL.Index">
-        <short/>
-      </element>
-      <element name="BITTGL">
-        <short>Toggle bit</short>
-      </element>
-      <element name="BITTGL.Result">
-        <short>Changed value</short>
-      </element>
-      <element name="BITTGL.aVal">
-        <short/>
-      </element>
-      <element name="BITTGL.Index">
-        <short/>
-      </element>
-      <element name="CountBits">
-        <short>Count bits set</short>
-        <descr>
-          <p>Returns the count of bits set in 
-<var>v</var>.</p>
-          <code>var
-  value: Byte;
-  c: PtrUInt;
-begin
-  value := 5;
-  // bits set
-  c := CountBits(value); // c is now 2
-  // bits not set
-  c := CountBits(not value); // c is now 6
-end.
-</code>
-          <p>The used algorith is taken from <url href="http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetParallel">Bit Twiddling Hacks</url>
-          </p>
-        </descr>
-      </element>
-      <element name="CountBits.Result">
-        <short/>
-      </element>
-      <element name="CountBits.v">
-        <short>Input value</short>
-      </element>
-      <short>Bit manipulations</short>
-      <descr>
-        <p>This unit provides functions for manipulating bits in a functional manner.</p>
-      </descr>
-    </module>
-    <module name="fpgpio">
+    </module><module name="fpgpio">
       <element name="TGpioPin.PollChange">
         <short>Polls GPIO pin for change</short>
       </element>
@@ -544,8 +658,7 @@ Regarding the Raspberry Pi, this is the BCM pin number, not the one of the conne
           <link id="TGpioPin.PollChange.OnIdle"/>
         </seealso>
       </element>
-    </module>
-    <module name="fpi2c">
+    </module><module name="fpi2c">
       <element name="sI2CSlaveAddress">
         <short/>
         <descr/>
@@ -1525,8 +1638,535 @@ You may need to load another kernel module, for making the I2C busses accessible
         <short>File Handle</short>
       </element>
       <short>Free Pascal I2C abstraction layer</short>
-    </module>
-    <module name="fpspilib">
+    </module><module name="fpspi">
+      <element name="rsSPIIoCtlErr">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPIMode">
+        <short>Settings for the SPI mode</short>
+        <descr/>
+        <seealso>
+          <link id="SPI_MODE_0"/>
+          <link id="SPI_MODE_1"/>
+          <link id="SPI_MODE_2"/>
+          <link id="SPI_MODE_3"/>
+          <link id="TSPIDevice.Mode"/>
+        </seealso>
+      </element>
+      <element name="TSPIMode.SPI_CPHA">
+        <short>Clock Phase</short>
+      </element>
+      <element name="TSPIMode.SPI_CPOL">
+        <short>Clock Polarity</short>
+      </element>
+      <element name="SPI_MODE_0">
+        <short>SPI Mode 0 - CPOL=0, CPHA=0</short>
+        <descr>
+          <table>
+            <th>
+              <td>Mode</td>
+              <td>Clock Polarity (CPOL)</td>
+              <td>Clock Phase (CPHA)</td>
+            </th>
+            <tr>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>0</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>1</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>1</td>
+              <td>1</td>
+            </tr>
+          </table>
+        </descr>
+        <seealso>
+          <link id="SPI_MODE_0"/>
+          <link id="SPI_MODE_1"/>
+          <link id="SPI_MODE_2"/>
+          <link id="SPI_MODE_3"/>
+          <link id="TSPIMode"/>
+        </seealso>
+      </element>
+      <element name="SPI_MODE_1">
+        <short>SPI Mode 0 - CPOL=0, CPHA=1</short>
+        <descr>
+          <table>
+            <th>
+              <td>Mode</td>
+              <td>Clock Polarity (CPOL)</td>
+              <td>Clock Phase (CPHA)</td>
+            </th>
+            <tr>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>0</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>1</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>1</td>
+              <td>1</td>
+            </tr>
+          </table>
+        </descr>
+        <seealso>
+          <link id="SPI_MODE_0"/>
+          <link id="SPI_MODE_1"/>
+          <link id="SPI_MODE_2"/>
+          <link id="SPI_MODE_3"/>
+          <link id="TSPIMode"/>
+        </seealso>
+      </element>
+      <element name="SPI_MODE_2">
+        <short>SPI Mode 0 - CPOL=1, CPHA=0</short>
+        <descr>
+          <table>
+            <th>
+              <td>Mode</td>
+              <td>Clock Polarity (CPOL)</td>
+              <td>Clock Phase (CPHA)</td>
+            </th>
+            <tr>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>0</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>1</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>1</td>
+              <td>1</td>
+            </tr>
+          </table>
+        </descr>
+        <seealso>
+          <link id="SPI_MODE_0"/>
+          <link id="SPI_MODE_1"/>
+          <link id="SPI_MODE_2"/>
+          <link id="SPI_MODE_3"/>
+          <link id="TSPIMode"/>
+        </seealso>
+      </element>
+      <element name="SPI_MODE_3">
+        <short>SPI Mode 0 - CPOL=1, CPHA=1</short>
+        <descr>
+          <table>
+            <th>
+              <td>Mode</td>
+              <td>Clock Polarity (CPOL)</td>
+              <td>Clock Phase (CPHA)</td>
+            </th>
+            <tr>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>0</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>1</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>1</td>
+              <td>1</td>
+            </tr>
+          </table>
+        </descr>
+        <seealso>
+          <link id="SPI_MODE_0"/>
+          <link id="SPI_MODE_1"/>
+          <link id="SPI_MODE_2"/>
+          <link id="SPI_MODE_3"/>
+          <link id="TSPIMode"/>
+        </seealso>
+      </element>
+      <element name="TSPIDevice">
+        <short>Abstract SPI device</short>
+      </element>
+      <element name="TSPIDevice.GetBitsPerWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.GetBitsPerWord.Result">
+        <short/>
+      </element>
+      <element name="TSPIDevice.SetBitsPerWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.SetBitsPerWord.AValue">
+        <short/>
+      </element>
+      <element name="TSPIDevice.GetLSBFirst">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.GetLSBFirst.Result">
+        <short/>
+      </element>
+      <element name="TSPIDevice.GetMaxFrequency">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.GetMaxFrequency.Result">
+        <short/>
+      </element>
+      <element name="TSPIDevice.GetMode">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.GetMode.Result">
+        <short/>
+      </element>
+      <element name="TSPIDevice.SetLSBFirst">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.SetLSBFirst.AValue">
+        <short/>
+      </element>
+      <element name="TSPIDevice.SetMaxFrequency">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.SetMaxFrequency.AValue">
+        <short/>
+      </element>
+      <element name="TSPIDevice.SetMode">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.SetMode.AValue">
+        <short/>
+      </element>
+      <element name="TSPIDevice.ReadAndWrite">
+        <short>Bidirectional read and write</short>
+        <descr>
+          <p>This method allows simultanous read and write acces to the SPI bus.</p>
+          <p>The buffer sizes may not be equal.  If the write buffer is the smaller one, all futher bytes will be filled with zeroes. If the read buffer is the smaller one, more bytes may be read from the device but will not be reported back to the caller.</p>
+          <remark>Please check your SPI device's manual, if this behaviour is supported. Otherwise provide read and write buffers with the same length and handle them in your application's code.</remark>
+        </descr>
+        <errors/>
+        
+      </element>
+      <element name="TSPIDevice.ReadAndWrite.aWriteBuffer">
+        <short>Data written to the bus</short>
+      </element>
+      <element name="TSPIDevice.ReadAndWrite.aWriteCount">
+        <short>Count of bytes in buffer</short>
+      </element>
+      <element name="TSPIDevice.ReadAndWrite.aReadBuffer">
+        <short>Data received from the bus</short>
+      </element>
+      <element name="TSPIDevice.ReadAndWrite.aReadCount">
+        <short>Maximum bytes read</short>
+      </element>
+      <element name="TSPIDevice.Mode">
+        <short>The SPI Mode</short>
+        
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.LSBFirst">
+        <short>Transfer the least or most significant bit first</short>
+        <descr>By default, the most significant bit is transferred first.</descr>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.MaxFrequency">
+        <short>Maximum Frequency (Hz)</short>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPIDevice.BitsPerWord">
+        <short>Count of bits transferred as smallest unit</short>
+        <descr>Some SPI bus devices don't support other values than 8 bits per word. Therefore, 8 bits per word is the default setting.</descr>
+        <seealso/>
+      </element>
+      <element name="TSPI_IOC_Transfer_Array">
+        <short>Data structor passed to the Linux spidev driver</short>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice">
+        <short>SPI device for Linux</short>
+        <descr>
+          <p>This class implements the <link id="TSPIDevice"/> using the file system interface of the Linux kernel.</p>
+        </descr>
+      </element>
+      <element name="TSPILinuxDevice.fBus">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.fCS">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.fHandle">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.GetBitsPerWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.GetBitsPerWord.Result">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.GetLSBFirst">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.GetLSBFirst.Result">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.GetMaxFrequency">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.GetMaxFrequency.Result">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.GetMode">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.GetMode.Result">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.SetBitsPerWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.SetBitsPerWord.AValue">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.SetLSBFirst">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.SetLSBFirst.AValue">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.SetMaxFrequency">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.SetMaxFrequency.AValue">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.SetMode">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.SetMode.AValue">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.GetDevicePath">
+        <short>Returns the SPI devices file name in file system</short>
+        <descr/>
+        <errors/>
+        <seealso>
+          <link id="TSPILinuxDevice.Bus"/>
+          <link id="TSPILinuxDevice.ChipSelect"/>
+        </seealso>
+      </element>
+      <element name="TSPILinuxDevice.GetDevicePath.Result">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.DoIoCtlError">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.DoIoCtlError.Ndx">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.Create">
+        <short>Instantiates a new SPI device</short>
+        <descr>
+          <p>The values of <var>aBus</var> and <var>aChipSelect</var> are directly mapped to the file name /dev/spidevB.C with B = Bus and C = Chipselect provided by the Linux spidev driver.</p>
+          <p>See <url href="https://www.kernel.org/doc/Documentation/spi/spidev">https://www.kernel.org/doc/Documentation/spi/spidev</url> for a documentation of the spidev driver.</p>
+        </descr>
+        <errors/>
+        
+      </element>
+      <element name="TSPILinuxDevice.Create.aBus">
+        <short>The bus number</short>
+      </element>
+      <element name="TSPILinuxDevice.Create.aChipSelect">
+        <short>The chipselect number</short>
+      </element>
+      <element name="TSPILinuxDevice.Destroy">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.Read">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.Read.Result">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.Read.Buffer">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.Read.Count">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.Write">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.Write.Result">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.Write.Buffer">
+        <short/>
+      </element>
+      <element name="TSPILinuxDevice.Write.Count">
+        <short/>
+      </element>
+      <element link="#pascalio.fpspi.TSPIDevice.ReadAndWrite" name="TSPILinuxDevice.ReadAndWrite">
+        <short>Bidirectional read and write</short>
+        <descr/>
+        
+        
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite.aWriteBuffer">
+        <short>Data written to the bus</short>
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite.aWriteCount">
+        <short>Count of bytes in buffer</short>
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite.aReadBuffer">
+        <short>Data received from the bus</short>
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite.aReadCount">
+        <short>Maximum bytes read</short>
+      </element>
+      <element name="TSPILinuxDevice.ReadAndWrite.in_out_data">
+        <short>Data structure passed to Linux spidev driver</short>
+      </element>
+      <element name="TSPILinuxDevice.Bus">
+        <short>The bus ID</short>
+        <descr>
+          <p>The bus ID can only set by the <link id="TSPILinuxDevice.Create">constructor</link>
+          </p>
+        </descr>
+        <seealso/>
+      </element>
+      <element name="TSPILinuxDevice.ChipSelect">
+        <short>ID of the ChipSelect</short>
+        <descr>
+          <p>The ChipSelect ID can only set by the <link id="TSPILinuxDevice.Create">constructor</link>
+          </p>
+        </descr>
+        <seealso/>
+      </element>
+      <short>Free Pascal SPI abstraction layer</short>
+      <descr>
+        <p>This unit provides an object oriented access to the <url href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus">Serial Peripheral Interface (SPI)</url>. The base class for accessing an SPI device is <link id="TSPIDevice"/>.</p>
+        <p>The default implementation for Linux is <link id="TSPILinuxDevice"/>
+        </p>
+      </descr>
+      <seealso>
+        <link id="TSPIDevice"/>
+        <link id="TSPILinuxDevice"/>
+      </seealso>
+    <element name="TSPIDevice.Read">
+        <short>Half duplex read</short>
+        <descr>All bytes transferred to the SPI device are set to 0.</descr>
+        <seealso>
+          <link id="TSPIDevice.Write"/>
+          <link id="TSPIDevice.ReadAndWrite"/>
+        </seealso>
+      </element><element name="TSPIDevice.Write">
+        <short>Half duplex write</short>
+        <descr>All bytes sent by SPI device are ignored.</descr>
+        <seealso>
+          <link id="TSPIDevice.Read"/>
+          <link id="TSPIDevice.ReadAndWrite"/>
+        </seealso>
+      </element>
+    </module><module name="fpspilib">
       <element name="TMCP3008.Create">
         <short>Create new object</short>
       </element>
@@ -1553,8 +2193,7 @@ You may need to load another kernel module, for making the I2C busses accessible
       </element>
       <short>Free Pascal SPI device library</short>
       <descr>This unit contains a collection of classes wicht access SPI devices</descr>
-    </module>
-    <module name="gpioexp">
+    </module><module name="gpioexp">
       <element name="TGpioI2CController">
         <short>Abstract class for I2C expander</short>
         <descr>All GPIO expander providing an I2C interface should inerhit from this class.</descr>
@@ -2002,8 +2641,7 @@ You may need to load another kernel module, for making the I2C busses accessible
       </element>
       <short>GPIO expanders</short>
       <descr>This unit provides support for GPIO expanders. You will need an GPIO expander if your processor/microcontroller doesn't provide as much GPIO ports as you need.</descr>
-    </module>
-    <module name="i2c_dev">
+    </module><module name="i2c_dev">
       <short>Linux i2c-dev.h</short>
       <descr>This unit is a translation of the i2c-dev.h header file of the Linux Kernel. Use this unit for low level direct access to I2C (Inter Integrated Circuit) or SMBus (System Management Bus) on Linux.</descr>
       <element name="i2c_msg"/>
@@ -2184,8 +2822,7 @@ You may need to load another kernel module, for making the I2C busses accessible
       <element name="i2c_smbus_write_word_data.command"/>
       <element name="i2c_smbus_write_word_data.value"/>
       <element name="i2c_smbus_write_word_data.Result"/>
-    </module>
-    <module name="mcp23017">
+    </module><module name="mcp23017">
       <element name="sInvalidAddress">
         <seealso>
           <link id="EInvalidMCP23X17Address"/>
@@ -2876,8 +3513,7 @@ This has to be implented in a subclass destructor.</descr>
         <link id="TMCP23017Controller"/>
         <link id="TMCP23S17Controller"/>
       </seealso>
-    </module>
-    <module name="spidev">
+    </module><module name="spidev">
       <short>Translation of spidev.h</short>
       <descr>This is a translation of the spidev.h header file of the Linux kernel. Unfortunatly the Free Pascal Compiler doesn't ship with a portable translation of some basic C macros which are essantial for the IoCtl system call. These macros and constans may move to another unit.</descr>
       <!-- constant Visibility: default -->
@@ -3242,611 +3878,5 @@ This has to be implented in a subclass destructor.</descr>
         <short/>
       </element>
     </module>
-    <module name="flqueue">
-      <element name="tNodeQueue">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="tFLQueue">
-        <short>Lock free queue of tObject (pointer)</short>
-      </element>
-      <element name="tFLQueue.fSize">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="tFLQueue.fMask">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="tFLQueue.tab">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="tFLQueue.tail">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="tFLQueue.head">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="tFLQueue.temp">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="tFLQueue.setobject">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="tFLQueue.setobject.lp">
-        <short/>
-      </element>
-      <element name="tFLQueue.setobject.aobject">
-        <short/>
-      </element>
-      <element name="tFLQueue.getLength">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="tFLQueue.getLength.Result">
-        <short/>
-      </element>
-      <element name="tFLQueue.getObject">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="tFLQueue.getObject.Result">
-        <short/>
-      </element>
-      <element name="tFLQueue.getObject.lp">
-        <short/>
-      </element>
-      <element name="tFLQueue.create">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="tFLQueue.create.aPower">
-        <short/>
-      </element>
-      <element name="tFLQueue.push">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="tFLQueue.push.tm">
-        <short/>
-      </element>
-      <element name="tFLQueue.pop">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="tFLQueue.pop.Result">
-        <short/>
-      </element>
-      <element name="tFLQueue.length">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <short>Lock free queue</short>
-      <descr>
-        <p>Has two implementation queue based on curcular array proposed by Dariusz Mazur use only single CAS.</p>
-        <ul>
-          <li>
-            <link id="tFLQueue"/>: for queue of tObject (pointer)</li>
-          <li>gFlQueue: generic queue of any record (not included in theses sources)</li>
-        </ul>
-        <p>
-          <b>Caution:</b> if You set too small size of array and store data excess size of queue data will be lost</p>
-      </descr>
-    </module>
-    <!-- flqueue -->
-    <module name="fpspi">
-      <element name="rsSPIIoCtlErr">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="TSPIMode">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="TSPIMode.SPI_CPHA">
-        <short/>
-      </element>
-      <element name="TSPIMode.SPI_CPOL">
-        <short/>
-      </element>
-      <element name="SPI_MODE_0">
-        <short>SPI Mode 0 - CPOL=0, CPHA=0</short>
-        <descr>
-          <table>
-            <th>
-              <td>Mode</td>
-              <td>Clock Polarity (CPOL)</td>
-              <td>Clock Phase (CPHA)</td>
-            </th>
-            <tr>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>0</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>1</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>1</td>
-              <td>1</td>
-            </tr>
-          </table>
-        </descr>
-        <seealso>
-          <link id="SPI_MODE_0"/>
-          <link id="SPI_MODE_1"/>
-          <link id="SPI_MODE_2"/>
-          <link id="SPI_MODE_3"/>
-        </seealso>
-      </element>
-      <element name="SPI_MODE_1">
-        <short>SPI Mode 0 - CPOL=0, CPHA=1</short>
-        <descr>
-          <table>
-            <th>
-              <td>Mode</td>
-              <td>Clock Polarity (CPOL)</td>
-              <td>Clock Phase (CPHA)</td>
-            </th>
-            <tr>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>0</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>1</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>1</td>
-              <td>1</td>
-            </tr>
-          </table>
-        </descr>
-        <seealso>
-          <link id="SPI_MODE_0"/>
-          <link id="SPI_MODE_1"/>
-          <link id="SPI_MODE_2"/>
-          <link id="SPI_MODE_3"/>
-        </seealso>
-      </element>
-      <element name="SPI_MODE_2">
-        <short>SPI Mode 0 - CPOL=1, CPHA=0</short>
-        <descr>
-          <table>
-            <th>
-              <td>Mode</td>
-              <td>Clock Polarity (CPOL)</td>
-              <td>Clock Phase (CPHA)</td>
-            </th>
-            <tr>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>0</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>1</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>1</td>
-              <td>1</td>
-            </tr>
-          </table>
-        </descr>
-        <seealso>
-          <link id="SPI_MODE_0"/>
-          <link id="SPI_MODE_1"/>
-          <link id="SPI_MODE_2"/>
-          <link id="SPI_MODE_3"/>
-        </seealso>
-      </element>
-      <element name="SPI_MODE_3">
-        <short>SPI Mode 0 - CPOL=1, CPHA=1</short>
-        <descr>
-          <table>
-            <th>
-              <td>Mode</td>
-              <td>Clock Polarity (CPOL)</td>
-              <td>Clock Phase (CPHA)</td>
-            </th>
-            <tr>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>0</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>1</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>1</td>
-              <td>1</td>
-            </tr>
-          </table>
-        </descr>
-        <seealso>
-          <link id="SPI_MODE_0"/>
-          <link id="SPI_MODE_1"/>
-          <link id="SPI_MODE_2"/>
-          <link id="SPI_MODE_3"/>
-        </seealso>
-      </element>
-      <element name="TSPIDevice">
-        <short>Abstract SPI device</short>
-      </element>
-      <element name="TSPIDevice.GetBitsPerWord">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPIDevice.GetBitsPerWord.Result">
-        <short/>
-      </element>
-      <element name="TSPIDevice.SetBitsPerWord">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPIDevice.SetBitsPerWord.AValue">
-        <short/>
-      </element>
-      <element name="TSPIDevice.GetLSBFirst">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPIDevice.GetLSBFirst.Result">
-        <short/>
-      </element>
-      <element name="TSPIDevice.GetMaxFrequency">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPIDevice.GetMaxFrequency.Result">
-        <short/>
-      </element>
-      <element name="TSPIDevice.GetMode">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPIDevice.GetMode.Result">
-        <short/>
-      </element>
-      <element name="TSPIDevice.SetLSBFirst">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPIDevice.SetLSBFirst.AValue">
-        <short/>
-      </element>
-      <element name="TSPIDevice.SetMaxFrequency">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPIDevice.SetMaxFrequency.AValue">
-        <short/>
-      </element>
-      <element name="TSPIDevice.SetMode">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPIDevice.SetMode.AValue">
-        <short/>
-      </element>
-      <element name="TSPIDevice.ReadAndWrite">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPIDevice.ReadAndWrite.aWriteBuffer">
-        <short/>
-      </element>
-      <element name="TSPIDevice.ReadAndWrite.aWriteCount">
-        <short/>
-      </element>
-      <element name="TSPIDevice.ReadAndWrite.aReadBuffer">
-        <short/>
-      </element>
-      <element name="TSPIDevice.ReadAndWrite.aReadCount">
-        <short/>
-      </element>
-      <element name="TSPIDevice.Mode">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="TSPIDevice.LSBFirst">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="TSPIDevice.MaxFrequency">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="TSPIDevice.BitsPerWord">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="TSPI_IOC_Transfer_Array">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice">
-        <short>SPI device for Linux</short>
-        <descr>
-          <p>This class implements the <link id="TSPIDevice"/> using the file system interface of the Linux kernel.</p>
-        </descr>
-      </element>
-      <element name="TSPILinuxDevice.fBus">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.fCS">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.fHandle">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.GetBitsPerWord">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.GetBitsPerWord.Result">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.GetLSBFirst">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.GetLSBFirst.Result">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.GetMaxFrequency">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.GetMaxFrequency.Result">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.GetMode">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.GetMode.Result">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.SetBitsPerWord">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.SetBitsPerWord.AValue">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.SetLSBFirst">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.SetLSBFirst.AValue">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.SetMaxFrequency">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.SetMaxFrequency.AValue">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.SetMode">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.SetMode.AValue">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.GetDevicePath">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.GetDevicePath.Result">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.DoIoCtlError">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.DoIoCtlError.Ndx">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.Create">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.Create.aBus">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.Create.aChipSelect">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.Destroy">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.Read">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.Read.Result">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.Read.Buffer">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.Read.Count">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.Write">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.Write.Result">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.Write.Buffer">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.Write.Count">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.ReadAndWrite">
-        <short/>
-        <descr/>
-        <errors/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.ReadAndWrite.aWriteBuffer">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.ReadAndWrite.aWriteCount">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.ReadAndWrite.aReadBuffer">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.ReadAndWrite.aReadCount">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.ReadAndWrite.in_out_data">
-        <short/>
-      </element>
-      <element name="TSPILinuxDevice.Bus">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <element name="TSPILinuxDevice.ChipSelect">
-        <short/>
-        <descr/>
-        <seealso/>
-      </element>
-      <short>Free Pascal SPI abstraction layer</short>
-      <descr>
-        <p>This unit provides an object oriented access to the <url href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus">Serial Peripheral Interface (SPI)</url>. The base class for accessing an SPI device is <link id="TSPIDevice"/>.</p>
-        <p>The default implementation for Linux is <link id="TSPILinuxDevice"/>
-        </p>
-      </descr>
-      <seealso>
-        <link id="TSPIDevice"/>
-        <link id="TSPILinuxDevice"/>
-      </seealso>
-    </module>
-    <!-- fpspi -->
   </package>
 </fpdoc-descriptions>
