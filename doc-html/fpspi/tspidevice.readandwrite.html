@@ -14,7 +14,7 @@
 </tr>
 </table>
 <h1>TSPIDevice.ReadAndWrite</h1>
-<p></p>
+<p>Bidirectional read and write</p>
 <h2>Declaration</h2>
 <p>Source position: fpspi.pas line 78</p>
 <table cellpadding="0" cellspacing="0">
@@ -35,6 +35,38 @@
 </tr>
 <tr>
 <td><p><tt><span class="code"><span class="sym">)</span><span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span><span class="kw"> abstract</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+</table>
+<h2>Arguments</h2>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><p><tt><span class="code">aWriteBuffer</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Data written to the bus</p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">aWriteCount</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Count of bytes in buffer</p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">aReadBuffer</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Data received from the bus</p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">aReadCount</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Maximum bytes read</p></td>
+</tr>
+</table>
+<h2>Description</h2>
+<p>This method allows simultanous read and write acces to the SPI bus.</p>
+<p>The buffer sizes may not be equal.  If the write buffer is the smaller one, all futher bytes will be filled with zeroes. If the read buffer is the smaller one, more bytes may be read from the device but will not be reported back to the caller.</p>
+<table class="remark" width="100%" border="0" CellSpacing="0">
+<tr>
+<td class="pre" valign="top"><b>Remark:   </b></td>
+<td>Please check your SPI device's manual, if this behaviour is supported. Otherwise provide read and write buffers with the same length and handle them in your application's code.</td>
 </tr>
 </table>
 </body>

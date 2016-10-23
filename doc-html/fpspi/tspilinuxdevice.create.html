@@ -14,9 +14,9 @@
 </tr>
 </table>
 <h1>TSPILinuxDevice.Create</h1>
-<p></p>
+<p>Instantiates a new SPI device</p>
 <h2>Declaration</h2>
-<p>Source position: fpspi.pas line 108</p>
+<p>Source position: fpspi.pas line 109</p>
 <table cellpadding="0" cellspacing="0">
 <tr>
 <td><p><tt><span class="code"> <span class="kw">public</span> <span class="kw">constructor</span> <a href="../fpspi/tspilinuxdevice.html">TSPILinuxDevice</a><span class="sym">.</span>Create<span class="sym">(</span></span></tt></p></td>
@@ -31,5 +31,21 @@
 <td><p><tt><span class="code"><span class="sym">)</span><span class="sym">;</span></span></tt></p></td>
 </tr>
 </table>
+<h2>Arguments</h2>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><p><tt><span class="code">aBus</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">The bus number</p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">aChipSelect</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">The chipselect number</p></td>
+</tr>
+</table>
+<h2>Description</h2>
+<p>The values of <var>aBus</var> and <var>aChipSelect</var> are directly mapped to the file name /dev/spidevB.C with B = Bus and C = Chipselect provided by the Linux spidev driver.</p>
+<p>See <a href="https://www.kernel.org/doc/Documentation/spi/spidev">https://www.kernel.org/doc/Documentation/spi/spidev</a> for a documentation of the spidev driver.</p>
 </body>
 </html>

@@ -17,7 +17,7 @@
 <p>[<a href="../fpspi/tspilinuxdevice-1.html" onClick="window.open('../fpspi/tspilinuxdevice-1.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">Properties</a> (<a href="../fpspi/tspilinuxdevice-2.html" onClick="window.open('../fpspi/tspilinuxdevice-2.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">by Name</a>)] [<a href="../fpspi/tspilinuxdevice-3.html" onClick="window.open('../fpspi/tspilinuxdevice-3.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">Methods</a> (<a href="../fpspi/tspilinuxdevice-4.html" onClick="window.open('../fpspi/tspilinuxdevice-4.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">by Name</a>)] [<a href="../fpspi/tspilinuxdevice-5.html" onClick="window.open('../fpspi/tspilinuxdevice-5.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">Events</a> (<a href="../fpspi/tspilinuxdevice-6.html" onClick="window.open('../fpspi/tspilinuxdevice-6.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">by Name</a>)] </p>
 <p>SPI device for Linux</p>
 <h2>Declaration</h2>
-<p>Source position: fpspi.pas line 90</p>
+<p>Source position: fpspi.pas line 91</p>
 <table cellpadding="0" cellspacing="0">
 <tr>
 <td><p><tt><span class="code"><span class="kw">type</span> TSPILinuxDevice <span class="sym">=</span> <span class="kw">class</span><span class="sym">(</span><a href="../fpspi/tspidevice.html">TSPIDevice</a><span class="sym">)</span> <span class="kw">end</span><span class="sym">;</span></span></tt></p></td>
@@ -68,7 +68,7 @@
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpspi/tspilinuxdevice.getdevicepath.html">GetDevicePath</a><span class="sym">;</span></span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
-<td><p class="cmt"></p></td>
+<td><p class="cmt">Returns the SPI devices file name in file system</p></td>
 </tr>
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fpspi/tspilinuxdevice.doioctlerror.html">DoIoCtlError</a><span class="sym">();</span></span></tt></p></td>
@@ -81,7 +81,7 @@
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">constructor </span><a href="../fpspi/tspilinuxdevice.create.html">Create</a><span class="sym">();</span></span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
-<td><p class="cmt"></p></td>
+<td><p class="cmt">Instantiates a new SPI device</p></td>
 </tr>
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">destructor </span><a href="../fpspi/tspilinuxdevice.destroy.html">Destroy</a><span class="sym">;</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
@@ -99,19 +99,19 @@
 <td><p class="cmt"></p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fpspi/tspilinuxdevice.readandwrite.html">ReadAndWrite</a><span class="sym">();</span></span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fpspi/tspidevice.readandwrite.html">ReadAndWrite</a><span class="sym">();</span></span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
-<td><p class="cmt"></p></td>
+<td><p class="cmt">Bidirectional read and write</p></td>
 </tr>
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpspi/tspilinuxdevice.bus.html">Bus</a><span class="sym">: </span>LongWord<span class="sym">;</span>  [r]</span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
-<td><p class="cmt"></p></td>
+<td><p class="cmt">The bus ID</p></td>
 </tr>
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpspi/tspilinuxdevice.chipselect.html">ChipSelect</a><span class="sym">: </span>LongWord<span class="sym">;</span>  [r]</span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
-<td><p class="cmt"></p></td>
+<td><p class="cmt">ID of the ChipSelect</p></td>
 </tr>
 <tr>
 <td><p><tt><span class="code"></span></tt></p></td>
@@ -134,12 +134,6 @@
 </tr>
 <tr>
 <td align="center">|</td>
-</tr>
-<tr>
-<td align="center"><p><tt><span class="code">TStream</span></tt></p></td>
-</tr>
-<tr>
-<td align="center">?</td>
 </tr>
 <tr>
 <td align="center"><p><tt><span class="code">TObject</span></tt></p></td>
