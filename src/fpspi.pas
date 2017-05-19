@@ -184,8 +184,8 @@ end;
 
 procedure TSPILinuxDevice.SetMode(AValue: TSPIMode);
 begin
-  if FpIOCtl(fHandle, SPI_IOC_RD_MODE, @AValue) = -1 then
-    DoIoCtlError(SPI_IOC_RD_MODE);
+  if FpIOCtl(fHandle, SPI_IOC_WR_MODE, @AValue) = -1 then
+    DoIoCtlError(SPI_IOC_WR_MODE);
 end;
 
 function TSPILinuxDevice.GetDevicePath: String;
