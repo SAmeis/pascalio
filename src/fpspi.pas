@@ -32,7 +32,7 @@
 unit fpspi;
 
 {$mode objfpc}{$H+}
-{$DEFINE InheritFromTStream}
+{.$DEFINE InheritFromTStream}
 interface
 
 uses
@@ -72,10 +72,11 @@ type
     // define abstract methods Read() and Write() if they are not inherited
     // by TStream.
     {$IFNDEF InheritFromTStream}
-    function Read(var Buffer; Count: Longint): Longint; virtual; abstract;
-    function Write(const Buffer; Count: Longint): Longint; virtual; abstract;
+    function Read(var Buffer; Count: Longint): Longint; virtual;
+    function Write(const Buffer; Count: Longint): Longint; virtual;
     {$ENDIF}
-    procedure ReadAndWrite(const aWriteBuffer; aWriteCount: Longint; Var aReadBuffer; aReadCount: Longint); virtual; abstract;
+    procedure ReadAndWrite(const aWriteBuffer; aWriteCount: Longint;
+      Var aReadBuffer; aReadCount: Longint); virtual; abstract;
     property Mode: TSPIMode read GetMode write SetMode default SPI_MODE_0;
     property LSBFirst: Boolean read GetLSBFirst write SetLSBFirst default False;
     property MaxFrequency: Longword read GetMaxFrequency write SetMaxFrequency default 0;
@@ -110,7 +111,8 @@ type
 
     function Read(var Buffer; Count: Longint): Longint; override;
     function Write(const Buffer; Count: Longint): Longint; override;
-    procedure ReadAndWrite(const aWriteBuffer; aWriteCount: Longint; Var aReadBuffer; aReadCount: Longint); override;
+    procedure ReadAndWrite(const aWriteBuffer; aWriteCount: Longint;
+      Var aReadBuffer; aReadCount: Longint); override;
     procedure ReadAndWrite(in_out_data: TSPI_IOC_Transfer_Array);
 
     property Bus: Longword read fBus;
@@ -123,6 +125,24 @@ type
   end;
   *)
 implementation
+
+{ TSPIDevice }
+
+function TSPIDevice.Read(var Buffer; Count: Longint): Longint;
+var
+  // minimal dummy read buffer
+  ReadBuffer: Byte;
+begin
+  ReadAndWrite(Buffer, Count, ReadBuffer, SizeOf(ReadBuffer));
+end;
+
+function TSPIDevice.Write(const Buffer; Count: Longint): Longint;
+var
+  // minimal dummy write buffer
+  WriteBuffer: Byte;
+begin
+  ReadAndWrite(WriteBuffer, SizeOf(WriteBuffer), Buffer, Count);
+end;
 
 {$IFDEF LINUX}
 { TSPILinuxDevice }
