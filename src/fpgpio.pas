@@ -120,7 +120,7 @@ type
     function GetDirection(Index: Longword): TGpioDirection; virtual; abstract;
     procedure SetActiveLow(Index: Longword; AValue: Boolean); virtual; abstract;
     procedure SetDirection(Index: Longword; AValue: TGpioDirection); virtual; abstract;
-    class function GetCount: Longword; static; virtual; abstract;
+    function GetCount: Longword; virtual; abstract;
     function GetValue(Index: Longword): Boolean; virtual; abstract;
     procedure SetValue(Index: Longword; aValue: Boolean); virtual; abstract;
     function GetInterruptMode(Index: Longword): TGpioInterruptMode; virtual; abstract;
@@ -133,7 +133,7 @@ type
     property Direction[Index: Longword]: TGpioDirection read GetDirection write SetDirection;
     property Value[Index: Longword]: Boolean read GetValue write SetValue;
     property ActiveLow[Index: Longword]: Boolean read GetActiveLow write SetActiveLow;
-    class property Count: Longword read GetCount;
+    property Count: Longword read GetCount;
     property Pins[Index: SizeUInt]: TGpioPin read GetPin;
   end;
 
@@ -695,13 +695,21 @@ var
   d1: QWord;
   nval: Boolean;
   Cancel: Boolean;
+
+  ValueIndex: Byte;
+  LastValues: Byte;
 begin
   Cancel := False;
   d1 := NowMS;
   value := GetValue;
+
+  LastValues := $00;
+  ValueIndex := 0;
   repeat
     nval := GetValue;
-    if nval <> value then
+
+    LastValues := (LastValues shl 1) or (Byte(nval));
+    if (nval <> value) and (LastValues in [$00, $FF]) then
     begin
       value := nval;
       Result := gprChanged;

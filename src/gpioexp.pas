@@ -66,7 +66,7 @@ type
     fmcp23X17: TMCP23X17Controller;
   protected
     function GetActiveLow(Index: Longword): Boolean; override;
-    class function GetCount: Longword; static; override;
+    function GetCount: Longword; override;
     function GetDirection(Index: Longword): TGpioDirection; override;
     function GetInterruptMode(Index: Longword): TGpioInterruptMode; override;
     function GetValue(index: Longword): Boolean; override;
@@ -90,7 +90,7 @@ type
     fProxy: TMCP23X17;
     fMCP23X17Controller: TMCP23X17Controller;
     function GetActiveLow(Index: Longword): Boolean; override;
-    class function GetCount: Longword; static; override;
+    function GetCount: Longword; override;
     function GetDirection(Index: Longword): TGpioDirection; override;
     function GetInterruptMode(Index: Longword): TGpioInterruptMode; override;
     function GetValue(Index: Longword): Boolean; override;
@@ -111,7 +111,7 @@ type
     fProxy: TMCP23X17;
     fMCP23X17Controller: TMCP23X17Controller;
     function GetActiveLow(Index: Longword): Boolean; override;
-    class function GetCount: Longword; static; override;
+    function GetCount: Longword; override;
     function GetDirection(Index: Longword): TGpioDirection; override;
     function GetInterruptMode(Index: Longword): TGpioInterruptMode; override;
     function GetValue(Index: Longword): Boolean; override;
@@ -134,9 +134,9 @@ begin
   Result := fProxy.GetActiveLow(Index);
 end;
 
-class function TMCP23S17.GetCount: Longword;
+function TMCP23S17.GetCount: Longword;
 begin
-  Result := TMCP23X17.Count;
+  Result := fProxy.Count;
 end;
 
 function TMCP23S17.GetDirection(Index: Longword): TGpioDirection;
@@ -201,7 +201,7 @@ begin
   end;
 end;
 
-class function TMCP23X17.GetCount: Longword;
+function TMCP23X17.GetCount: Longword;
 begin
   Result := 16
 end;
@@ -453,9 +453,9 @@ end;
 
 { TMCP23017 }
 
-class function TMCP23017.GetCount: Longword;
+function TMCP23017.GetCount: Longword;
 begin
-  Result := TMCP23X17.Count;
+  Result := fProxy.Count;
 end;
 
 function TMCP23017.GetActiveLow(Index: Longword): Boolean;
@@ -531,4 +531,4 @@ begin
 end;
 
 end.
-
+

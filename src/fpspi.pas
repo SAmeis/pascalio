@@ -130,18 +130,21 @@ implementation
 
 function TSPIDevice.Read(var Buffer; Count: Longint): Longint;
 var
-  // minimal dummy read buffer
-  ReadBuffer: Byte;
+  // minimal dummy write buffer
+  WriteBuffer: Byte;
 begin
-  ReadAndWrite(Buffer, Count, ReadBuffer, SizeOf(ReadBuffer));
+  WriteBuffer := 0; // initialize with 0, so this is defined value
+  ReadAndWrite(WriteBuffer, SizeOf(WriteBuffer), Buffer, Count);
+  Result := Count;
 end;
 
 function TSPIDevice.Write(const Buffer; Count: Longint): Longint;
 var
-  // minimal dummy write buffer
-  WriteBuffer: Byte;
+  // minimal dummy read buffer
+  ReadBuffer: Byte;
 begin
-  ReadAndWrite(WriteBuffer, SizeOf(WriteBuffer), Buffer, Count);
+  ReadAndWrite(Buffer, Count, ReadBuffer, SizeOf(ReadBuffer));
+  Result := Count;
 end;
 
 {$IFDEF LINUX}
@@ -262,11 +265,16 @@ end;
 procedure TSPILinuxDevice.ReadAndWrite(const aWriteBuffer;
   aWriteCount: Longint; var aReadBuffer; aReadCount: Longint);
 var
-  intRB: array of Byte;
-  intWB: array of Byte;
-  ml: Longint;
+  intRB: array of Byte;  //< internal read buffer
+  intWB: array of Byte;  //< internal write buffer
+  ml: Longint;  //< maximum transfer length
   xfer: TSPI_IOC_Transfer_Array;
 begin
+  { SPI_IOC_MESSAGE requires two buffers (read and write) in same length.
+    Thus we need to create internal buffers.
+
+    TODO: do not use internal buffers if aWriteCount = aReadCount
+  }
   if aWriteCount < aReadCount then
     ml := aReadCount
   else

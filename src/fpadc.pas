@@ -55,40 +55,39 @@ type
   { TADConverter }
 
   TADConverter = class(TObject)
-  protected
+  protected                                                 
+    function GetCount: Longword; virtual; abstract;
+    function GetMaxValue: Longint; virtual; abstract;
+    function GetMinValue: Longint; virtual;
+    function GetSupportsDifferentialValue: Boolean; virtual;
     function GetDifferentialValue(Index: Longword): Longint; virtual;
-    class function GetMaxValue: Longint; static; virtual; abstract;
-    // defaults to 0
-    class function GetMinValue: Longint; static; virtual;
-    class function GetSupportsDifferentialValue: Boolean; virtual;
-    class function GetCount: Longword; static; virtual; abstract;
     function GetValue(Index: Longword): Longint; virtual; abstract;
   public
-    class property MaxValue: Longint read GetMaxValue;
-    class property MinValue: Longint read GetMinValue;
-    property Value[Index: Longword]: Longint read GetValue;
-    class property Count: Longword read GetCount;
-    property DifferentialValue[Index: Longword]: Longint read GetDifferentialValue;
+    property MaxValue: Longint read GetMaxValue;
+    property MinValue: Longint read GetMinValue;
+    property Count: Longword read GetCount;
     property SupportsDifferentialValue: Boolean read GetSupportsDifferentialValue;
+    property Value[Index: Longword]: Longint read GetValue;
+    property DifferentialValue[Index: Longword]: Longint read GetDifferentialValue;
   end;
 
 implementation
 
 { TADConverter }
 
-class function TADConverter.GetMinValue: Longint; static;
+function TADConverter.GetMinValue: Longint;
 begin
   Result := 0;
+end;
+
+function TADConverter.GetSupportsDifferentialValue: Boolean;
+begin
+  Result := False;
 end;
 
 function TADConverter.GetDifferentialValue(Index: Longword): Longint;
 begin
   Raise EDifferentialNotSupported.Create(Self.ClassType);
-end;
-
-class function TADConverter.GetSupportsDifferentialValue: Boolean;
-begin
-  Result := False;
 end;
 
 { EPDNotSupported }

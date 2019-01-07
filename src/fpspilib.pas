@@ -43,8 +43,8 @@ type
     fBus: TSPIDevice;
     function GetValue(Index: Longword): Longint; override;
     function GetDifferentialValue(Index: Longword): Longint; override;
-    class function GetSupportsDifferentialValue: Boolean; override;
-    class function GetBitCount: Byte; static; virtual; abstract;
+    function GetSupportsDifferentialValue: Boolean; override;
+    class function GetBitCount: Byte; virtual; abstract;
     function InternalGetValue(Single: Boolean; Channel: Byte): Longint;
   public
     constructor Create(aBus: TSPIDevice);
@@ -54,86 +54,86 @@ type
 
   TMCP300X = class(TMCP3X0X)
   protected                 
-    class function GetMaxValue: Longint; static; override;
-    class function GetBitCount: Byte; static; override;
+    function GetMaxValue: Longint; override;
+    class function GetBitCount: Byte; override;
   end;
 
   { TMCP3008 }
 
   TMCP3008 = class(TMCP300X)
   protected
-    class function GetCount: Longword; static; override;
+    function GetCount: Longword; override;
   end;
 
   { TMCP3004 }
 
   TMCP3004 = class(TMCP300X)
   protected
-    class function GetCount: Longword; static; override;
+    function GetCount: Longword; override;
   end;
 
   TMCP320X = class(TMCP3X0X)
   protected
-    class function GetMaxValue: Longint; static; override;
-    class function GetBitCount: Byte; static; override;
+    function GetMaxValue: Longint; override;
+    class function GetBitCount: Byte; override;
   end;
 
   { TMCP3208 }
 
   TMCP3208 = class(TMCP320X)
   protected
-    class function GetCount: Longword; static; override;
+    function GetCount: Longword; override;
   end;
 
   { TMCP3004 }
 
   TMCP3204 = class(TMCP320X)
   protected
-    class function GetCount: Longword; static; override;
+    function GetCount: Longword; override;
   end;
 
   TMCP330X = class(TMCP3X0X)
   protected
-    class function GetMaxValue: Longint; static; override;
-    class function GetMinValue: Longint; static; override;
-    class function GetBitCount: Byte; static; override;
+    function GetMaxValue: Longint; override;
+    function GetMinValue: Longint; override;
+    class function GetBitCount: Byte; override;
   end;
 
   TMCP3304 = class(TMCP330X)
   protected
-    class function GetCount: Longword; static; override;
+    function GetCount: Longword; override;
   end;
 
   TMCP3308 = class(TMCP330X)
   protected
-    class function GetCount: Longword; static; override;
+    function GetCount: Longword; override;
   end;
 
 implementation
 
 { TMCP3308 }
 
-class function TMCP3308.GetCount: Longword;
+function TMCP3308.GetCount: Longword;
 begin
   Result := 8;
 end;
 
 { TMCP3304 }
 
-class function TMCP3304.GetCount: Longword;
+function TMCP3304.GetCount: Longword;
 begin
   Result := 4;
 end;
 
 { TMCP330X }
 
-class function TMCP330X.GetMaxValue: Longint;
+function TMCP330X.GetMaxValue: Longint;
 begin
   // 12 bit
   Result := +4095;
 end;
 
-class function TMCP330X.GetMinValue: Longint;
+function TMCP330X.GetMinValue: Longint;
 begin
   // 12 bit + 1 bit sign
   Result := -4096;
@@ -146,21 +146,21 @@ end;
 
 { TMCP3204 }
 
-class function TMCP3204.GetCount: Longword;
+function TMCP3204.GetCount: Longword;
 begin
   Result := 4;
 end;
 
 { TMCP3208 }
 
-class function TMCP3208.GetCount: Longword;
+function TMCP3208.GetCount: Longword;
 begin
   Result := 8;
 end;
 
 { TMCP320X }
 
-class function TMCP320X.GetMaxValue: Longint;
+function TMCP320X.GetMaxValue: Longint;
 begin
   // 12 bit
   Result := $0FFF;
@@ -183,7 +183,7 @@ begin
   Result := InternalGetValue(False, Index);
 end;
 
-class function TMCP3X0X.GetSupportsDifferentialValue: Boolean;
+function TMCP3X0X.GetSupportsDifferentialValue: Boolean;
 begin
   Result := True;
 end;
@@ -204,7 +204,7 @@ begin
    * 300X   10 bit    0
    * 320X   12 bit    2
    * 330X   13 bit    3
-   * Thus it can be shifted from left (+8 for second byte)
+   * Thus it can be shifted to left (+8 for second byte)
    * the same applies for the Single/Differential Bit and the Channel bits
    *)
   Assert(GetBitCount >= 10, 'Expected at least 10 bit resolution');
@@ -240,21 +240,21 @@ end;
 
 { TMCP3004 }
 
-class function TMCP3004.GetCount: Longword;
+function TMCP3004.GetCount: Longword;
 begin
   Result := 4;
 end;
 
 { TMCP3008 }
 
-class function TMCP3008.GetCount: Longword;
+function TMCP3008.GetCount: Longword;
 begin
   Result := 8;
 end;
 
 { TMCP300X }
 
-class function TMCP300X.GetMaxValue: Longint;
+function TMCP300X.GetMaxValue: Longint;
 begin
   Result := $03FF; // 10 bit resolution
 end;
