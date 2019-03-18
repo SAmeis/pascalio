@@ -460,7 +460,7 @@ var
 begin
   fd := fpOpen(aFileName, O_WRONLY);
   if fd = -1 then
-    EFOpenError.CreateFmt(SFOpenError, [aFileName]);
+    raise EFOpenError.CreateFmt(SFOpenError, [aFileName]);
   FpWrite(fd, aBuffer, aCount);
   FpClose(fd);
 end;
