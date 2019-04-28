@@ -13,7 +13,7 @@ unit bcm2708;
 interface
 
 uses
-  Classes, SysUtils, baseunix, unix, rtlconsts;
+  Classes, SysUtils, {$IFDEF LINUX} baseunix, unix, {$ENDIF}  rtlconsts;
 (*
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,6 +28,12 @@ const
   GPIO_BASE         = (BCM2708_PERI_BASE + $00200000); // GPIO controller
   PAGE_SIZE         = (4*1024);
   BLOCK_SIZE        = (4*1024);
+
+{$IFDEF LINUX}
+type
+  cint=integer;
+  off_t=integer;
+
 
 var
   mem_fd: cint = 0;
@@ -48,9 +54,9 @@ procedure setup_io();
 function mmap(addr: Pointer; _length: size_t; prot: cint; flags: cint; fd: cint; offset: off_t): Pointer; cdecl; external 'libc';
 //void *mmap(void *addr, size_t length, int prot, int flags,
 //                int fd, off_t offset);
-
+{$ENDIF}
 implementation
-
+{$IFDEF LINUX}
 procedure INP_GPIO(g: PtrUInt);
 begin
   //#define INP_GPIO(g) *(gpio+((g)/10)) &= ~(7<<(((g)%10)*3))
@@ -118,6 +124,6 @@ begin
   end;
   gpio := gpio_map;
 end; // setup_io
-
+{$ENDIF}
 end.
 
