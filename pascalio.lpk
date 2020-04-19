@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
-  <Package Version="4">
+  <Package Version="5">
     <PathDelim Value="\"/>
     <Name Value="pascalio"/>
     <AddToProjectUsesSection Value="True"/>
@@ -18,7 +18,7 @@
     </CompilerOptions>
     <Description Value="Input/Output Library for Raspberry Pi or any other Linux based microcontroller"/>
     <License Value="GPLv2"/>
-    <Files Count="12">
+    <Files Count="13">
       <Item1>
         <Filename Value="src\i2c_dev.pas"/>
         <AddToUsesPkgSection Value="False"/>
@@ -70,6 +70,10 @@
         <Filename Value="src\flqueue.pas"/>
         <UnitName Value="flqueue"/>
       </Item12>
+      <Item13>
+        <Filename Value="src\pca9685.pas"/>
+        <UnitName Value="PCA9685"/>
+      </Item13>
     </Files>
     <LazDoc Paths="doc"/>
     <i18n>
