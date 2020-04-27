@@ -217,7 +217,7 @@ var
 begin
   if HAEN then
   begin
-    b[0] := Address;
+    b[0] := Address or 1;
     b[1] := aRegister;
     fSPIDevice.ReadAndWrite(b[0], 2, rb[0], 3);
   end
