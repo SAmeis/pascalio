@@ -126,7 +126,7 @@ type
     function GetInterruptMode(Index: Longword): TGpioInterruptMode; virtual; abstract;
     procedure SetInterruptMode(Index: Longword; AValue: TGpioInterruptMode); virtual; abstract;
     // constructor does internal setup; override it to your needs and publish it
-    constructor Create; virtual;
+    {%H-}constructor Create; virtual;
   public
     destructor Destroy; override;
     property InterruptMode[Index: Longword]: TGpioInterruptMode read GetInterruptMode write SetInterruptMode;
@@ -145,8 +145,8 @@ type
     fOnInterrupt: TOnGpioInterrupt;
     fIndex: Longword;
   private
-    // keep the constructor private - it should be called only called from TGpioController!
-    constructor Create(aController: TGpioController; aIndex: Longword);
+    // keep the constructor private - it should be called from TGpioController only!
+    {%H-}constructor Create(aController: TGpioController; aIndex: Longword);
   protected
     function GetActiveLow: Boolean; override;
     function GetDirection: TGpioDirection; override;
@@ -197,11 +197,7 @@ type
     fPinID: Longword;
   protected
     function GetActiveLow: Boolean; override;
-    class function ReadFromFile(const aFileName: String; aChars: SizeInt; out CharsRead: SizeInt): String;
-    class function ReadFromFile(const aFileName: String; aChars: SizeInt): String;
     procedure SetActiveLow(AValue: Boolean); override;
-    class procedure WriteToFile(const aFileName: String; const aBuffer; aCount: SizeInt);
-    class procedure WriteToFile(const aFileName: String; const aBuffer: String);
     class procedure SetExport(aExport: Boolean; aPin: Longword);
     class function GetEdgeString(aInterruptMode: TGpioInterruptMode): String;
     class function EdgeStringToInterruptMode(const aValue: String): TGpioInterruptMode;
@@ -225,9 +221,10 @@ type
 
 implementation
 
-const
-  GPIO_LINUX_BASE_DIR = '/sys/class/gpio/';
-  GPIO_LINUX_GPIOPIN_DIR = GPIO_LINUX_BASE_DIR + 'gpio%d/';
+{$IFDEF LINUX}
+uses
+  fpsysfs;
+{$ENDIF}
 
 operator := (v: TGpioInterruptModes): TGpioInterruptMode;
 begin
@@ -412,34 +409,6 @@ begin
   Result := not(s = '0');
 end;
 
-class function TGpioLinuxPin.ReadFromFile(const aFileName: String; aChars: SizeInt; out
-  CharsRead: SizeInt): String;
-var
-  fd: cint;
-begin
-  if aChars <= 0 then
-    exit(EmptyStr);
-
-  SetLength(Result, aChars);
-  fd := FpOpen(aFileName, O_RDONLY);
-  if fd = -1 then
-    raise EFOpenError.CreateFmt(SFOpenError, [aFileName]);
-  CharsRead := FpRead(fd, Result[1], length(Result));
-  SetLength(Result, CharsRead);
-  // the files contain the value followed by a line feed
-  Result := Trim(Result);
-  CharsRead := Length(Result);
-  fpClose(fd);
-end;
-
-class function TGpioLinuxPin.ReadFromFile(const aFileName: String;
-  aChars: SizeInt): String;
-var
-  i: SizeInt;
-begin
-  Result := ReadFromFile(aFileName, aChars, i);
-end;
-
 procedure TGpioLinuxPin.SetActiveLow(AValue: Boolean);
 var
   s, f: String;
@@ -453,35 +422,20 @@ begin
   WriteToFile(f, s);
 end;
 
-class procedure TGpioLinuxPin.WriteToFile(const aFileName: String;
-  const aBuffer; aCount: SizeInt);
-var
-  fd: cint;
-begin
-  fd := fpOpen(aFileName, O_WRONLY);
-  if fd = -1 then
-    EFOpenError.CreateFmt(SFOpenError, [aFileName]);
-  FpWrite(fd, aBuffer, aCount);
-  FpClose(fd);
-end;
-
-class procedure TGpioLinuxPin.WriteToFile(const aFileName: String;
-  const aBuffer: String);
-begin
-  if length(aBuffer) >= 1 then
-    WriteToFile(aFileName, aBuffer[1], length(aBuffer));
-end;
-
 class procedure TGpioLinuxPin.SetExport(aExport: Boolean; aPin: Longword);
 const
   EXPORT_FILE = GPIO_LINUX_BASE_DIR+'export';
   UNEXPORT_FILE = GPIO_LINUX_BASE_DIR+'unexport';
 var
-  s: String;
+  s, CheckDir: String;
 begin
   s := IntToStr(aPin);
   if aExport then
-    WriteToFile(EXPORT_FILE, s[1], length(s))
+  begin
+    WriteToFile(EXPORT_FILE, s[1], length(s));
+    CheckDir := Format(GPIO_LINUX_GPIOPIN_DIR, [aPin]);
+    CheckExported(CheckDir);
+  end
   else
     WriteToFile(UNEXPORT_FILE, s[1], length(s));
 end;

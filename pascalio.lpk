@@ -3,7 +3,7 @@
   <Package Version="5">
     <PathDelim Value="\"/>
     <Name Value="pascalio"/>
-    <AddToProjectUsesSection Value="True"/>
+    <Type Value="RunTimeOnly"/>
     <Author Value="Simon Ameis"/>
     <CompilerOptions>
       <Version Value="11"/>
@@ -18,7 +18,8 @@
     </CompilerOptions>
     <Description Value="Input/Output Library for Raspberry Pi or any other Linux based microcontroller"/>
     <License Value="GPLv2"/>
-    <Files Count="13">
+    <Version Minor="2"/>
+    <Files Count="15">
       <Item1>
         <Filename Value="src\i2c_dev.pas"/>
         <AddToUsesPkgSection Value="False"/>
@@ -74,6 +75,15 @@
         <Filename Value="src\pca9685.pas"/>
         <UnitName Value="PCA9685"/>
       </Item13>
+      <Item14>
+        <Filename Value="src\fppwm.pas"/>
+        <UnitName Value="fppwm"/>
+      </Item14>
+      <Item15>
+        <Filename Value="src\fpsysfs.pas"/>
+        <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="fpsysfs"/>
+      </Item15>
     </Files>
     <LazDoc Paths="doc"/>
     <i18n>

@@ -9,7 +9,7 @@ interface
 
 uses
   fpspi, fpspilib, fpadc, fpgpio, fpi2c, gpioexp, mcp23017, bitmanip, flqueue, 
-  PCA9685;
+  PCA9685, fppwm;
 
 implementation
 
