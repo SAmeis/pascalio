@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fpdoc-descriptions>
+  <package name="pascalio">
+    <module name="flqueue">
+      <element name="tNodeQueue">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue">
+        <short>Lock free queue of tObject (pointer)</short>
+      </element>
+      <element name="tFLQueue.fSize">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.fMask">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.tab">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.tail">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.head">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.temp">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.setobject">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.setobject.lp">
+        <short/>
+      </element>
+      <element name="tFLQueue.setobject.aobject">
+        <short/>
+      </element>
+      <element name="tFLQueue.getLength">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.getLength.Result">
+        <short/>
+      </element>
+      <element name="tFLQueue.getObject">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.getObject.Result">
+        <short/>
+      </element>
+      <element name="tFLQueue.getObject.lp">
+        <short/>
+      </element>
+      <element name="tFLQueue.create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.create.aPower">
+        <short/>
+      </element>
+      <element name="tFLQueue.push">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.push.tm">
+        <short/>
+      </element>
+      <element name="tFLQueue.pop">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="tFLQueue.pop.Result">
+        <short/>
+      </element>
+      <element name="tFLQueue.length">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <short>Lock free queue</short>
+      <descr>
+        <p>Has two implementation queue based on curcular array proposed by Dariusz Mazur use only single CAS.</p>
+        <ul>
+          <li>
+            <link id="tFLQueue"/>: for queue of tObject (pointer)</li>
+          <li>gFlQueue: generic queue of any record (not included in theses sources)</li>
+        </ul>
+        <p>
+          <b>Caution:</b> if You set too small size of array and store data excess size of queue data will be lost</p>
+      </descr>
+    </module>
+  </package>
+</fpdoc-descriptions>

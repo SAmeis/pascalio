@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fpdoc-descriptions>
+  <package name="pascalio">
+    <module name="fpspilib">
+      <element name="TMCP3008.Create">
+        <short>Create new object</short>
+      </element>
+      <element name="TMCP3008.Create.aBus">
+        <short>The SPI bus to operate on</short>
+      </element>
+      <element name="TMCP300X">
+        <short>Generic class for MCP3004/MCP3008</short>
+        <descr>This is an abstract class. Use a class for a specific device instead.</descr>
+        <seealso>
+          <link id="TMCP3004"/>
+          <link id="TMCP3008"/>
+        </seealso>
+      </element>
+      <element name="TMCP3008">
+        <short>Analog/Digital Converter MCP3008</short>
+      </element>
+      <element name="TMCP3004">
+        <short>Analog/Digital Converter MCP3004</short>
+      </element>
+      <element name="TMCP300X.Create"/>
+      <element name="TMCP300X.Create.aBus">
+        <short>Bus to communicate with device</short>
+      </element>
+      <short>Free Pascal SPI device library</short>
+      <descr>This unit contains a collection of classes wicht access SPI devices</descr>
+    <element name="TMCP3X0X"><short>Base class for some Analog Digital Converters by Microchip</short>
+      </element><element name="TMCP320X"><short>Generic class for MCP3204/MCP3208</short>
+      </element><element name="TMCP3208"><short>Analog/Digital Converter MCP3208</short>
+      </element><element name="TMCP3204"><short>Analog/Digital Converter MCP3204</short>
+      </element><element name="TMCP3304"><short>Analog/Digital Converter MCP3304</short>
+      </element><element name="TMCP3308"><short>Analog/Digital Converter MCP3308</short>
+      </element><element name="TMCP330X"><short>Generic class for MCP3304/MCP3308</short>
+      </element><element name="TMCP3X0X.GetBitCount"><short>Returns the bits returnd by the device</short>
+      </element><element name="TMCP3X0X.GetSupportsDifferentialValue" link="#pascalio.fpadc.TADConverter.GetSupportsDifferentialValue"/><element name="TMCP3X0X.InternalGetValue"><short>Internal method for device access</short><seealso><link id="TMCP3X0X.GetBitCount"/>
+        </seealso>
+      </element><element name="TMCP3X0X.InternalGetValue.Single"><short>TRUE = Single channel, FALSE = (pseudo) differential access</short>
+      </element><element name="TMCP3X0X.InternalGetValue.Channel"><short>Analog input channel</short>
+      </element>
+    </module>
+  </package>
+</fpdoc-descriptions>

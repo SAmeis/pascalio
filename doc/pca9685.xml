@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fpdoc-descriptions><package name="pascalio"><module name="PCA9685"><short>PCA9685 LED driver and PWM</short>
+    </module>
+  </package>
+</fpdoc-descriptions>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fpdoc-descriptions>
+  <package name="pascalio">
+    <module name="bitmanip">
+      <element name="TByteSize">
+        <short>Index of Bit in byte</short>
+      </element>
+      <element name="TWordSize">
+        <short>Index of Bit in word</short>
+      </element>
+      <element name="TDWordSize">
+        <short>Index of Bit in double word</short>
+      </element>
+      <element name="TQWordSize">
+        <short>Index of Bit in quad word</short>
+      </element>
+      <element name="BITSET">
+        <short>Set bit</short>
+      </element>
+      <element name="BITSET.Result">
+        <short>Changed value</short>
+      </element>
+      <element name="BITSET.aVal">
+        <short>Input Value</short>
+      </element>
+      <element name="BITSET.Index">
+        <short>Bit Index</short>
+      </element>
+      <element name="BITCLS">
+        <short>Clear bit</short>
+      </element>
+      <element name="BITCLS.Result">
+        <short>Changed value</short>
+      </element>
+      <element name="BITCLS.aVal">
+        <short/>
+      </element>
+      <element name="BITCLS.Index">
+        <short/>
+      </element>
+      <element name="BITVAL">
+        <short>Bit Value</short>
+      </element>
+      <element name="BITVAL.Result">
+        <short>Value of bit</short>
+      </element>
+      <element name="BITVAL.aVal">
+        <short/>
+      </element>
+      <element name="BITVAL.Index">
+        <short/>
+      </element>
+      <element name="BITTGL">
+        <short>Toggle bit</short>
+      </element>
+      <element name="BITTGL.Result">
+        <short>Changed value</short>
+      </element>
+      <element name="BITTGL.aVal">
+        <short/>
+      </element>
+      <element name="BITTGL.Index">
+        <short/>
+      </element>
+      <element name="CountBits">
+        <short>Count bits set</short>
+        <descr>
+          <p>Returns the count of bits set in 
+<var>v</var>.</p>
+          <code>var
+  value: Byte;
+  c: PtrUInt;
+begin
+  value := 5;
+  // bits set
+  c := CountBits(value); // c is now 2
+  // bits not set
+  c := CountBits(not value); // c is now 6
+end.
+</code>
+          <p>The used algorith is taken from <url href="http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetParallel">Bit Twiddling Hacks</url>
+          </p>
+        </descr>
+      </element>
+      <element name="CountBits.Result">
+        <short/>
+      </element>
+      <element name="CountBits.v">
+        <short>Input value</short>
+      </element>
+      <short>Bit manipulations</short>
+      <descr>
+        <p>This unit provides functions for manipulating bits in a functional manner.</p>
+      </descr>
+    </module>
+  </package>
+</fpdoc-descriptions>

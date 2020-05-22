@@ -1,0 +1,49 @@
+<docproject>
+  <packages>
+    <!-- WARNING: Output Directory is outside of project directory! -->
+    <package name="pascalio" output="../../pascalio-htmldoc/pascalio/">
+      <units>
+        <unit file="../src/bcm2708.pas"/>
+        <unit file="../src/bitmanip.pas"/>
+        <unit file="../src/flqueue.pas"/>
+        <unit file="../src/fpadc.pas"/>
+        <unit file="../src/fpdac.pas"/>
+        <unit file="../src/fpgpio.pas"/>
+        <unit file="../src/fpgpio.pas.bak"/>
+        <unit file="../src/fpi2c.pas"/>
+        <unit file="../src/fppwm.pas"/>
+        <unit file="../src/fpspi.pas"/>
+        <unit file="../src/fpspilib.pas"/>
+        <unit file="../src/fpsysfs.pas"/>
+        <unit file="../src/gpioexp.pas"/>
+        <unit file="../src/i2c_dev.pas"/>
+        <unit file="../src/mcp23017.pas"/>
+        <unit file="../src/pca9685.pas"/>
+        <unit file="../src/spidev.pas"/>
+      </units>
+      <descriptions>
+        <description file="bitmanip.xml"/>
+        <description file="flqueue.xml"/>
+        <description file="fpadc.xml"/>
+        <description file="fpgpio.xml"/>
+        <description file="fpi2c.xml"/>
+        <description file="fppwm.xml"/>
+        <description file="fpspi.xml"/>
+        <description file="fpspilib.xml"/>
+        <description file="fpsysfs.xml"/>
+        <description file="gpioexp.xml"/>
+        <description file="i2c_dev.xml"/>
+        <description file="mcp23017.xml"/>
+        <description file="pca9685.xml"/>
+        <description file="spidev.xml"/>
+      </descriptions>
+    </package>
+  </packages>
+  <options>
+    <option name="format" value="html"/>
+    <option name="hide-protected" value="false"/>
+    <option name="footer-date" value="yyyy-mm-dd"/>
+	<!-- By now there are only Linux specific parts -->
+	<option name="ostarget" value="LINUX"/>
+  </options>
+</docproject>

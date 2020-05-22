@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fpdoc-descriptions><package name="pascalio"><module name="fpsysfs"><element name="ReadFromFile"><short>Read string from file</short>
+      </element><element name="WriteToFile"><short>Write string to file</short>
+      </element><element name="PWM_LINUX_PWMCHIP_NPWM"/><element name="GPIO_LINUX_BASE_DIR"/><element name="GPIO_LINUX_GPIOPIN_DIR"/><element name="PWM_LINUX_BASE_DIR"/><element name="PWM_LINUX_PWMCHIP_DIR"/><element name="PWM_LINUX_PWMCHIP_EXPORT"/><element name="PWM_LINUX_PWMCHIP_UNEXPORT"/><element name="PWM_LINUX_PWMCHANNEL_DIR"/><element name="PWM_LINUX_PWMCHANNEL_PERIOD"/><element name="PWM_LINUX_PWMCHANNEL_DUTY_CYCLE"/><element name="PWM_LINUX_PWMCHANNEL_POLARITY"/><element name="PWM_LINUX_PWMCHANNEL_ENABLE"/><element name="sExportCheckFailed"/><element name="sExportTimedOut"/><element name="ExportCheckDelay"><short>Delay after exporting for checking</short><seealso><link id="CheckExported"/>
+        </seealso><descr><p>Milliseconds of sleep in procedure CheckExported.</p><p>Set to any negative value, if you create TGpioLinuxPin or TPWMLinux objects in a row and set properties afterwards.</p><p>Special values:
+    <var>&lt;0</var> no sleep
+     <var>0</var> context switch to operating system without sleep
+     </p>
+        </descr>
+      </element><element name="CheckExported"><seealso><link id="ExportCheckDelay"/><link id="ExportCheckFailException"/><link id="EExportCheckFailed"/>
+        </seealso><short>Checks if aDirName is availabe</short><descr><p>After exporting a SysFS driver, the Linux Kernel needs some time for completing this task.</p><p>This procedure checks if the <var>aDirName</var> is available.
+If it is not, the program may sleep <link id="ExportCheckDelay"/> milliseconds and check again.</p><p/>
+        </descr><errors>If <link id="ExportCheckFailException"/> is <var>True</var> and the specified directory is not available, an <link id="EExportCheckFailed"/> exception is raised.
+</errors>
+      </element><element name="ExportCheckFailException"><short>Controls if CheckExported shall raise an exception</short><seealso><link id="CheckExported"/>
+        </seealso>
+      </element><element name="CheckExported.aDirName"><short>Checked target directory</short>
+      </element><element name="EExportCheckFailed"><short>Raised if CheckExported failed</short><seealso><link id="CheckExported"/>
+        </seealso>
+      </element><short>Linux SysFS interface</short><descr>Implements access to Linux SysFS interface.
+</descr>
+    </module>
+  </package>
+</fpdoc-descriptions>

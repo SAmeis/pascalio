@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fpdoc-descriptions><package name="pascalio"><module name="fppwm"><element name="TPWMPolarity"><short>PWM Polarity</short>
+      </element><element name="TPWMPolarity.pwmNormal"><short>Normal polarity</short>
+      </element><element name="TPWMPolarity.pwmInverse"><short>Inversed polarity</short>
+      </element><element name="EInvalidPolarity"><short>Raised on invalid conversion of polarity string</short>
+      </element><element name="TPWMPolarityHelper"><short>Helper class for converting polarity</short>
+      </element><element name="TPWMPolarityHelper.Parse"><short>Convert string to Polarity</short>
+      </element><element name="TPWMPolarityHelper.ToString"><short>Convert polarity to string</short>
+      </element><element name="TPWMPolarityHelper.ToString.aValue"><short>The value to be converted</short>
+      </element><element name="TPWM"><short>Abstract PWM access class</short>
+      </element><element name="TPWM.DutyCycle"><short>Active time of PWM in nanoseconds</short><descr>Must be less than <link id="TPWM.Period"/>
+        </descr><seealso><link id="TPWM.Period"/>
+        </seealso>
+      </element><element name="TPWM.Period"><short>Base freuency of PWM generator in nanoseconds</short>
+      </element><element name="TPWM.Polarity"><short>Polarity of the PWM</short>
+      </element><element name="TPWM.Enabled"><short>Enable and disable the PWM</short><descr><p><var>True</var> enables the PWM</p><p><var>False</var> disables the PWM</p>
+        </descr>
+      </element><element name="TPWMLinux.LONGINT_MAX_STR_LEN"><short>Maximum longint string length</short>
+      </element><element name="TPWMLinux"><short>PWM implementation based on Linux SysFS user space interface</short><example file="../test/pwm_linux/pwm_linux.lpr"/>
+      </element><element name="TPWMLinux.SetExport"><short>Exports or unexports PWM channel</short>
+      </element><element name="TPWMLinux.ChipCount"><short>Returns the chip count visible in SysFS</short>
+      </element><element name="TPWMLinux.ChannelCount"><short>Channel cound provided by given chip</short><descr>The count of PWM channels within each chip is available in file <var>/sys/class/pwm/pwmchip*/npwm</var>.
+</descr><seealso><link id="fpsysfs.PWM_LINUX_PWMCHIP_NPWM"/>
+        </seealso>
+      </element><element name="TPWMLinux.Chip"><short>The used PWM chip</short>
+      </element><element name="TPWMLinux.Channel"><short>The used PWM channel</short>
+      </element><element name="TPWMLinux.Create"><short>Creates a new PWM object</short>
+      </element><element name="TPWMLinux.Create.aChip"><short>PWM Chip</short>
+      </element><element name="TPWMLinux.Create.aChannel"><short>PWM channel</short>
+      </element><element name="TPWMLinux.Destroy"><short>Unexports PWM channel and destroys object</short>
+      </element><example file="../test/pwm_linux/pwm_linux.lpr"/><short>PWM interface</short><descr>This unit contains classes for Pulse Width Modulated (PWM) output.
+</descr>
+    </module>
+  </package>
+</fpdoc-descriptions>

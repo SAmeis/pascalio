@@ -1,0 +1,986 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fpdoc-descriptions>
+  <package name="pascalio">
+    <module name="fpi2c">
+      <element name="sI2CSlaveAddress">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="sI2CWrite">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- resource string Visibility: default -->
+      <element name="rsBufferNotSet">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- resource string Visibility: default -->
+      <element name="rsBufferToLarge">
+        <short>Buffer is not 1 byte in length</short>
+        <seealso>
+          <link id="EI2CQueueObjectInconsistency"/>
+          <link id="TI2CQueueObject.CheckConsistency"/>
+          <link id="TI2CQueueObject.UseCommand"/>
+        </seealso>
+      </element>
+      <!-- resource string Visibility: default -->
+      <element name="rsReadWriteBitSet">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CAddress">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- alias type Visibility: default -->
+      <element name="TI2CRegister">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- class Visibility: default -->
+      <element name="EI2CQueueObjectInconsistency">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- class Visibility: default -->
+      <element name="TI2CQueueObject">
+        <short>Description of a queued action on a I2C bus</short>
+        <descr>This object describes a read or write request on an <link id="TI2CBus">I2C bus</link>. The <link id="TI2CThreadSaveDevice"/> queues all it's actions on a bus; use this class as an example usage.</descr>
+        <seealso>
+          <link id="TI2CBus"/>
+          <link id="TI2CBus.QueueObject"/>
+          <link id="TI2CThreadSaveDevice"/>
+        </seealso>
+      </element>
+      <!-- range type Visibility: public -->
+      <element name="TI2CQueueObject.TBufferLength">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fFatalException">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fReadyEvent">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fWriteEvent">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fAddress">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fCommand">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fUseCommand">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fRead">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fBufLen">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: private -->
+      <element name="TI2CQueueObject.fBuffer">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: private -->
+      <element name="TI2CQueueObject.SetCommand">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: private -->
+      <element name="TI2CQueueObject.SetCommand.aValue">
+        <short/>
+      </element>
+      <!-- constructor Visibility: public -->
+      <element name="TI2CQueueObject.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- destructor Visibility: public -->
+      <element name="TI2CQueueObject.Destroy">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CQueueObject.CheckConsistency">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CQueueObject.WaitForWrite">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CQueueObject.SetDataWritten">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CQueueObject.SetReadBufferLength">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.SetReadBufferLength.aLen">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CQueueObject.SetWriteBuffer">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.SetWriteBuffer.aBuf">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.SetWriteBuffer.aLen">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CQueueObject.SetResultBuffer">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.SetResultBuffer.aBuf">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.SetResultBuffer.aLen">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CQueueObject.GetResultBuffer">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CQueueObject.GetResultBuffer.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.GetResultBuffer.aBuf">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.GetResultBuffer.aLen">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CQueueObject.GetWriteBuffer">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.GetWriteBuffer.aBuf">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.GetWriteBuffer.aMaxLen">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CQueueObject.GetWriteBuffer.aLen">
+        <short/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CQueueObject.BufferLength">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CQueueObject.Address">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CQueueObject.Read">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CQueueObject.Command">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CQueueObject.UseCommand">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CQueueObject.FatalException">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- class Visibility: default -->
+      <element name="TI2CBus">
+        <short>Threadsafe I2C Bus</short>
+        <descr>One I2C bus is connected to several devices. This object is threadsafe.</descr>
+      </element>
+      <!-- variable Visibility: strict private -->
+      <element name="TI2CBus.fBus">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: protected -->
+      <element name="TI2CBus.fQueue">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: protected -->
+      <element name="TI2CBus.fThreadWakeup">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: protected -->
+      <element name="TI2CBus.Execute">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: protected -->
+      <element name="TI2CBus.ProcessObject">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: protected -->
+      <element name="TI2CBus.ProcessObject.aObj">
+        <short/>
+      </element>
+      <!-- property Visibility: protected -->
+      <element name="TI2CBus.Queue">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constructor Visibility: public -->
+      <element name="TI2CBus.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.Create.aBus">
+        <short/>
+      </element>
+      <!-- destructor Visibility: public -->
+      <element name="TI2CBus.Destroy">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CBus.QueueObject">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.QueueObject.aObj">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CBus.ReadByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CBus.ReadByte.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadByte.aAddress">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CBus.WriteByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteByte.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteByte.aByte">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CBus.ReadRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CBus.ReadRegByte.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadRegByte.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadRegByte.aRegister">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CBus.ReadRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CBus.ReadRegWord.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadRegWord.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadRegWord.aRegister">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CBus.WriteRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteRegByte.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteRegByte.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteRegByte.aByte">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CBus.WriteRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteRegWord.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteRegWord.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteRegWord.aWord">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CBus.ReadBlockData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CBus.ReadBlockData.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadBlockData.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadBlockData.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadBlockData.aBuffer">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.ReadBlockData.aCount">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CBus.WriteBlockData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteBlockData.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteBlockData.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteBlockData.Buffer">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CBus.WriteBlockData.aCount">
+        <short/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CBus.Bus">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice">
+        <short>Abstract I2C device class</short>
+        <descr>This class is an abstact interface for sending data to and receiving data from a I2C device attached to an I2C Bus.
+
+If you are using only one device in your application, you should use a derived class, e.g. 
+<link id="TI2CLinuxDevice"/>.
+
+If there are multiple conccurrent threads in your multi threaded application accessing on bus, you may want to use 
+<link id="TI2CBus"/> for request serialization. As an alternative, you should be able to create multiple instances of 
+<link id="TI2CDevice"/>---one for each device (not tested).
+
+This class is 
+<b>not threadsafe</b>.</descr>
+      </element>
+      <element name="TI2CDevice.fAddress">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- procedure Visibility: protected -->
+      <element name="TI2CDevice.SetAddress">
+        <short>Set device addresse</short>
+        <descr>Usually it's a better idea to create one object for each device but for some reasons you may want to use only one object and change the address.</descr>
+      </element>
+      <!-- argument Visibility: protected -->
+      <element name="TI2CDevice.SetAddress.aValue">
+        <short>New address</short>
+      </element>
+      <element name="TI2CDevice.Create.aAddress">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadByte">
+        <short>Read single byte</short>
+        <descr>Reads a single byte from the device</descr>
+      </element>
+      <element name="TI2CDevice.ReadByte.Result">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteByte">
+        <short>Writes a single byte to the device</short>
+      </element>
+      <element name="TI2CDevice.WriteByte.aByte">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadRegByte">
+        <short>Read byte from register</short>
+        <descr>Reads a single byte from a register</descr>
+      </element>
+      <element name="TI2CDevice.ReadRegByte.Result">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadRegByte.aRegister">
+        <short>Register to read from</short>
+      </element>
+      <element name="TI2CDevice.ReadRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.ReadRegWord.Result">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadRegWord.aRegsiter">
+        <short>Register to read from</short>
+      </element>
+      <element name="TI2CDevice.WriteRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteRegByte.aRegister">
+        <short>Register to write to</short>
+      </element>
+      <element name="TI2CDevice.WriteRegByte.aByte">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteRegWord.aRegister">
+        <short>Register to write to</short>
+      </element>
+      <element name="TI2CDevice.WriteRegWord.aWord">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadBlockData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.ReadBlockData.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadBlockData.aBuffer">
+        <short/>
+      </element>
+      <element name="TI2CDevice.ReadBlockData.aCount">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteData">
+        <short>Write data of arbitrary length to a register</short>
+      </element>
+      <element name="TI2CDevice.WriteData.aRegister">
+        <short>Register to write to</short>
+      </element>
+      <element name="TI2CDevice.WriteData.Buffer">
+        <short>Data to be written</short>
+      </element>
+      <element name="TI2CDevice.WriteData.aCount">
+        <short>Length of Buffer in bytes</short>
+        <seealso>
+          <link id="TI2CDevice.WriteData.Buffer">Buffer</link>
+        </seealso>
+      </element>
+      <element name="TI2CDevice.WriteWord">
+        <short>Writes word to a register</short>
+      </element>
+      <element name="TI2CDevice.WriteWord.aRegister">
+        <short>Register to write to</short>
+      </element>
+      <element name="TI2CDevice.WriteWord.aWord">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteLongWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteLongWord.aRegsiter">
+        <short>Register to write to</short>
+      </element>
+      <element name="TI2CDevice.WriteLongWord.aLongWord">
+        <short/>
+      </element>
+      <element name="TI2CDevice.WriteQWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CDevice.WriteQWord.aRegister">
+        <short>Register to write to</short>
+      </element>
+      <element name="TI2CDevice.WriteQWord.aQWord">
+        <short/>
+      </element>
+      <element name="TI2CDevice.Address">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- class Visibility: default -->
+      <element name="TI2CThreadSaveDevice">
+        <short>Thread safe I2C Device</short>
+      </element>
+      <!-- variable Visibility: strict private -->
+      <element name="TI2CThreadSaveDevice.fBus">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constructor Visibility: public -->
+      <element name="TI2CThreadSaveDevice.Create">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.Create.aAddress">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.Create.aBus">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadBlockData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadBlockData.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadBlockData.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadBlockData.aBuffer">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadBlockData.aCount">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadByte.Result">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadRegByte.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadRegByte.aRegister">
+        <short/>
+      </element>
+      <!-- function Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadRegWord.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.ReadRegWord.aRegister">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteBlockData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteBlockData.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteBlockData.Buffer">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteBlockData.aCount">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteByte.aByte">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteRegByte.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteRegByte.aByte">
+        <short/>
+      </element>
+      <!-- procedure Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteRegWord.aRegister">
+        <short/>
+      </element>
+      <!-- argument Visibility: public -->
+      <element name="TI2CThreadSaveDevice.WriteRegWord.aWord">
+        <short/>
+      </element>
+      <!-- property Visibility: public -->
+      <element name="TI2CThreadSaveDevice.Bus">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice">
+        <short>Accesing I2C bus using Linux File interface</short>
+        <descr>
+          <p>This class implements the access to a single I2C device using Linux' file system interface.</p>
+          <p>Please check you have loaded the Kernel module
+
+<url href="http://www.mjmwired.net/kernel/Documentation/i2c/dev-interface">i2c-dev</url> before creating an instance of this class. This module creates the /dev/i2c-* files, which are used by user space programms (like yours).
+
+You may need to load another kernel module, for making the I2C busses accessible by the kernel itself.
+</p>
+          <table>
+            <tr>
+              <td>Board</td>
+              <td>SoC</td>
+              <td>Kernel Module</td>
+            </tr>
+            <tr>
+              <td>Raspberry Pi (all revisions)</td>
+              <td>BCM2835</td>
+              <td>i2c-bcm2708 </td>
+            </tr>
+          </table>
+        </descr>
+      </element>
+      <element name="TI2CLinuxDevice.fHandle">
+        <short>File handle</short>
+      </element>
+      <element name="TI2CLinuxDevice.Create">
+        <short>Create new Linux device</short>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.Create.aAddress">
+        <short>Address of the device</short>
+      </element>
+      <element name="TI2CLinuxDevice.Create.aBusID">
+        <short>I2C Bus ID</short>
+      </element>
+      <element name="TI2CLinuxDevice.ReadBlockData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadBlockData.Result">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadBlockData.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadBlockData.aBuffer">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadBlockData.aCount">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadByte.Result">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegByte.Result">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegByte.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegWord.Result">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.ReadRegWord.aRegsiter">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteByte.aByte">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteData">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteData.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteData.Buffer">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteData.aCount">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegByte">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegByte.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegByte.aByte">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegWord">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegWord.aRegister">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.WriteRegWord.aWord">
+        <short/>
+      </element>
+      <element name="TI2CLinuxDevice.Handle">
+        <short>File Handle</short>
+      </element>
+      <short>Free Pascal I2C abstraction layer</short>
+    </module>
+  </package>
+</fpdoc-descriptions>

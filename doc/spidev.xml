@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fpdoc-descriptions>
+  <package name="pascalio">
+    <module name="spidev">
+      <short>Translation of spidev.h</short>
+      <descr>This is a translation of the spidev.h header file of the Linux kernel. Unfortunatly the Free Pascal Compiler doesn't ship with a portable translation of some basic C macros which are essantial for the IoCtl system call. These macros and constans may move to another unit.</descr>
+      <!-- constant Visibility: default -->
+      <element name="SPI_CPHA">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_CPOL">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_MODE_0">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_MODE_1">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_MODE_2">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_MODE_3">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_CS_HIGH">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_LSB_FIRST">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_3WIRE">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_LOOP">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_NO_CS">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_READY">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_MAGIC">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- record type Visibility: default -->
+      <element name="spi_ioc_transfer">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: default -->
+      <element name="spi_ioc_transfer.len">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: default -->
+      <element name="spi_ioc_transfer.speed_hz">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: default -->
+      <element name="spi_ioc_transfer.delay_usecs">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: default -->
+      <element name="spi_ioc_transfer.bits_per_word">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: default -->
+      <element name="spi_ioc_transfer.cs_change">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- variable Visibility: default -->
+      <element name="spi_ioc_transfer.pad">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_NRBITS">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_TYPEBITS">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_SIZEBITS">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_DIRBITS">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_NONE">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_WRITE">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_READ">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_NRMASK">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_TYPEMASK">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_SIZEMASK">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_DIRMASK">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_NRSHIFT">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_TYPESHIFT">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_SIZESHIFT">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="_IOC_DIRSHIFT">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- function Visibility: default -->
+      <element name="_IOC">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: default -->
+      <element name="_IOC.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOC.dir">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOC._type">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOC.nr">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOC.size">
+        <short/>
+      </element>
+      <!-- function Visibility: default -->
+      <element name="_IOR">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: default -->
+      <element name="_IOR.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOR._type">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOR.nr">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOR.size">
+        <short/>
+      </element>
+      <!-- function Visibility: default -->
+      <element name="_IOW">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: default -->
+      <element name="_IOW.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOW._type">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOW.nr">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="_IOW.size">
+        <short/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_RD_MODE">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_WR_MODE">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_RD_LSB_FIRST">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_WR_LSB_FIRST">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_RD_BITS_PER_WORD">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_WR_BITS_PER_WORD">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_RD_MAX_SPEED_HZ">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- constant Visibility: default -->
+      <element name="SPI_IOC_WR_MAX_SPEED_HZ">
+        <short/>
+        <descr/>
+        <seealso/>
+      </element>
+      <!-- function Visibility: default -->
+      <element name="SPI_MSGSIZE">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: default -->
+      <element name="SPI_MSGSIZE.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="SPI_MSGSIZE.n">
+        <short/>
+      </element>
+      <!-- function Visibility: default -->
+      <element name="SPI_IOC_MESSAGE">
+        <short/>
+        <descr/>
+        <errors/>
+        <seealso/>
+      </element>
+      <!-- function result Visibility: default -->
+      <element name="SPI_IOC_MESSAGE.Result">
+        <short/>
+      </element>
+      <!-- argument Visibility: default -->
+      <element name="SPI_IOC_MESSAGE.N">
+        <short/>
+      </element>
+    </module>
+  </package>
+</fpdoc-descriptions>

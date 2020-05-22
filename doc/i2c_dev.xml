@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fpdoc-descriptions>
+  <package name="pascalio">
+    <module name="i2c_dev">
+      <short>Linux i2c-dev.h</short>
+      <descr>This unit is a translation of the i2c-dev.h header file of the Linux Kernel. Use this unit for low level direct access to I2C (Inter Integrated Circuit) or SMBus (System Management Bus) on Linux.</descr>
+      <element name="i2c_msg"/>
+      <element name="i2c_msg.addr">
+        <short>slave address</short>
+      </element>
+      <element name="i2c_msg.flags"/>
+      <element name="i2c_msg.len">
+        <short>Message length</short>
+      </element>
+      <element name="i2c_msg.buf">
+        <short>Pointer to message data</short>
+      </element>
+      <element name="Pi2c_msg"/>
+      <element name="I2C_M_TEN"/>
+      <element name="I2C_M_RD"/>
+      <element name="I2C_M_NOSTART"/>
+      <element name="I2C_M_REV_DIR_ADDR"/>
+      <element name="I2C_M_IGNORE_NAK"/>
+      <element name="I2C_M_NO_RD_ACK"/>
+      <element name="I2C_FUNC_I2C"/>
+      <element name="I2C_FUNC_10BIT_ADDR"/>
+      <element name="I2C_FUNC_PROTOCOL_MANGLING"/>
+      <element name="I2C_FUNC_SMBUS_PEC"/>
+      <element name="I2C_FUNC_SMBUS_BLOCK_PROC_CALL"/>
+      <element name="I2C_FUNC_SMBUS_QUICK"/>
+      <element name="I2C_FUNC_SMBUS_READ_BYTE"/>
+      <element name="I2C_FUNC_SMBUS_WRITE_BYTE"/>
+      <element name="I2C_FUNC_SMBUS_READ_BYTE_DATA"/>
+      <element name="I2C_FUNC_SMBUS_WRITE_BYTE_DATA"/>
+      <element name="I2C_FUNC_SMBUS_WRITE_WORD_DATA"/>
+      <element name="I2C_FUNC_SMBUS_PROC_CALL"/>
+      <element name="I2C_FUNC_SMBUS_READ_BLOCK_DATA"/>
+      <element name="I2C_FUNC_SMBUS_WRITE_BLOCK_DATA"/>
+      <element name="I2C_FUNC_SMBUS_READ_I2C_BLOCK"/>
+      <element name="I2C_FUNC_SMBUS_WRITE_I2C_BLOCK"/>
+      <element name="I2C_FUNC_SMBUS_BYTE"/>
+      <element name="I2C_FUNC_SMBUS_BYTE_DATA"/>
+      <element name="I2C_FUNC_SMBUS_WORD_DATA"/>
+      <element name="I2C_FUNC_SMBUS_BLOCK_DATA"/>
+      <element name="I2C_FUNC_SMBUS_I2C_BLOCK"/>
+      <element name="I2C_FUNC_SMBUS_HWPEC_CALC"/>
+      <element name="I2C_SMBUS_BLOCK_MAX">
+        <short>Maximum block count for SMBus</short>
+      </element>
+      <element name="I2C_SMBUS_I2C_BLOCK_MAX"/>
+      <element name="TI2C_SMBUS_VALUES"/>
+      <element name="i2c_smbus_data"/>
+      <element name="i2c_smbus_data._byte"/>
+      <element name="i2c_smbus_data._word"/>
+      <element name="i2c_smbus_data.block"/>
+      <element name="Pi2c_smbus_data"/>
+      <element name="TI2C_SMBUS_RW_MODE"/>
+      <element name="TI2C_SMBUS_RW_MODE.I2C_SMBUS_WRITE">
+        <short>Write data to bus</short>
+      </element>
+      <element name="TI2C_SMBUS_RW_MODE.I2C_SMBUS_READ">
+        <short>Read data from bus</short>
+      </element>
+      <element name="TI2C_SMBUS_TRANSACTION">
+        <short>SMBus transaction type</short>
+      </element>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_QUICK"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_BYTE"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_WORD_DATA"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_PROC_CALL"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_BYTE_DATA"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_BLOCK_DATA"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_I2C_BLOCK_BROKEN"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_BLOCK_PROC_CALL"/>
+      <element name="TI2C_SMBUS_TRANSACTION.I2C_SMBUS_I2C_BLOCK_DATA"/>
+      <element name="I2C_RETRIES"/>
+      <element name="I2C_TIMEOUT"/>
+      <element name="I2C_SLAVE"/>
+      <element name="I2C_SLAVE_FORCE"/>
+      <element name="I2C_TENBIT"/>
+      <element name="I2C_FUNCS"/>
+      <element name="I2C_RDWR"/>
+      <element name="I2C_PEC"/>
+      <element name="I2C_SMBUS"/>
+      <element name="i2c_smbus_ioctl_data">
+        <short>Structure for I2C_SMBUS ioctl call</short>
+      </element>
+      <element name="i2c_smbus_ioctl_data.read_write">
+        <short>Read or write mode</short>
+      </element>
+      <element name="i2c_smbus_ioctl_data.command"/>
+      <element name="i2c_smbus_ioctl_data.size"/>
+      <element name="i2c_smbus_ioctl_data.data"/>
+      <element name="Pi2c_smbus_ioctl_data"/>
+      <element name="i2c_rdwr_ioctl_data">
+        <short>Structure for I2C_RDWR ioctl call</short>
+      </element>
+      <element name="i2c_rdwr_ioctl_data.msgs">
+        <short>Pointer to i2c_msgs</short>
+      </element>
+      <element name="i2c_rdwr_ioctl_data.nmsgs">
+        <short>number of i2c_msgs</short>
+      </element>
+      <element name="Pi2c_rdwr_ioctl_data"/>
+      <element name="i2c_smbus_access"/>
+      <element name="i2c_smbus_block_process_call"/>
+      <element name="i2c_smbus_process_call"/>
+      <element name="i2c_smbus_read_block_data"/>
+      <element name="i2c_smbus_read_byte"/>
+      <element name="i2c_smbus_read_byte_data"/>
+      <element name="i2c_smbus_read_i2c_block_data">
+        <descr>Until kernel 2.6.22, the length is hardcoded to 32 bytes. If you ask for less than 32 bytes, your code will only work with kernels 2.6.23 and later.</descr>
+      </element>
+      <element name="i2c_smbus_read_word_data"/>
+      <element name="i2c_smbus_write_block_data"/>
+      <element name="i2c_smbus_write_byte"/>
+      <element name="i2c_smbus_write_byte_data"/>
+      <element name="i2c_smbus_write_i2c_block_data"/>
+      <element name="i2c_smbus_write_quick"/>
+      <element name="i2c_smbus_write_word_data"/>
+      <element name="i2c_smbus_access._file">
+        <short>File descriptor of I2C/SMBus file</short>
+      </element>
+      <element name="i2c_smbus_access.read_write"/>
+      <element name="i2c_smbus_access.command"/>
+      <element name="i2c_smbus_access.size"/>
+      <element name="i2c_smbus_access.data"/>
+      <element name="i2c_smbus_access.Result"/>
+      <element name="i2c_smbus_block_process_call._file"/>
+      <element name="i2c_smbus_block_process_call.command"/>
+      <element name="i2c_smbus_block_process_call._length"/>
+      <element name="i2c_smbus_block_process_call.values"/>
+      <element name="i2c_smbus_block_process_call.Result">
+        <short>Number of read bytes</short>
+      </element>
+      <element name="i2c_smbus_process_call._file"/>
+      <element name="i2c_smbus_process_call.command"/>
+      <element name="i2c_smbus_process_call.value"/>
+      <element name="i2c_smbus_process_call.Result"/>
+      <element name="i2c_smbus_read_block_data.Result">
+        <short>Number of read bytes</short>
+      </element>
+      <element name="i2c_smbus_read_block_data.values"/>
+      <element name="i2c_smbus_read_block_data.command"/>
+      <element name="i2c_smbus_read_block_data._file"/>
+      <element name="i2c_smbus_read_byte._file"/>
+      <element name="i2c_smbus_read_byte.Result"/>
+      <element name="i2c_smbus_read_byte_data._file"/>
+      <element name="i2c_smbus_read_byte_data.command"/>
+      <element name="i2c_smbus_read_byte_data.Result"/>
+      <element name="i2c_smbus_read_i2c_block_data._file"/>
+      <element name="i2c_smbus_read_i2c_block_data.command"/>
+      <element name="i2c_smbus_read_i2c_block_data._length"/>
+      <element name="i2c_smbus_read_i2c_block_data.values"/>
+      <element name="i2c_smbus_read_i2c_block_data.Result">
+        <short>Number of read bytes</short>
+      </element>
+      <element name="i2c_smbus_read_word_data._file"/>
+      <element name="i2c_smbus_read_word_data.command"/>
+      <element name="i2c_smbus_read_word_data.Result"/>
+      <element name="i2c_smbus_write_block_data._file"/>
+      <element name="i2c_smbus_write_block_data.command"/>
+      <element name="i2c_smbus_write_block_data._length"/>
+      <element name="i2c_smbus_write_block_data.values"/>
+      <element name="i2c_smbus_write_block_data.Result"/>
+      <element name="i2c_smbus_write_byte._file"/>
+      <element name="i2c_smbus_write_byte.value"/>
+      <element name="i2c_smbus_write_byte.Result"/>
+      <element name="i2c_smbus_write_byte_data._file"/>
+      <element name="i2c_smbus_write_byte_data.command"/>
+      <element name="i2c_smbus_write_byte_data.value"/>
+      <element name="i2c_smbus_write_byte_data.Result"/>
+      <element name="i2c_smbus_write_i2c_block_data._file"/>
+      <element name="i2c_smbus_write_i2c_block_data.command"/>
+      <element name="i2c_smbus_write_i2c_block_data._length"/>
+      <element name="i2c_smbus_write_i2c_block_data.values"/>
+      <element name="i2c_smbus_write_i2c_block_data.Result"/>
+      <element name="i2c_smbus_write_quick._file"/>
+      <element name="i2c_smbus_write_quick.value"/>
+      <element name="i2c_smbus_write_quick.Result"/>
+      <element name="i2c_smbus_write_word_data._file"/>
+      <element name="i2c_smbus_write_word_data.command"/>
+      <element name="i2c_smbus_write_word_data.value"/>
+      <element name="i2c_smbus_write_word_data.Result"/>
+    </module>
+  </package>
+</fpdoc-descriptions>

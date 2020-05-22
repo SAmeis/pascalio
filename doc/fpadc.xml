@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fpdoc-descriptions>
+  <package name="pascalio">
+    <module name="fpadc">
+      <element name="TADConverter">
+        <short>Abstract class for Analog/Digital Converters</short>
+        <descr>This is an abstract class for Analgo/Digital Converters (ADC). Typically each ADC requires an individual implementation for data access, so create derived classes for each ADC. You must override all abstract methods to enable reading of single pin data. If the chip also supports differential or pseudo differential measurement, you should override 
+
+<link id="TADConverter.DifferentialValue">DifferentialValue</link> and 
+
+<link id="TADConverter.GetDifferentialValue">GetDifferentialValue</link>, also.
+</descr>
+      </element>
+      <element name="TADConverter.MaxValue">
+        <short>Maximum returned value</short>
+      </element>
+      <element name="TADConverter.Value">
+        <short>Get value for input channel</short>
+      </element>
+      <element name="TADConverter.Count">
+        <short>Count of input channels</short>
+      </element>
+      <element name="TADConverter.DifferentialValue">
+        <short>Get differential value from input</short>
+        <descr>Some A/D-converters support differential or pseudo differential measurement. Check 
+
+<link id="TADConverter.SupportsDifferentialValue">SupportsDifferentialValue</link> before usage. Please consult the datasheet of your device on information how connectors are used in differential measuring.</descr>
+        <errors>Raises 
+
+<link id="EDifferentialNotSupported"/> if used but is not supported.</errors>
+        <seealso>
+          <link id="TADConverter.SupportsDifferentialValue"/>
+        </seealso>
+      </element>
+      <element name="TADConverter.SupportsDifferentialValue">
+        <short>Indication of differantial measurement capability</short>
+      </element>
+      <element name="EDifferentialNotSupported">
+        <short>Missing support for differential measurement</short>
+        <seealso>
+          <link id="TADConverter.DifferentialValue"/>
+          <link id="TADConverter.SupportsDifferentialValue"/>
+        </seealso>
+      </element>
+      <element name="EADCError">
+        <short>Generic ADC exception</short>
+      </element>
+      <element name="TADConverter.GetSupportsDifferentialValue">
+        <short>Indicator of support for differential measurement</short>
+        <descr>Returns <var>False</var> by default. Override it and return <var>True</var> if <link id="TADConverter.GetDifferentialValue">GetDifferentialValue</link> implements something useful.</descr>
+        <seealso>
+          <link id="TADConverter.GetDifferentialValue"/>
+        </seealso>
+      </element>
+      <element name="TADConverter.GetDifferentialValue">
+        <short>Returns differential value</short>
+        <descr>Override this function if your ADC supports differential measurement. Override <link id="TADConverter.GetSupportsDifferentialValue">GetSupportsDifferentialValue</link>, too.</descr>
+        <errors>Raises <link id="EDifferentialNotSupported"/> if not implemented in child class.</errors>
+        <seealso>
+          <link id="TADConverter.GetSupportsDifferentialValue"/>
+          <link id="EDifferentialNotSupported"/>
+        </seealso>
+      </element>
+      <element name="TADConverter.GetMaxValue">
+        <short>Returns maximum value provided by ADC</short>
+        <descr>
+          <p>Override this method and return the highst value, the controller may measure.</p>
+          <p>Example: a 10 bit ADC may return 1024 different values. Therfore 1023 is the highest value and has to be returned by this method.</p>
+        </descr>
+      </element>
+      <element name="TADConverter.GetCount">
+        <short>Return count of input channels</short>
+      </element>
+      <element name="TADConverter.GetValue">
+        <short>Retrives actual value</short>
+        <descr>Override this method and implement somthing to get the acual values from the AD Converter.</descr>
+      </element>
+      <element name="TADConverter.GetDifferentialValue.Index">
+        <short>Index of channel</short>
+        <descr>It depends on the AD Converter how this number is interpreted. Read the datasheet.</descr>
+      </element>
+      <element name="TADConverter.GetValue.Index">
+        <short>Index of input channel</short>
+      </element>
+      <element name="EDifferentialNotSupported.Create">
+        <short>Create new instance with predefined message</short>
+        <descr>Creates a new exception object <link id="EDifferentialNotSupported"/> with predefined text.</descr>
+        <seealso>
+          <link id="sDiffNotSupported"/>
+        </seealso>
+      </element>
+      <element name="sDiffNotSupported">
+        <short>Class doesn't support differential values.</short>
+        <seealso>
+          <link id="EDifferentialNotSupported.Create"/>
+        </seealso>
+      </element>
+      <short>Analog/Digital Converters</short>
+      <descr>This unit contains an abstract base class <link id="TADConverter"/> for Analog to Digital Converters (ADC).</descr>
+    </module>
+  </package>
+</fpdoc-descriptions>
