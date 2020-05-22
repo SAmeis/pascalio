@@ -1,7 +1,7 @@
 <docproject>
   <packages>
     <!-- WARNING: Output Directory is outside of project directory! -->
-    <package name="pascalio" output="../../pascalio-htmldoc/pascalio/">
+    <package name="pascalio" output="../../pascalio-htmldoc/doc-html/">
       <units>
         <unit file="../src/bcm2708.pas"/>
         <unit file="../src/bitmanip.pas"/>
