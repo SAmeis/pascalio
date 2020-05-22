@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>TPWMLinux</title>
+<link rel="stylesheet" href="../fpdoc.css" type="text/css">
+
+</head>
+<body>
+<table class="bar" width="100%" border="0" cellpadding="4" cellspacing="0">
+<tr>
+<td><b>[<a href="../fppwm/index.html">Overview</a>][<a href="../fppwm/index-3.html">Types</a>][<a href="../fppwm/index-4.html">Classes</a>][<a href="../fppwm/index-8.html">Index</a>]</b></td>
+<td align="right"><span class="bartitle">Reference for unit 'fppwm' (<a href="../index.html">#pascalio</a>)</span></td>
+</tr>
+</table>
+<h1>TPWMLinux</h1>
+<p>[<a href="../fppwm/tpwmlinux-1.html" onClick="window.open('../fppwm/tpwmlinux-1.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">Properties</a> (<a href="../fppwm/tpwmlinux-2.html" onClick="window.open('../fppwm/tpwmlinux-2.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">by Name</a>)] [<a href="../fppwm/tpwmlinux-3.html" onClick="window.open('../fppwm/tpwmlinux-3.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">Methods</a> (<a href="../fppwm/tpwmlinux-4.html" onClick="window.open('../fppwm/tpwmlinux-4.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">by Name</a>)] [<a href="../fppwm/tpwmlinux-5.html" onClick="window.open('../fppwm/tpwmlinux-5.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">Events</a> (<a href="../fppwm/tpwmlinux-6.html" onClick="window.open('../fppwm/tpwmlinux-6.html', 'list', 'dependent=yes,resizable=yes,scrollbars=yes,height=400,width=300'); return false;">by Name</a>)] </p>
+<p>PWM implementation based on Linux SysFS user space interface</p>
+<h2>Declaration</h2>
+<p>Source position: fppwm.pas line 69</p>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td><p><tt><span class="code"><span class="kw">type</span> TPWMLinux <span class="sym">=</span> <span class="kw">class</span><span class="sym">(</span><a href="../fppwm/tpwm.html">TPWM</a><span class="sym">)</span></span></tt></p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code"><span class="kw">strict protected</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fppwm/tpwmlinux.getdutycycle.html">GetDutyCycle</a><span class="sym">;</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fppwm/tpwmlinux.getenabled.html">GetEnabled</a><span class="sym">;</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fppwm/tpwmlinux.getperiod.html">GetPeriod</a><span class="sym">;</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fppwm/tpwmlinux.getpolarity.html">GetPolarity</a><span class="sym">;</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fppwm/tpwmlinux.setdutycycle.html">SetDutyCycle</a><span class="sym">();</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fppwm/tpwmlinux.setenabled.html">SetEnabled</a><span class="sym">();</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fppwm/tpwmlinux.setperiod.html">SetPeriod</a><span class="sym">();</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fppwm/tpwmlinux.setpolarity.html">SetPolarity</a><span class="sym">();</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">class procedure </span><a href="../fppwm/tpwmlinux.setexport.html">SetExport</a><span class="sym">();</span></span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Exports or unexports PWM channel</p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code"><span class="kw">public</span></span></tt></p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fppwm/tpwmlinux.chipcount.html">ChipCount</a><span class="sym">: </span>LongInt<span class="sym">;</span>  [r]</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Returns the chip count visible in SysFS</p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fppwm/tpwmlinux.channelcount.html">ChannelCount</a> []<span class="sym">: </span>LongInt<span class="sym">;</span>  [r]</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Channel cound provided by given chip</p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fppwm/tpwmlinux.chip.html">Chip</a><span class="sym">: </span>LongInt<span class="sym">;</span>  [r]</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">The used PWM chip</p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fppwm/tpwmlinux.channel.html">Channel</a><span class="sym">: </span>LongInt<span class="sym">;</span>  [r]</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">The used PWM channel</p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">constructor </span><a href="../fppwm/tpwmlinux.create.html">Create</a><span class="sym">();</span></span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Creates a new PWM object</p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">destructor </span><a href="../fppwm/tpwmlinux.destroy.html">Destroy</a><span class="sym">;</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Unexports PWM channel and destroys object</p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code"> <span class="kw">end</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+</table>
+<h2>Inheritance</h2>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td align="center" valign="top"><p><tt><span class="code"><a href="../fppwm/tpwmlinux.html">TPWMLinux</a></span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">PWM implementation based on Linux SysFS user space interface</p></td>
+</tr>
+<tr>
+<td align="center">|</td>
+</tr>
+<tr>
+<td align="center" valign="top"><p><tt><span class="code"><a href="../fppwm/tpwm.html">TPWM</a></span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Abstract PWM access class</p></td>
+</tr>
+<tr>
+<td align="center">|</td>
+</tr>
+<tr>
+<td align="center"><p><tt><span class="code">TObject</span></tt></p></td>
+</tr>
+</table>
+<h2>Example</h2>
+<pre><span class="kw">program</span> pwm_linux<span class="sym">;</span>
+
+<span class="kw">uses</span> fppwm<span class="sym">;</span>
+
+<span class="kw">var</span>
+  pwm<span class="sym">:</span> TPWMLinux<span class="sym">;</span>
+<span class="kw">begin</span>
+  pwm <span class="sym">:=</span> TPWMLinux<span class="sym">.</span>Create<span class="sym">(</span><span class="num">0</span><span class="sym">,</span><span class="num">0</span><span class="sym">)</span><span class="sym">;</span>
+  <span class="kw">try</span>
+    pwm<span class="sym">.</span>Period    <span class="sym">:=</span> <span class="num">10000</span><span class="sym">;</span>  <span class="cmt">// 10 kHz total time</span>
+    pwm<span class="sym">.</span>DutyCycle <span class="sym">:=</span> <span class="num">6000</span><span class="sym">;</span>   <span class="cmt">//  6 kHz active time</span>
+    pwm<span class="sym">.</span>Enabled   <span class="sym">:=</span> True<span class="sym">;</span>
+  <span class="kw">finally</span>
+    pwm<span class="sym">.</span>Destroy<span class="sym">;</span>
+  <span class="kw">end</span><span class="sym">;</span>
+<span class="kw">end</span><span class="sym">.</span>
+
+</pre>
+<hr>
+
+<span class="footer">Documentation generated on: 2020-05-22</span>
+</body>
+</html>

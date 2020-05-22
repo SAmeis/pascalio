@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>CheckExported</title>
+<link rel="stylesheet" href="../fpdoc.css" type="text/css">
+
+</head>
+<body>
+<table class="bar" width="100%" border="0" cellpadding="4" cellspacing="0">
+<tr>
+<td><b>[<a href="../fpsysfs/index.html">Overview</a>][<a href="../fpsysfs/index-1.html">Resource strings</a>][<a href="../fpsysfs/index-2.html">Constants</a>][<a href="../fpsysfs/index-4.html">Classes</a>][<a href="../fpsysfs/index-5.html">Procedures and functions</a>][<a href="../fpsysfs/index-6.html">Variables</a>][<a href="../fpsysfs/index-8.html">Index</a>]</b></td>
+<td align="right"><span class="bartitle">Reference for unit 'fpsysfs' (<a href="../index.html">#pascalio</a>)</span></td>
+</tr>
+</table>
+<h1>CheckExported</h1>
+<p>Checks if aDirName is availabe</p>
+<h2>Declaration</h2>
+<p>Source position: fpsysfs.pas line 76</p>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td><p><tt><span class="code"><span class="kw">procedure</span> CheckExported<span class="sym">(</span></span></tt></p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">const </span>aDirName<span class="sym">: </span>string</span></tt></p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code"><span class="sym">)</span><span class="sym">;</span></span></tt></p></td>
+</tr>
+</table>
+<h2>Arguments</h2>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><p><tt><span class="code">aDirName</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Checked target directory</p></td>
+</tr>
+</table>
+<h2>Description</h2>
+<p>After exporting a SysFS driver, the Linux Kernel needs some time for completing this task.</p>
+<p>This procedure checks if the <var>aDirName</var> is available. If it is not, the program may sleep <a href="../fpsysfs/exportcheckdelay.html">ExportCheckDelay</a> milliseconds and check again.</p>
+<p></p>
+<h2>Errors</h2>
+<p>If <a href="../fpsysfs/exportcheckfailexception.html">ExportCheckFailException</a> is <var>True</var> and the specified directory is not available, an <a href="../fpsysfs/eexportcheckfailed.html">EExportCheckFailed</a> exception is raised. </p>
+<h2>See also</h2>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><p><a href="../fpsysfs/exportcheckdelay.html">ExportCheckDelay</a></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Delay after exporting for checking</p></td>
+</tr>
+<tr>
+<td valign="top"><p><a href="../fpsysfs/exportcheckfailexception.html">ExportCheckFailException</a></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Controls if CheckExported shall raise an exception</p></td>
+</tr>
+<tr>
+<td valign="top"><p><a href="../fpsysfs/eexportcheckfailed.html">EExportCheckFailed</a></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Raised if CheckExported failed</p></td>
+</tr>
+</table>
+<hr>
+
+<span class="footer">Documentation generated on: 2020-05-22</span>
+</body>
+</html>

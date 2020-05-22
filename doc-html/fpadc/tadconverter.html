@@ -20,33 +20,33 @@
 <p>Source position: fpadc.pas line 57</p>
 <table cellpadding="0" cellspacing="0">
 <tr>
-<td><p><tt><span class="code"><span class="kw">type</span> TADConverter <span class="sym">=</span> <span class="kw">class</span><span class="sym">(</span>TObject<span class="sym">)</span> <span class="kw">end</span><span class="sym">;</span></span></tt></p></td>
+<td><p><tt><span class="code"><span class="kw">type</span> TADConverter <span class="sym">=</span> <span class="kw">class</span><span class="sym">(</span>TObject<span class="sym">)</span></span></tt></p></td>
 </tr>
 <tr>
 <td><p><tt><span class="code"><span class="kw">protected</span></span></tt></p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpadc/tadconverter.getdifferentialvalue.html">GetDifferentialValue</a><span class="sym">();</span><span class="kw"> virtual</span><span class="sym">;</span></span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpadc/tadconverter.getcount.html">GetCount</a><span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span><span class="kw"> abstract</span><span class="sym">;</span></span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
-<td><p class="cmt">Returns differential value</p></td>
+<td><p class="cmt">Return count of input channels</p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">class function </span><a href="../fpadc/tadconverter.getmaxvalue.html">GetMaxValue</a><span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span><span class="kw"> abstract</span><span class="sym">;</span></span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpadc/tadconverter.getmaxvalue.html">GetMaxValue</a><span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span><span class="kw"> abstract</span><span class="sym">;</span></span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
 <td><p class="cmt">Returns maximum value provided by ADC</p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">class function </span><a href="../fpadc/tadconverter.getminvalue.html">GetMinValue</a><span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span></span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpadc/tadconverter.getminvalue.html">GetMinValue</a><span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span></span></tt></p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">class function </span><a href="../fpadc/tadconverter.getsupportsdifferentialvalue.html">GetSupportsDifferentialValue</a><span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span></span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpadc/tadconverter.getsupportsdifferentialvalue.html">GetSupportsDifferentialValue</a><span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span></span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
 <td><p class="cmt">Indicator of support for differential measurement</p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">class function </span><a href="../fpadc/tadconverter.getcount.html">GetCount</a><span class="sym">;</span><span class="kw"> virtual</span><span class="sym">;</span><span class="kw"> abstract</span><span class="sym">;</span></span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpadc/tadconverter.getdifferentialvalue.html">GetDifferentialValue</a><span class="sym">();</span><span class="kw"> virtual</span><span class="sym">;</span></span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
-<td><p class="cmt">Return count of input channels</p></td>
+<td><p class="cmt">Returns differential value</p></td>
 </tr>
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpadc/tadconverter.getvalue.html">GetValue</a><span class="sym">();</span><span class="kw"> virtual</span><span class="sym">;</span><span class="kw"> abstract</span><span class="sym">;</span></span></tt></p></td>
@@ -65,19 +65,9 @@
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpadc/tadconverter.minvalue.html">MinValue</a><span class="sym">: </span>LongInt<span class="sym">;</span>  [r]</span></tt></p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpadc/tadconverter.value.html">Value</a> []<span class="sym">: </span>LongInt<span class="sym">;</span>  [r]</span></tt></p></td>
-<td><p>&nbsp;&nbsp;</p></td>
-<td><p class="cmt">Get value for input channel</p></td>
-</tr>
-<tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpadc/tadconverter.count.html">Count</a><span class="sym">: </span>LongWord<span class="sym">;</span>  [r]</span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
 <td><p class="cmt">Count of input channels</p></td>
-</tr>
-<tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpadc/tadconverter.differentialvalue.html">DifferentialValue</a> []<span class="sym">: </span>LongInt<span class="sym">;</span>  [r]</span></tt></p></td>
-<td><p>&nbsp;&nbsp;</p></td>
-<td><p class="cmt">Get differential value from input</p></td>
 </tr>
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpadc/tadconverter.supportsdifferentialvalue.html">SupportsDifferentialValue</a><span class="sym">: </span>Boolean<span class="sym">;</span>  [r]</span></tt></p></td>
@@ -85,7 +75,17 @@
 <td><p class="cmt">Indication of differantial measurement capability</p></td>
 </tr>
 <tr>
-<td><p><tt><span class="code"></span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpadc/tadconverter.value.html">Value</a> []<span class="sym">: </span>LongInt<span class="sym">;</span>  [r]</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Get value for input channel</p></td>
+</tr>
+<tr>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">property </span><a href="../fpadc/tadconverter.differentialvalue.html">DifferentialValue</a> []<span class="sym">: </span>LongInt<span class="sym">;</span>  [r]</span></tt></p></td>
+<td><p>&nbsp;&nbsp;</p></td>
+<td><p class="cmt">Get differential value from input</p></td>
+</tr>
+<tr>
+<td><p><tt><span class="code"> <span class="kw">end</span><span class="sym">;</span></span></tt></p></td>
 </tr>
 </table>
 <h2>Inheritance</h2>
@@ -103,6 +103,9 @@
 </tr>
 </table>
 <h2>Description</h2>
-<p>This is an abstract class for Analgo/Digital Converters (ADC). Typically each ADC requires an individual implementation for data access, so create derived classes for each ADC. You must override all abstract methods to enable reading of single pin data. If the chip also supports differential or pseudo differential measurement, you should override   <a href="../fpadc/tadconverter.differentialvalue.html">DifferentialValue</a> and   <a href="../fpadc/tadconverter.getdifferentialvalue.html">GetDifferentialValue</a>, also.</p>
+<p>This is an abstract class for Analgo/Digital Converters (ADC). Typically each ADC requires an individual implementation for data access, so create derived classes for each ADC. You must override all abstract methods to enable reading of single pin data. If the chip also supports differential or pseudo differential measurement, you should override   <a href="../fpadc/tadconverter.differentialvalue.html">DifferentialValue</a> and   <a href="../fpadc/tadconverter.getdifferentialvalue.html">GetDifferentialValue</a>, also. </p>
+<hr>
+
+<span class="footer">Documentation generated on: 2020-05-22</span>
 </body>
 </html>

@@ -20,7 +20,7 @@
 <p>Source position: fpspi.pas line 91</p>
 <table cellpadding="0" cellspacing="0">
 <tr>
-<td><p><tt><span class="code"><span class="kw">type</span> TSPILinuxDevice <span class="sym">=</span> <span class="kw">class</span><span class="sym">(</span><a href="../fpspi/tspidevice.html">TSPIDevice</a><span class="sym">)</span> <span class="kw">end</span><span class="sym">;</span></span></tt></p></td>
+<td><p><tt><span class="code"><span class="kw">type</span> TSPILinuxDevice <span class="sym">=</span> <span class="kw">class</span><span class="sym">(</span><a href="../fpspi/tspidevice.html">TSPIDevice</a><span class="sym">)</span></span></tt></p></td>
 </tr>
 <tr>
 <td><p><tt><span class="code"><span class="kw">protected</span></span></tt></p></td>
@@ -89,14 +89,14 @@
 <td><p class="cmt"></p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpspi/tspilinuxdevice.read.html">Read</a><span class="sym">();</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpspi/tspidevice.read.html">Read</a><span class="sym">();</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
-<td><p class="cmt"></p></td>
+<td><p class="cmt">Half duplex read</p></td>
 </tr>
 <tr>
-<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpspi/tspilinuxdevice.write.html">Write</a><span class="sym">();</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
+<td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">function </span><a href="../fpspi/tspidevice.write.html">Write</a><span class="sym">();</span><span class="kw"> override</span><span class="sym">;</span></span></tt></p></td>
 <td><p>&nbsp;&nbsp;</p></td>
-<td><p class="cmt"></p></td>
+<td><p class="cmt">Half duplex write</p></td>
 </tr>
 <tr>
 <td valign="top"><p><tt><span class="code">&nbsp;&nbsp;<span class="kw">procedure </span><a href="../fpspi/tspidevice.readandwrite.html">ReadAndWrite</a><span class="sym">();</span></span></tt></p></td>
@@ -114,7 +114,7 @@
 <td><p class="cmt">ID of the ChipSelect</p></td>
 </tr>
 <tr>
-<td><p><tt><span class="code"></span></tt></p></td>
+<td><p><tt><span class="code"> <span class="kw">end</span><span class="sym">;</span></span></tt></p></td>
 </tr>
 </table>
 <h2>Inheritance</h2>
@@ -141,5 +141,8 @@
 </table>
 <h2>Description</h2>
 <p>This class implements the <a href="../fpspi/tspidevice.html">TSPIDevice</a> using the file system interface of the Linux kernel.</p>
+<hr>
+
+<span class="footer">Documentation generated on: 2020-05-22</span>
 </body>
 </html>
